@@ -1,0 +1,6 @@
+name = myapi
+description = "Test module to use drupal as an api"
+package = Custom
+core = 7.x
+configure = admin/config/custom/myapi
+dependencies[] = system (>7.10)

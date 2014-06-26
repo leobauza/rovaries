@@ -1,0 +1,131 @@
+<?php
+
+require_once drupal_get_path('module', 'myapi') . '/inc/menu.inc';
+require_once drupal_get_path('module', 'myapi') . '/inc/node.inc';
+require_once drupal_get_path('module', 'myapi') . '/inc/view.inc';
+require_once drupal_get_path('module', 'myapi') . '/inc/block.inc';
+require_once drupal_get_path('module', 'myapi') . '/inc/page.inc';
+
+require_once drupal_get_path('module', 'myapi') . '/forms/nodeform.inc';
+/**
+ * Implementation of hook_menu
+ */
+function myapi_menu () {
+  $items['api'] = array(
+    'title' => 'Menu',
+    'description' => 'My Drupal Api',
+    'page callback' => 'apiRouter',
+    //'page callback' => 'testFunction',
+    'access arguments' => array('access content')
+  );
+
+  return $items;
+}
+
+function testFunction ($arg, $arg2='none', $arg3='none') {
+  print $arg . ' is the argument passed<br>';
+  print $arg2 . ' is the second argument passed<br>';
+  print $arg3 . ' is the third argument passed<br>';
+}
+
+/**
+ * Callback functions for api/
+ */
+function apiRouter ($type, $id, $page=0) {
+
+  //set header to json
+  header('Content-Type: application/json');
+
+  switch ($type) {
+    /*
+    @request a menu
+    */
+    case 'menu':
+      $menu = getMenu($id);
+      echo json_encode($menu);
+      break;
+
+    /*
+    @request a block
+    */
+    case 'block':
+      $block = getBlock($id);
+      echo json_encode($block);
+      break;
+
+    /*
+    @request a page
+    */
+    case 'page':
+      $page = getPage($id);
+      echo json_encode($page);
+      break;
+
+    /*
+    @request a node
+    */
+    case 'node':
+      $node = getNode($id);
+      echo json_encode($node);
+      break;
+
+    /*
+    @request a view
+    */
+    case 'view':
+      $view = getViews($id);
+      echo json_encode($view);
+      break;
+
+
+    /*
+    @request a test
+    */
+    case 'test':
+      $view = getTest($id);
+      break;
+
+
+    /*
+    DEFAULT
+    */
+    default:
+      break;
+  }
+
+}
+
+
+
+
+
+
+function getTest($id) {
+
+  // if ($_GET['views']) {
+  //   $view_name = $_GET['views'];
+  //   $output = getView($view_name);
+  // }
+  //
+  // echo json_encode($output);
+  //return $output;
+  $parts = explode(' ', $id);
+  $module = $parts[0];
+  $delta = $parts[1];
+  //mymodule+philosophy_slider
+  $block = block_load($module, $delta);
+  //$something = block_custom_block_get($block->nid);
+  $renderable = _block_get_renderable_array(_block_render_blocks(array($block)));
+  $renderable[$module . '_' . $delta]['#markup']['subject'] = $renderable[$module . '_' . $delta]['#block']->subject;
+  $output = $renderable[$module . '_' . $delta]['#markup'];
+
+  echo json_encode($output);
+
+
+}
+
+
+
+
+
+

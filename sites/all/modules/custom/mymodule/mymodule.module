@@ -1,0 +1,185 @@
+<?php
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function mymodule_form_node_form_alter(&$form, $form_state, $form_id) {
+
+  $lang = $form['language']['#value'];
+  // $form['field_test_composed'][$lang][0]['composed'][2]['#upload_location'] = 'public://test/';
+  //dpm($form['field_test_composed'][$lang][0]['composed']);
+  $field_name = 'field_test_composed';
+  $upload_location = 'public://test/';
+  if (isset($form[$field_name])) {
+    $composed_fields = $form[$field_name][$lang];
+  } else {
+    $composed_fields = array();
+  }
+
+  //set upload location for all managed files
+  $set = 0;
+  foreach ($composed_fields as $field) {
+    if (isset($field['composed'])) {
+      $subset = -1;
+      foreach ($field['composed'] as $part) {
+        $subset++;
+        //dpm($count);
+        if (isset($part['#type']) && $part['#type'] === 'managed_file') {
+          $form['field_test_composed'][$lang][$set]['composed'][$subset]['#upload_location'] = $upload_location;
+          //$part['#upload_location'] = $upload_location;
+          //dpm($form['field_test_composed'][$lang][$set]);
+          //dpm('subset ' . $subset . ' of set ' . $set);
+        }
+      }
+    }
+    $set++;
+  }
+
+  //dpm($file_ids);
+
+  //dpm($form_state);
+
+
+  //dpm($form['field_test_composed'][$lang][0]['composed']);
+  //$serialized = $form_state['node']->field_test_composed['und'][0]['composed'];
+  //dpm(unserialize($serialized));
+
+}
+
+
+function mymodule_node_submit($node, $form, &$form_state) {
+
+  $lang = $form['language']['#value'];
+
+  //dpm($node->assoc_views[$lang]);
+  //dpm($node->field_test_composed[$lang]);
+  // $composeds = $node->field_test_composed[$lang];
+  //
+  // $count = 0;
+  // foreach ($composeds as $composed) {
+  //   $count++;
+  //
+  //   if ($count !== count($composeds)) {
+  //     //dpm($composed['composed']);
+  //   }
+  //
+  // }
+
+  //$form_state['input']['field_test_composed']['und'][0]['composed'][2]['fid'] = 3;
+  //dpm($node);
+  //$node_composeds = $node->field_test_composed[$lang];
+  //dpm($node_composeds);
+
+
+
+}
+
+
+
+
+//make the block for steves site
+/**
+ *  Implements hook_block_info()
+ */
+function mymodule_block_info() {
+
+  $blocks = array();
+
+  $blocks['philosophy_slider'] = array(
+    'info' => t('Philosophy Slider'),
+  );
+
+  return $blocks;
+
+}
+
+/**
+ *  Implements hook_block_configure()
+ */
+function mymodule_block_configure($delta = '') {
+
+  $form = array();
+
+  switch ($delta) {
+    case 'philosophy_slider':
+      _configure_helper($form, 'research', 'Research');
+      _configure_helper($form, 'simplify', 'Simplify');
+      break;
+  }
+
+  return $form;
+
+}
+
+
+function _configure_helper(&$form, $machine, $human) {
+  $form[$machine] = array(
+    '#type' => 'fieldset',
+    '#title' => t($human),
+    '#collapsible' => TRUE
+  );
+  $form[$machine][$machine . '_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t($human . ' Title'),
+    '#default_value' => variable_get($machine . '_title', ''),
+    '#description' => t($human . ' title')
+  );
+  $form[$machine][$machine . '_body'] = array(
+    '#type' => 'textarea',
+    '#title' => t($human . ' Body'),
+    '#default_value' => variable_get($machine . '_body', ''),
+    '#description' => t($human . ' body')
+  );
+
+  return $form;
+}
+
+
+/**
+ *  Implements hook_block_save()
+ */
+function mymodule_block_save($delta = '', $edit = array()) {
+  //dpm($edit);
+  switch ($delta) {
+    case 'philosophy_slider':
+      //research
+      _save_helper($edit, 'research');
+      _save_helper($edit, 'simplify');
+      break;
+  }
+}
+
+function _save_helper($edit, $machine) {
+  variable_set($machine . '_title', $edit[$machine . '_title']);
+  variable_set($machine . '_body', $edit[$machine . '_body']);
+  return;
+}
+
+/**
+ *  Implements hook_block_view()
+ */
+function mymodule_block_view($delta = '') {
+
+  $block = array();
+  switch ( $delta ) {
+
+    case 'philosophy_slider' :
+      $block['subject'] = 'philosophy slider subject';
+      $block['content']['#markup'] = array(
+        'research_title' => variable_get('research_title', ''),
+        'research_body' => variable_get('research_body', ''),
+
+        'simplify_title' => variable_get('simplify_title', ''),
+        'simplify_body' => variable_get('simplify_body', ''),
+      );
+      break;
+
+    default :
+      break;
+
+  }
+
+  return $block;
+
+}
+
+

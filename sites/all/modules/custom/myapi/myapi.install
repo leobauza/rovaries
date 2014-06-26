@@ -1,0 +1,107 @@
+<?php
+//make a content type!!!
+//http://yanniboi.wordpress.com/2012/11/15/drupal-field-api-example-references/
+
+
+
+/**
+ * Implement hook_field_info()
+ */
+function myapi_field_info(){
+  $fields['assoc_views'] = array(
+    // 'label' => t('myapi test'),
+    // 'description' => t('just a test'),
+    // 'settings' => array(),
+    // 'widget' => array(
+    //   'type' => 'select'
+    // ),
+    'no_ui' => TRUE
+  );
+  return $fields;
+}
+
+
+/**
+ * Implement hook_enable()
+ */
+function myapi_enable() {
+
+  drupal_set_message($message = t('The myapi module was successfully enabled.'), $type = 'status');
+  //Check if our field is not already created.
+  if (!field_info_field('assoc_views')) {
+
+    $assoc_views_field = array(
+      'field_name' => 'assoc_views',
+      'type' => 'list_text',
+      //allow for multiple values
+      //http://drupal.stackexchange.com/questions/35830/how-to-create-multi-value-multi-bundle-entity-reference-fields-in-code
+      'cardinality' => '-1'
+    );
+    field_create_field($assoc_views_field);
+
+    $instance_views = array(
+      'field_name' => 'assoc_views',
+      'entity_type' => 'node',
+      'label' => 'Associated Views',
+      'bundle' => 'page'
+    );
+    $instance_views = field_create_instance($instance_views);
+
+  }
+
+
+  if (!field_info_field('assoc_blocks')) {
+
+    $assoc_blocks_field = array(
+      'field_name' => 'assoc_blocks',
+      'type' => 'list_text',
+      //allow for multiple values
+      //http://drupal.stackexchange.com/questions/35830/how-to-create-multi-value-multi-bundle-entity-reference-fields-in-code
+      'cardinality' => '-1'
+    );
+    field_create_field($assoc_blocks_field);
+
+    $instance_blocks = array(
+      'field_name' => 'assoc_blocks',
+      'entity_type' => 'node',
+      'label' => 'Associated Blocks',
+      'bundle' => 'page'
+    );
+    $instance_blocks = field_create_instance($instance_blocks);
+
+  }
+
+
+}
+
+/**
+ * Implementation of hook_disable
+ */
+function myapi_disable () {
+  drupal_set_message($message = t('The myapi module was successfully disabled.'), $type = 'status');
+  //Check if our field is not already created.
+  if (field_info_field('assoc_views')) {
+    field_delete_field('assoc_views');
+  }
+  if (field_info_field('assoc_blocks')) {
+    field_delete_field('assoc_blocks');
+  }
+  drupal_cron_run();
+}
+
+
+
+/**
+ * Implementation of hook_schema
+ */
+function myapi_schema() {
+
+}
+/**
+ * Implementation of hook_schema_alter
+ */
+function myapi_schema_alter(&$schema) {
+  if (isset($schema['field_data_assoc_views'])) {
+    //dpm($schema['field_data_assoc_views']);
+  }
+}
