@@ -1,4 +1,13 @@
 <?php
+/**
+ * Returns a json object of a block's content
+ *
+ * @Resource URL
+ * /api/block/ [sample: /api/block/mymodule:philosophy_slider]
+ *
+ * @param $id
+ * <module_name>:<block_delta>
+ */
 function getBlock($id) {
 
   $id = urldecode($id);
