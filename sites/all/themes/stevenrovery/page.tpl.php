@@ -18,15 +18,30 @@ if (!$variables['logged_in']) {
   $form = drupal_render($elements);
   echo $form;
 }
-
 ?>
+
+<section>
+  <ng-view></ng-view>
+</section>
+
+<nav>
+  <ul ng-controller='MenuCtrl'>
+    <li ng-repeat='link in links'>
+      <a href='{{link.path}}' ng-click="changePage(link.nid)">{{link.title}}</a>
+    </li>
+  </ul>
+</nav>
+
 
 <?php
   $base_url = $GLOBALS['base_url'];
   $current_path = '/' . current_path();
   $url = $base_url . $current_path;
   $context = stream_context_create(array('http' => array('header'=>'Connection: close\r\n')));
+  $path_to_theme = path_to_theme();
 ?>
+
+
 
 <script>
   //bootstrap the data so no initial ajax call is required
@@ -39,9 +54,14 @@ if (!$variables['logged_in']) {
    * the title of the site and the contact footer bit...
    */
   <?php if (isset($node_info)) :?>
-  	var bootstrap = <?php echo file_get_contents("{$base_url}/api/page/{$node_info['nid']}",false,$context) ;?>
-  <?php endif; ?>
+  	var bootstrap = <?php echo file_get_contents("{$base_url}/api/page/{$node_info['nid']}",false,$context) ;?>;
 
+    bootstrap.tplsPath = <?php echo "\"{$path_to_theme}/templates\""; ?>;
+  <?php else: ?>
+    var bootstrap = {
+      tplsPath: <?php echo "\"{$path_to_theme}/templates\""; ?>
+    }
+  <?php endif;?>
 </script>
 
 

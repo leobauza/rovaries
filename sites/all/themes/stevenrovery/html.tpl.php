@@ -11,7 +11,8 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 </head>
-<body id="none" class="<?php print $classes; ?>" <?php print $attributes;?>>
+
+<body ng-app="app" id="none" class="<?php print $classes; ?>" <?php print $attributes;?>>
   <?php print $page_top; ?>
   <?php print $page; ?>
   <?php print $page_bottom; ?>

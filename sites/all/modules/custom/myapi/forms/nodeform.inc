@@ -6,7 +6,7 @@ function myapi_form_node_form_alter(&$form, $form_state, $form_id) {
 
   $node = $form['#node'];
   //dpm($node);
-  $nid = $node->nid;
+  //$nid = $node->nid;
 
   $form['data_settings'] = array(
     '#type' => 'vertical_tabs',

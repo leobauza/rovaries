@@ -17,5 +17,5 @@ stylesheets[all][] = assets/css/styles.css
 
 ;js
 scripts[] = assets/js/libs/angular.js
-scripts[] = assets/js/libs/angular-route.min.js
+scripts[] = assets/js/libs/angular-route.js
 scripts[] = assets/js/app.js
