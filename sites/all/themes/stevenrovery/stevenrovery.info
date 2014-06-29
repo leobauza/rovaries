@@ -1,0 +1,21 @@
+name = stevenrovery
+description = Custom theme for Steve Rovery
+core = 7.x
+regions[header]          = 'Header'
+regions[navigation]      = 'Navigation'
+regions[highlighted]     = 'Highlighted'
+regions[help]            = 'Help'
+regions[content]         = 'Content'
+regions[sidebar_first]   = 'Primary'
+regions[sidebar_second]  = 'Secondary'
+regions[footer]          = 'Footer'
+
+
+;css
+stylesheets[all][] = assets/css/styles.css
+
+
+;js
+scripts[] = assets/js/libs/angular.js
+scripts[] = assets/js/libs/angular-route.min.js
+scripts[] = assets/js/app.js
