@@ -42,13 +42,14 @@
   /**
    * Philosophy Controller
    */
-  app.controller('PhilCtrl',
+  app.controller('DesignCtrl',
   ['$scope', '$http', '$route', '$location',
   function ($scope, $http, $route, $location) {
 
     var nid = $scope.nidsMap[$location.path()];
     $http.get('/api/page/' + nid).success(function (data) {
       $scope.page = data.node;
+      console.log(data);
       $scope.outputHtml = "<h1>" + $scope.page.title + "</h1>" + $scope.page.body.safe_value;
     });
 

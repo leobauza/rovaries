@@ -8,9 +8,9 @@
         templateUrl: bs.tplsPath + '/home.html',
         controller: 'HomeCtrl'
       })
-      .when('/philosophy', {
-        templateUrl: bs.tplsPath + '/philosophy.html',
-        controller: 'PhilCtrl'
+      .when('/design', {
+        templateUrl: bs.tplsPath + '/design.html',
+        controller: 'DesignCtrl'
       })
       .otherwise({
         //redirectTo: '/'
