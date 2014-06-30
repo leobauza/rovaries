@@ -14,6 +14,7 @@
 
     $scope.links = bs.menu.links;
     $scope.page = bs.node;
+    $scope.page.nid = bs.node.nid;
 
     //map the paths to the nids for the API calls
     $scope.nidsMap = {};
@@ -32,6 +33,7 @@
   function ($scope, $http, $route, $location) {
 
     var nid = $scope.nidsMap[$location.path()];
+    $scope.page.nid = nid;
     $http.get('/api/page/' + nid).success(function (data) {
       $scope.page = data.node;
       $scope.outputHtml = "<h1>" + $scope.page.title + "</h1>" + $scope.page.body.safe_value;
@@ -47,6 +49,7 @@
   function ($scope, $http, $route, $location) {
 
     var nid = $scope.nidsMap[$location.path()];
+    $scope.page.nid = nid;
     $http.get('/api/page/' + nid).success(function (data) {
       $scope.page = data.node;
       console.log(data);
@@ -68,9 +71,9 @@
       templateUrl: bs.tplsPath + '/site-nav.html',
       controller: ['$location', '$scope', function ($location, $scope) {
         $scope.changePage = function (node, path) {
-          $location.path(path);
-          ($scope.page)? $scope.page = $scope.page : $scope.page = {};
-          $scope.page.nid = node;
+          //$location.path(path);
+          //($scope.page)? $scope.page = $scope.page : $scope.page = {};
+          //$scope.page.nid = node;
         }
       }]
     }

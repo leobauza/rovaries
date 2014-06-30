@@ -43,7 +43,7 @@ function myapi_enable() {
       'field_name' => 'assoc_views',
       'entity_type' => 'node',
       'label' => 'Associated Views',
-      'bundle' => 'page'
+      'bundle' => 'work_collection'
     );
     $instance_views = field_create_instance($instance_views);
 

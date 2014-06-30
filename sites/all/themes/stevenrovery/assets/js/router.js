@@ -8,7 +8,19 @@
         templateUrl: bs.tplsPath + '/home.html',
         controller: 'HomeCtrl'
       })
+      .when('/philosophy', {
+        templateUrl: bs.tplsPath + '/design.html',
+        controller: 'DesignCtrl'
+      })
+      .when('/resume', {
+        templateUrl: bs.tplsPath + '/design.html',
+        controller: 'DesignCtrl'
+      })
       .when('/design', {
+        templateUrl: bs.tplsPath + '/design.html',
+        controller: 'DesignCtrl'
+      })
+      .when('/ux', {
         templateUrl: bs.tplsPath + '/design.html',
         controller: 'DesignCtrl'
       })

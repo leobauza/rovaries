@@ -119,17 +119,20 @@ function myapi_node_submit($node, $form, &$form_state) {
 
   //add conditionals to check for assoc_views...ONLY PAGES HAVE THESE!!
   //add conditionals to check for assoc_blocks...ONLY PAGES HAVE THESE!!
+  if (isset($form_state['values']['assoc_views'])) {
+    foreach($form_state['values']['assoc_views'][$lang] as $key) {
+      $combined[] = $key['value'];
+    }
 
-  foreach($form_state['values']['assoc_views'][$lang] as $key) {
-    $combined[] = $key['value'];
+    $combined = implode('+', $combined);
+    //dpm($combined);
+    $node->assoc_views[$lang] = array(
+      0 => array (
+        'value' => $combined
+      )
+    );
+
   }
-  $combined = implode('+', $combined);
-  //dpm($combined);
-  $node->assoc_views[$lang] = array(
-    0 => array (
-      'value' => $combined
-    )
-  );
 
   dpm($node);
 

@@ -1,8 +1,8 @@
-<!-- selected node: {{page.nid}} -->
+selected node: {{page.nid}}
 <nav class="site__nav">
   <ul>
     <li ng-class="{active:link.nid === page.nid}" ng-repeat='link in links' >
-      <a href ng-click="changePage(link.nid, link.path)">{{link.title}} | {{link.nid}}</a>
+      <a href="{{link.path}}" ng-click="changePage(link.nid, link.path)">{{link.title}} | {{link.nid}}</a>
     </li>
   </ul>
 </nav>
