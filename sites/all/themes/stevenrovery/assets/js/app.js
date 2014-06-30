@@ -18,42 +18,62 @@
       })
       .otherwise({
         //redirectTo: '/'
-        template: "doesn't exist"
+        template: "doesn't exist",
+        controller: function ($scope, $route, $location) {
+          console.log('location', $location.path());
+
+          //best I got for going to the admin menu for now...
+          //window.location.reload();
+        }
       });
 
-    $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true).hashPrefix('!');
 
   } ]);
 
+  app.controller('AppCtrl', ['$http', '$scope', '$location', function ($http, $scope, $location) {
 
-  app.controller('HomeCtrl', [ '$http', '$scope', function ($http, $scope, $sce) {
-    //check that I have the right bs object
-    if (bs.node && bs.node.title !== 'Home') {
-      console.log("don't have the right node, I have", bs.node.title);
-      $http.get('/api/page/1').success(function (data) {
-        console.log(data.node.body);
-        bs = data;
+    $scope.links = bs.menu.links;
+    $scope.page = bs.node;
+    $scope.nidsMap = {};
 
-        $scope.page = bs.node;
-        //do this in a template somehow??
-        $scope.outputHtml = "<h1>" + $scope.page.title + "</h1>" + $scope.page.body.safe_value;
+    for (key in $scope.links) {
+      $scope.nidsMap[$scope.links[key].path] = $scope.links[key].nid;
+    }
 
-      });
-    } else {
-      $scope.page = bs.node;
-      //do this in a template somehow??
-      $scope.outputHtml = "<h1>" + $scope.page.title + "</h1>" + $scope.page.body.safe_value;
+    console.log("page map?", $scope.nidsMap);
+
+    $scope.changePage = function (node, path) {
+      $scope.page.nid = node;
+      $location.path(path);
     }
 
   } ]);
 
-  app.controller('PhilCtrl', function ($scope) {
-    //check that I have the right bs object
 
-    $scope.something = 'philosophy';
-    $scope.page = bs.node;
-    $scope.outputHtml = bs.node;
-  });
+  app.controller('HomeCtrl',
+  ['$scope', '$http', '$route', '$location',
+  function ($scope, $http, $route, $location) {
+
+    var nid = $scope.nidsMap[$location.path()];
+    $http.get('/api/page/' + nid).success(function (data) {
+      $scope.page = data.node;
+      $scope.outputHtml = "<h1>" + $scope.page.title + "</h1>" + $scope.page.body.safe_value;
+    });
+
+  } ]);
+
+  app.controller('PhilCtrl',
+  ['$scope', '$http', '$route', '$location',
+  function ($scope, $http, $route, $location) {
+
+    var nid = $scope.nidsMap[$location.path()];
+    $http.get('/api/page/' + nid).success(function (data) {
+      $scope.page = data.node;
+      $scope.outputHtml = "<h1>" + $scope.page.title + "</h1>" + $scope.page.body.safe_value;
+    });
+
+  } ]);
 
   /**
    * Global:
@@ -62,19 +82,16 @@
    * Some global filters too as helpers
    */
 
-  app.controller('MenuCtrl', [ '$http', '$scope', function ($http, $scope) {
-    $scope.links = bs.menu.links;
+  app.directive('siteNav', function () {
+    return {
+      restrict: 'E',
+      templateUrl: bs.tplsPath + '/site-nav.html',
+      controller: function () {
+        //do stuff??
+      }
+    }
+  });
 
-    $scope.changePage = function (node) {
-      //bs.node = 'this is changing because of the click!';
-      // $http.get('/api/page/' + node).success(function (data) {
-      //   bs = data;
-      //   console.log(data.node.body);
-      // });
-    };
-
-
-  } ]);
 
   app.filter('unsafe', function ($sce) {
     return function (val) {

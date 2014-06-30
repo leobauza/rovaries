@@ -20,17 +20,14 @@ if (!$variables['logged_in']) {
 }
 ?>
 
-<section>
+<section ng-controller="AppCtrl">
+
   <ng-view></ng-view>
+
+  <site-nav></site-nav>
+
 </section>
 
-<nav>
-  <ul ng-controller='MenuCtrl'>
-    <li ng-repeat='link in links'>
-      <a href='{{link.path}}' ng-click="changePage(link.nid)">{{link.title}}</a>
-    </li>
-  </ul>
-</nav>
 
 
 <?php
@@ -59,7 +56,10 @@ if (!$variables['logged_in']) {
     bootstrap.tplsPath = <?php echo "\"{$path_to_theme}/templates\""; ?>;
   <?php else: ?>
     var bootstrap = {
-      tplsPath: <?php echo "\"{$path_to_theme}/templates\""; ?>
+      tplsPath: <?php echo "\"{$path_to_theme}/templates\""; ?>,
+      menu: {
+        links: []
+      }
     }
   <?php endif;?>
 </script>
