@@ -68,6 +68,7 @@
       controller: ['$location', '$scope', function ($location, $scope) {
         $scope.changePage = function (node, path) {
           $location.path(path);
+          ($scope.page)? $scope.page = $scope.page : $scope.page = {};
           $scope.page.nid = node;
         }
       }]

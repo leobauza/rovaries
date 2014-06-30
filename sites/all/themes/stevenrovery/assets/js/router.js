@@ -23,7 +23,7 @@
           if (admin === 'admin') {
             window.location.reload();
           } else {
-            console.log("not admin just a wrong url...");
+            //$location.path('/');
           }
         }
       });
