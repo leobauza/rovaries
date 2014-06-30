@@ -20,7 +20,7 @@ if (!$variables['logged_in']) {
 }
 ?>
 
-<section ng-controller="AppCtrl">
+<section ng-controller="MainCtrl">
 
   <ng-view></ng-view>
 

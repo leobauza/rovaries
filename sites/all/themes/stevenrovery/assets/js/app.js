@@ -1,56 +1,32 @@
 (function (bs) {
 
-  console.log(bs);
-
   var app = angular.module('app', [
-    'ngRoute'
+    'ngRoute',
+    'app-router'
   ]);
 
-  app.config([ '$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: bs.tplsPath + '/home.html',
-        controller: 'HomeCtrl'
-      })
-      .when('/philosophy', {
-        templateUrl: bs.tplsPath + '/philosophy.html',
-        controller: 'PhilCtrl'
-      })
-      .otherwise({
-        //redirectTo: '/'
-        template: "doesn't exist",
-        controller: function ($scope, $route, $location) {
-          console.log('location', $location.path());
-
-          //best I got for going to the admin menu for now...
-          //window.location.reload();
-        }
-      });
-
-    $locationProvider.html5Mode(true).hashPrefix('!');
-
-  } ]);
-
-  app.controller('AppCtrl', ['$http', '$scope', '$location', function ($http, $scope, $location) {
+  /**
+   * Top Level Controller
+   */
+  app.controller('MainCtrl',
+  ['$http', '$scope', '$location',
+  function ($http, $scope, $location) {
 
     $scope.links = bs.menu.links;
     $scope.page = bs.node;
-    $scope.nidsMap = {};
 
+    //map the paths to the nids for the API calls
+    $scope.nidsMap = {};
     for (key in $scope.links) {
       $scope.nidsMap[$scope.links[key].path] = $scope.links[key].nid;
     }
 
-    console.log("page map?", $scope.nidsMap);
-
-    $scope.changePage = function (node, path) {
-      $scope.page.nid = node;
-      $location.path(path);
-    }
-
   } ]);
 
 
+  /**
+   * Home Controller
+   */
   app.controller('HomeCtrl',
   ['$scope', '$http', '$route', '$location',
   function ($scope, $http, $route, $location) {
@@ -63,6 +39,9 @@
 
   } ]);
 
+  /**
+   * Philosophy Controller
+   */
   app.controller('PhilCtrl',
   ['$scope', '$http', '$route', '$location',
   function ($scope, $http, $route, $location) {
@@ -86,9 +65,12 @@
     return {
       restrict: 'E',
       templateUrl: bs.tplsPath + '/site-nav.html',
-      controller: function () {
-        //do stuff??
-      }
+      controller: ['$location', '$scope', function ($location, $scope) {
+        $scope.changePage = function (node, path) {
+          $location.path(path);
+          $scope.page.nid = node;
+        }
+      }]
     }
   });
 
