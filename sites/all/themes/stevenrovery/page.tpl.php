@@ -9,25 +9,7 @@
 if ($messages):
   print $messages;
 endif;
-
-/**
- * Login Form
- */
-if (!$variables['logged_in']) {
-  $elements = drupal_get_form("user_login");
-  $form = drupal_render($elements);
-  echo $form;
-}
 ?>
-
-<section ng-controller="MainCtrl">
-
-  <ng-view></ng-view>
-
-  <site-nav></site-nav>
-
-</section>
-
 
 
 <?php
@@ -36,8 +18,23 @@ if (!$variables['logged_in']) {
   $url = $base_url . $current_path;
   $context = stream_context_create(array('http' => array('header'=>'Connection: close\r\n')));
   $path_to_theme = path_to_theme();
+
+
+/**
+ * Login Form
+ */
+if (!$variables['logged_in'] && $current_path === '/login') {
+  $elements = drupal_get_form("user_login");
+  $form = drupal_render($elements);
+  echo $form;
+}
+
+
 ?>
 
+
+<section ng-view></section>
+<site-nav></site-nav>
 
 
 <script>
@@ -57,7 +54,10 @@ if (!$variables['logged_in']) {
   <?php else: ?>
     var bootstrap = {
       tplsPath: <?php echo "\"/{$path_to_theme}/templates\""; ?>,
-      menu: <?php echo file_get_contents("{$base_url}/api/menu/main-menu",false,$context); ?>
+      menu: <?php echo file_get_contents("{$base_url}/api/menu/main-menu",false,$context); ?>,
+      node: {
+        nid: 0
+      }
     }
   <?php endif;?>
 </script>

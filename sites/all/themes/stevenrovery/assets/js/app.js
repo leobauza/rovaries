@@ -2,20 +2,20 @@
 
   var app = angular.module('app', [
     'ngRoute',
-    'app-router'
+    'appRouter',
+    'appServices'
   ]);
 
   /**
    * Top Level Controller
    */
   app.controller('MainCtrl',
-  ['$http', '$scope', '$location',
-  function ($http, $scope, $location) {
+  ['$scope', '$location',
+  function ($scope, $location) {
 
     $scope.links = bs.menu.links;
     $scope.page = bs.node;
     $scope.page.nid = bs.node.nid;
-
     //map the paths to the nids for the API calls
     $scope.nidsMap = {};
     for (key in $scope.links) {
@@ -24,19 +24,36 @@
 
   } ]);
 
+  /**
+   * Test Controller
+   */
+  app.controller('TestCtrl',
+  ['$scope', '$location', 'Page', '$timeout',
+  function ($scope, $location, Page, $timeout) {
+
+    var nid = $scope.nidsMap[$location.path()];
+
+    var page = Page.get({'nid':nid}, function () {
+      $scope.page.nid = nid;
+      $scope.outputHtml = "<h1>" + page.node.title + "</h1>" + page.node.body.safe_value;
+    });
+
+  } ]);
+
 
   /**
    * Home Controller
    */
   app.controller('HomeCtrl',
-  ['$scope', '$http', '$route', '$location',
-  function ($scope, $http, $route, $location) {
+  ['$scope', '$location', 'Page',
+  function ($scope, $location, Page) {
 
     var nid = $scope.nidsMap[$location.path()];
-    $scope.page.nid = nid;
-    $http.get('/api/page/' + nid).success(function (data) {
-      $scope.page = data.node;
-      $scope.outputHtml = "<h1>" + $scope.page.title + "</h1>" + $scope.page.body.safe_value;
+
+    var page = Page.get({'nid':nid}, function () {
+      $scope.page.nid = nid;
+      $scope.node = page.node;
+      $scope.outputHtml = "<h1>" + page.node.title + "</h1>" + page.node.body.safe_value;
     });
 
   } ]);
@@ -45,16 +62,17 @@
    * Philosophy Controller
    */
   app.controller('DesignCtrl',
-  ['$scope', '$http', '$route', '$location',
-  function ($scope, $http, $route, $location) {
+  ['$scope', '$location', 'Page',
+  function ($scope, $location, Page) {
 
     var nid = $scope.nidsMap[$location.path()];
-    $scope.page.nid = nid;
-    $http.get('/api/page/' + nid).success(function (data) {
-      $scope.page = data.node;
-      console.log(data);
-      $scope.outputHtml = "<h1>" + $scope.page.title + "</h1>" + $scope.page.body.safe_value;
+
+    var page = Page.get({'nid':nid}, function () {
+      $scope.page.nid = nid;
+      $scope.node = page.node;
+      $scope.outputHtml = "<h1>" + page.node.title + "</h1>" + page.node.body.safe_value;
     });
+
 
   } ]);
 
