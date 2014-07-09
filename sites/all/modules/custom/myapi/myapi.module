@@ -35,6 +35,8 @@ function apiRouter ($type, $id, $page=0) {
 
   //set header to json
   header('Content-Type: application/json');
+  //$id = basename($id, '.json');
+
 
   switch ($type) {
     /*
