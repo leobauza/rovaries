@@ -1432,13 +1432,10 @@ ul.list-group {
     margin: 0 0 15px; }
 
 /* app/section/site (documentation css) */
-.site__nav li.active {
+.slider li {
   display: none; }
-  .site__nav li.active a {
-    font-weight: bold;
-    color: #245682; }
-.site__nav a:hover {
-  text-decoration: none; }
+.slider .active {
+  display: block; }
 
 /* app/devs/responsive */
 /* app/clients/client */

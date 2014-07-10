@@ -1,21 +1,9 @@
 /* app/section/site (documentation css) */
-
-.site__nav {
-	ul {
-
-	}
+.slider {
 	li {
-		&.active {
-			display: none;
-			a {
-				font-weight: bold;
-				color: $link_hover_colour;
-			}
-		}
+		display: none;
 	}
-	a {
-		&:hover {
-			text-decoration: none;
-		}
+	.active {
+		display: block;
 	}
 }

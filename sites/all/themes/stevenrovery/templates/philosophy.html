@@ -1,0 +1,8 @@
+<article ng-bind-html="outputHtml | unsafe"></article>
+<ul class="slider">
+  <li ng-repeat="this in slider" ng-class="{active:compareToName(this.slide_title)}">
+    <strong>{{this.slide_title}}</strong>
+    {{this.slide_body}}
+    <div ng-hide="this.slide_image === 0">{{this.slide_image}}</div>
+  </li>
+</ul>

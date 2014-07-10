@@ -83,7 +83,7 @@ function myapi_form_node_form_alter(&$form, $form_state, $form_id) {
     }
   }
 
-  dpm($options_blocks);
+  //dpm($options_blocks);
 
   if (isset($form['assoc_blocks'])) {
     $assoc_blocks_default = array();

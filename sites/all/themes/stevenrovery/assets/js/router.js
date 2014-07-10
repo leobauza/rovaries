@@ -9,8 +9,12 @@
         controller: 'HomeCtrl'
       })
       .when('/philosophy', {
-        templateUrl: bs.tplsPath + '/design.html',
-        controller: 'DesignCtrl'
+        templateUrl: bs.tplsPath + '/philosophy.html',
+        controller: 'PhilCtrl'
+      })
+      .when('/philosophy/:name', {
+        templateUrl: bs.tplsPath + '/philosophy.html',
+        controller: 'PhilCtrl'
       })
       .when('/resume', {
         templateUrl: bs.tplsPath + '/design.html',
@@ -21,6 +25,10 @@
         controller: 'DesignCtrl'
       })
       .when('/ux', {
+        templateUrl: bs.tplsPath + '/design.html',
+        controller: 'DesignCtrl'
+      })
+      .when('/ux/:name', {
         templateUrl: bs.tplsPath + '/design.html',
         controller: 'DesignCtrl'
       })

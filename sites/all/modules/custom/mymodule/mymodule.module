@@ -2,42 +2,26 @@
 /**
  * Implements hook_form_FORM_ID_alter().
  */
+
 function mymodule_form_node_form_alter(&$form, $form_state, $form_id) {
 
-  $lang = $form['language']['#value'];
   // $form['field_test_composed'][$lang][0]['composed'][2]['#upload_location'] = 'public://test/';
-  //dpm($form['field_test_composed'][$lang][0]['composed']);
-  $field_name = 'field_test_composed';
-  $upload_location = 'public://test/';
-  if (isset($form[$field_name])) {
-    $composed_fields = $form[$field_name][$lang];
-  } else {
-    $composed_fields = array();
+
+  if (isset($form['field_project_rows'])) {
+    $field_name = 'field_project_rows';
+    $upload_location = 'public://projects_assets/';
+    _change_upload_location($form, $field_name, $upload_location);
   }
 
-  //set upload location for all managed files
-  $set = 0;
-  foreach ($composed_fields as $field) {
-    if (isset($field['composed'])) {
-      $subset = -1;
-      foreach ($field['composed'] as $part) {
-        $subset++;
-        //dpm($count);
-        if (isset($part['#type']) && $part['#type'] === 'managed_file') {
-          $form['field_test_composed'][$lang][$set]['composed'][$subset]['#upload_location'] = $upload_location;
-          //$part['#upload_location'] = $upload_location;
-          //dpm($form['field_test_composed'][$lang][$set]);
-          //dpm('subset ' . $subset . ' of set ' . $set);
-        }
-      }
-    }
-    $set++;
+  if (isset($form['field_philosophy_slider'])) {
+    $field_name = 'field_philosophy_slider';
+    $upload_location = 'public://philosophy_assets/';
+    _change_upload_location($form, $field_name, $upload_location);
   }
 
   //dpm($file_ids);
 
   //dpm($form_state);
-
 
   //dpm($form['field_test_composed'][$lang][0]['composed']);
   //$serialized = $form_state['node']->field_test_composed['und'][0]['composed'];
@@ -52,4 +36,38 @@ function mymodule_node_submit($node, $form, &$form_state) {
 
 }
 
+//helper funtion to change upload locations on all composed fields
+function _change_upload_location(&$form, $field_name, $upload_location) {
 
+  $lang = $form['language']['#value'];
+
+  if (isset($form[$field_name])) {
+
+    //dpm out to test
+    dpm($form[$field_name][$lang][0]['composed']);
+
+    $composed_fields = $form[$field_name][$lang];
+  } else {
+    $composed_fields = array();
+  }
+
+  //set upload location for all managed files
+  $set = 0;
+  foreach ($composed_fields as $field) {
+    if (isset($field['composed'])) {
+      $subset = -1;
+      foreach ($field['composed'] as $part) {
+        $subset++;
+        //dpm($count);
+        if (isset($part['#type']) && $part['#type'] === 'managed_file') {
+          $form[$field_name][$lang][$set]['composed'][$subset]['#upload_location'] = $upload_location;
+          //$part['#upload_location'] = $upload_location;
+          //dpm($form['field_test_composed'][$lang][$set]);
+          //dpm('subset ' . $subset . ' of set ' . $set);
+        }
+      }
+    }
+    $set++;
+  }
+
+}

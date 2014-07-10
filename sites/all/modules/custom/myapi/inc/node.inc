@@ -15,9 +15,12 @@ function getNode($id) {
   if(!$fields) {
     return array();
   }
-
   $fields->custom_fields = array();
   $fields->composed_fields = array();
+
+  //bundle for use in _manageComposed
+  $bundle = $fields->type;
+
   foreach ($fields as $field => $value) {
     if (strpos($field, 'field_') !== FALSE && !empty($value)) {
 
@@ -26,7 +29,7 @@ function getNode($id) {
       $field_type = $field_info['type'];
       if ($field_type === 'composed_field') {
       //if (strpos($field, '_composed') !== FALSE) {
-        _manageComposed($field, $fields);
+        _manageComposed($field, $fields, $bundle);
       } else {
         $fields->custom_fields[$field] = field_view_field('node', $fields, $field)['#items'][0];
       }
@@ -66,11 +69,11 @@ function getNode($id) {
  * This will run through them and give URI's for images and make it friendlier
  * to work with. (e.g. unserializes the array for you)
  */
-function _manageComposed($field, $fields) {
+function _manageComposed($field, $fields, $bundle) {
 
   //THIS GIVES YOU INFORMATION ABOUT THE COMPOSED FIELD
-  $types = field_info_instance($entity_type='node', $field_name=$field, $bundle_name='page')['widget']['settings']['composed_field']['type'];
-  $titles = field_info_instance($entity_type='node', $field_name=$field, $bundle_name='page')['widget']['settings']['composed_field']['title'];
+  $types = field_info_instance($entity_type='node', $field_name=$field, $bundle_name=$bundle)['widget']['settings']['composed_field']['type'];
+  $titles = field_info_instance($entity_type='node', $field_name=$field, $bundle_name=$bundle)['widget']['settings']['composed_field']['title'];
 
   //$raw = field_view_field('node', $fields, $field)['#items'];
 
