@@ -1,7 +1,8 @@
 module.exports = function(grunt) {
-  var $path = 'all/themes/stevenrovery';
   // Project configuration.
   grunt.initConfig({
+
+    path: 'all/themes/stevenrovery',
 
     pkg: grunt.file.readJSON('package.json'),
 
@@ -11,7 +12,7 @@ module.exports = function(grunt) {
           style: 'compressed' //compressed or compact
         },
         files: {
-          $path + '/assets/css/styles.css' : $path + '/assets/scss/styles.scss'
+          '<%= path %>/assets/css/styles.css' : '<%= path %>/assets/scss/styles.scss'
         }
       }
     },
@@ -22,16 +23,16 @@ module.exports = function(grunt) {
       },
       dist: {
         src: [
-          $path + '/assets/js/**/*.js'
+          '<%= path %>/assets/src/**/*.js'
         ],
-        dest: $path + '/assets/js/concat/concat.js'
+        dest: '<%= path %>/assets/js/concat/concat.js'
       }
     },
 
     uglify: {
       script: {
         files: {
-          $path + '/assets/js/min/script.min.js' : $path + '/assets/js/concat.js'
+          '<%= path %>/assets/js/min/script.min.js' : '<%= path %>/assets/js/concat/concat.js'
         }
       }
     },
@@ -41,14 +42,14 @@ module.exports = function(grunt) {
         livereload: true
       },
       css: {
-        files: [ $path + '/assets/scss/**/*.scss'],
+        files: ['<%= path %>/assets/scss/**/*.scss'],
         tasks: ['sass'],
         options: {
           spawn: false
         }
       },
       js: {
-        files: [$path + '/assets/js/**/*.js'],
+        files: ['<%= path %>/assets/src/**/*.js'],
         tasks: ['concat', 'uglify'],
         options: {
           spawn: false
@@ -68,6 +69,5 @@ module.exports = function(grunt) {
 
   // Default task(s).
   grunt.registerTask('default', ['watch']);
-  grunt.registerTask('docs', ['docular', 'docular-server']);
   grunt.registerTask('build', ['sass', 'uglify']);
 };
