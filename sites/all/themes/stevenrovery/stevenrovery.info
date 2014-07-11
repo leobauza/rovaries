@@ -20,3 +20,9 @@ scripts[] = vendor/angular/angular.js
 scripts[] = vendor/angular-route/angular-route.js
 scripts[] = vendor/angular-resource/angular-resource.js
 scripts[] = assets/js/concat/concat.js
+
+;settings
+settings[contact_blurb] = I am available for Information Architecture and Art Direction opportunities in the Northern Virginia & D.C. Metro area.
+settings[contact_text] = Contact me at
+settings[contact_phone] = 571.281.8925
+settings[contact_email] = stevenrovery@gmail.com

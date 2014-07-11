@@ -32,12 +32,16 @@ if (!$variables['logged_in'] && $current_path === '/login') {
 
 ?>
 <header>
-  <h1>{{siteTitle}}</h1>
+  <h1>{{siteName}}</h1>
 </header>
 
 <section ng-view></section>
 <site-nav></site-nav>
 
+<footer class="site__footer">
+  <p>{{contactBlurb}}</p>
+  <p>Contact me at <a href="#">{{contactEmail}}</a> or <a href="#">{{contactPhone}}</a></p>
+</footer>
 
 <script>
   //bootstrap the data so no initial ajax call is required
@@ -66,11 +70,13 @@ if (!$variables['logged_in'] && $current_path === '/login') {
 
   <?php endif;?>
 
-  bootstrap.siteTitle = 'Steven Rovery';
+
+
+  bootstrap.siteTitle = '<?php print $site_name; ?>';
   bootstrap.contactInfo = {
-    blurb: 'I am available for Information Architecture and Art Direction opportunities in the Northern Virginia & D.C. Metro area.',
-    email: 'stevenrovery@gmail.com',
-    phone: '571.281.8925'
+    blurb: '<?php print theme_get_setting('contact_blurb'); ?>',
+    email: '<?php print theme_get_setting('contact_email'); ?>',
+    phone: '<?php print theme_get_setting('contact_phone'); ?>'
   }
 
 

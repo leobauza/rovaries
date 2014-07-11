@@ -71,9 +71,11 @@
    * Home Controller
    */
   app.controller('HomeCtrl',
-  ['$scope', '$location', 'Page',
-  function ($scope, $location, Page) {
+  ['$scope', '$location', 'Page', '$rootScope',
+  function ($scope, $location, Page, $rootScope) {
 
+    //getting node id should be a service...
+    //specially with the more complicated ones for projects
     var nid = $scope.nidsMap[$location.path()];
 
     Page.get({'nid':nid}, function (page) {
@@ -100,7 +102,14 @@
     //root scope
     console.log(bs.contactInfo);
     console.log(bs.siteTitle);
+
     $rootScope.siteTitle = bs.siteTitle;
+    $rootScope.siteName = bs.siteTitle;
+
+
+    $scope.contactBlurb = bs.contactInfo.blurb;
+    $scope.contactEmail = bs.contactInfo.email;
+    $scope.contactPhone = bs.contactInfo.phone;
 
     $scope.links = bs.menu.links;
     $scope.page = bs.node;
@@ -143,8 +152,9 @@
    * Philosophy Controller
    */
   app.controller('PhilCtrl',
-  ['$scope', '$location', '$routeParams', 'Page',
-  function ($scope, $location, $routeParams, Page) {
+  ['$scope', '$location', '$routeParams', 'Page', '$rootScope',
+  function ($scope, $location, $routeParams, Page, $rootScope) {
+
     var location = $location.path(),
         splitLoc = location.split('/'),
         name = $routeParams.name || null,
@@ -153,8 +163,13 @@
     //console.log($scope.nidsMap);
 
     Page.get({'nid':nid}, function (page) {
+
+      //root scope stuff...move into servie as well...
+      $rootScope.siteTitle = bs.siteTitle + ' | ' + page.node.title;
+
+
       $scope.page.nid = nid;
-      $scope.node = page.node;
+      //$scope.node = page.node;
       $scope.outputHtml = "<h1>" + page.node.title + "</h1>" + page.node.body.safe_value;
       $scope.slider = page.node.composed_fields.field_philosophy_slider;
     });
@@ -230,6 +245,9 @@
 
   var app = angular.module('app');
 
+  /**
+   * API Services
+   */
   app.factory('Page',
   ['$resource',
   function ($resource) {
@@ -237,6 +255,11 @@
     return $resource('/api/page/:nid');
 
   } ]);
+
+  /**
+   * Non API Services
+   */
+  
 
 
 })(bootstrap);

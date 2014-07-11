@@ -5,9 +5,11 @@
    * Home Controller
    */
   app.controller('HomeCtrl',
-  ['$scope', '$location', 'Page',
-  function ($scope, $location, Page) {
+  ['$scope', '$location', 'Page', '$rootScope',
+  function ($scope, $location, Page, $rootScope) {
 
+    //getting node id should be a service...
+    //specially with the more complicated ones for projects
     var nid = $scope.nidsMap[$location.path()];
 
     Page.get({'nid':nid}, function (page) {

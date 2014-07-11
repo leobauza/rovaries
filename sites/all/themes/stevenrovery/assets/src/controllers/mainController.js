@@ -12,7 +12,14 @@
     //root scope
     console.log(bs.contactInfo);
     console.log(bs.siteTitle);
+
     $rootScope.siteTitle = bs.siteTitle;
+    $rootScope.siteName = bs.siteTitle;
+
+
+    $scope.contactBlurb = bs.contactInfo.blurb;
+    $scope.contactEmail = bs.contactInfo.email;
+    $scope.contactPhone = bs.contactInfo.phone;
 
     $scope.links = bs.menu.links;
     $scope.page = bs.node;
