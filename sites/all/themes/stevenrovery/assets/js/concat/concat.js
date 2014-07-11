@@ -28,19 +28,19 @@
       })
       .when('/resume', {
         templateUrl: bs.tplsPath + '/design.html',
-        controller: 'DesignCtrl'
+        controller: 'HomeCtrl'
       })
       .when('/design', {
         templateUrl: bs.tplsPath + '/design.html',
-        controller: 'DesignCtrl'
+        controller: 'ProjectsCtrl'
       })
       .when('/ux', {
         templateUrl: bs.tplsPath + '/design.html',
-        controller: 'DesignCtrl'
+        controller: 'ProjectsCtrl'
       })
       .when('/ux/:name', {
         templateUrl: bs.tplsPath + '/design.html',
-        controller: 'DesignCtrl'
+        controller: 'ProjectsCtrl'
       })
       .otherwise({
         //redirectTo: '/'
@@ -67,13 +67,40 @@
 (function (bs) {
 
   var app = angular.module('app');
+  /**
+   * Home Controller
+   */
+  app.controller('HomeCtrl',
+  ['$scope', '$location', 'Page',
+  function ($scope, $location, Page) {
+
+    var nid = $scope.nidsMap[$location.path()];
+
+    Page.get({'nid':nid}, function (page) {
+      $scope.page.nid = nid;
+      //$scope.node = page.node;
+      $scope.outputHtml = page.node.body.safe_value;
+    });
+
+  } ]);
+
+
+})(bootstrap);
+(function (bs) {
+
+  var app = angular.module('app');
 
   /**
    * Top Level Controller
    */
   app.controller('MainCtrl',
-  ['$scope', '$location',
-  function ($scope, $location) {
+  ['$scope', '$location', '$rootScope',
+  function ($scope, $location, $rootScope) {
+
+    //root scope
+    console.log(bs.contactInfo);
+    console.log(bs.siteTitle);
+    $rootScope.siteTitle = bs.siteTitle;
 
     $scope.links = bs.menu.links;
     $scope.page = bs.node;
@@ -104,22 +131,13 @@
   } ]);
 
 
-  /**
-   * Home Controller
-   */
-  app.controller('HomeCtrl',
-  ['$scope', '$location', 'Page',
-  function ($scope, $location, Page) {
 
-    var nid = $scope.nidsMap[$location.path()];
 
-    var page = Page.get({'nid':nid}, function () {
-      $scope.page.nid = nid;
-      $scope.node = page.node;
-      $scope.outputHtml = "<h1>" + page.node.title + "</h1>" + page.node.body.safe_value;
-    });
+})(bootstrap);
 
-  } ]);
+(function (bs) {
+
+  var app = angular.module('app');
 
   /**
    * Philosophy Controller
@@ -153,10 +171,15 @@
 
   } ]);
 
+})(bootstrap);
+(function (bs) {
+
+  var app = angular.module('app');
+
   /**
    * Design Controller
    */
-  app.controller('DesignCtrl',
+  app.controller('ProjectsCtrl',
   ['$scope', '$location', 'Page',
   function ($scope, $location, Page) {
 
@@ -171,9 +194,7 @@
 
   } ]);
 
-
 })(bootstrap);
-
 (function (bs) {
 
   var app = angular.module('app');

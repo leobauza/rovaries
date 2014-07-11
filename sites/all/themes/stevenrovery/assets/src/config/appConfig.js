@@ -18,19 +18,19 @@
       })
       .when('/resume', {
         templateUrl: bs.tplsPath + '/design.html',
-        controller: 'DesignCtrl'
+        controller: 'HomeCtrl'
       })
       .when('/design', {
         templateUrl: bs.tplsPath + '/design.html',
-        controller: 'DesignCtrl'
+        controller: 'ProjectsCtrl'
       })
       .when('/ux', {
         templateUrl: bs.tplsPath + '/design.html',
-        controller: 'DesignCtrl'
+        controller: 'ProjectsCtrl'
       })
       .when('/ux/:name', {
         templateUrl: bs.tplsPath + '/design.html',
-        controller: 'DesignCtrl'
+        controller: 'ProjectsCtrl'
       })
       .otherwise({
         //redirectTo: '/'
