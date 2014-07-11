@@ -1,71 +1,5 @@
 (function (bs) {
 
-  var app = angular.module('app', [
-    'ngRoute',
-    'ngResource'
-  ]);
-
-
-})(bootstrap);
-
-(function (bs) {
-
-  var app = angular.module('app');
-
-  app.config([ '$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: bs.tplsPath + '/home.html',
-        controller: 'HomeCtrl'
-      })
-      .when('/philosophy', {
-        templateUrl: bs.tplsPath + '/philosophy.html',
-        controller: 'PhilCtrl'
-      })
-      .when('/philosophy/:name', {
-        templateUrl: bs.tplsPath + '/philosophy.html',
-        controller: 'PhilCtrl'
-      })
-      .when('/resume', {
-        templateUrl: bs.tplsPath + '/design.html',
-        controller: 'DesignCtrl'
-      })
-      .when('/design', {
-        templateUrl: bs.tplsPath + '/design.html',
-        controller: 'DesignCtrl'
-      })
-      .when('/ux', {
-        templateUrl: bs.tplsPath + '/design.html',
-        controller: 'DesignCtrl'
-      })
-      .when('/ux/:name', {
-        templateUrl: bs.tplsPath + '/design.html',
-        controller: 'DesignCtrl'
-      })
-      .otherwise({
-        //redirectTo: '/'
-        template: "doesn't exist",
-        controller: function ($scope, $route, $location) {
-          var path = $location.path(),
-              parts = path.split("/"),
-              admin = parts[1];
-          //best I got for going to the admin menu for now...
-          if (admin === 'admin') {
-            window.location.reload();
-          } else {
-            //$location.path('/');
-          }
-        }
-      });
-
-    $locationProvider.html5Mode(true).hashPrefix('!');
-
-  } ]);
-
-
-})(bootstrap);
-(function (bs) {
-
   var app = angular.module('app');
 
   /**
@@ -168,52 +102,6 @@
       $scope.outputHtml = "<h1>" + page.node.title + "</h1>" + page.node.body.safe_value;
     });
 
-
-  } ]);
-
-
-})(bootstrap);
-
-(function (bs) {
-
-  var app = angular.module('app');
-
-  app.directive('siteNav', function () {
-    return {
-      restrict: 'E',
-      templateUrl: bs.tplsPath + '/site-nav.html',
-      controller: ['$location', '$scope', function ($location, $scope) {
-        $scope.changePage = function (node, path) {
-          //$location.path(path);
-          //($scope.page)? $scope.page = $scope.page : $scope.page = {};
-          //$scope.page.nid = node;
-        }
-      }]
-    }
-  });
-
-
-})(bootstrap);
-(function (bs) {
-
-  var app = angular.module('app');
-
-  app.filter('unsafe', function ($sce) {
-    return function (val) {
-      return $sce.trustAsHtml(val);
-    };
-  });
-
-})(bootstrap);
-(function (bootstrap) {
-
-  var app = angular.module('app');
-
-  app.factory('Page',
-  ['$resource',
-  function ($resource) {
-
-    return $resource('/api/page/:nid');
 
   } ]);
 

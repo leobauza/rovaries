@@ -1,6 +1,6 @@
 (function (bs) {
 
-  var app = angular.module('appRouter', []);
+  var app = angular.module('app');
 
   app.config([ '$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     $routeProvider

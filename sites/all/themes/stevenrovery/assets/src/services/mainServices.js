@@ -1,8 +1,8 @@
 (function (bootstrap) {
 
-  var appServices = angular.module('appServices', ['ngResource']);
+  var app = angular.module('app');
 
-  appServices.factory('Page',
+  app.factory('Page',
   ['$resource',
   function ($resource) {
 
