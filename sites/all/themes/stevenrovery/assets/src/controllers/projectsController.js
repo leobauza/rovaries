@@ -10,11 +10,27 @@
   function ($scope, $location, Page) {
 
     var nid = $scope.nidsMap[$location.path()];
+
     //console.log($scope.nidsMap);
-    var page = Page.get({'nid':nid}, function () {
-      $scope.page.nid = nid;
+    Page.get({'nid':nid}, function (page) {
+
+      //update node id for navigation
+      $scope.setNid(nid);
+
+      if (page.views) {
+        var views = page.views.design_projects || page.views.ux_projects;
+      } else {
+        var views = null;
+      }
+
+
+      // console.log(page);
+      // console.log(views);
+
+      $scope.projects = views;
       $scope.node = page.node;
-      $scope.outputHtml = "<h1>" + page.node.title + "</h1>" + page.node.body.safe_value;
+      $scope.title = page.node.title;
+      //$scope.outputHtml = "<h1>" + page.node.title + "</h1>" + page.node.body.safe_value;
     });
 
 

@@ -31,14 +31,14 @@ if (!$variables['logged_in'] && $current_path === '/login') {
 
 
 ?>
-<header>
+<header ng-cloak>
   <h1>{{siteName}}</h1>
 </header>
 
-<section ng-view></section>
-<site-nav></site-nav>
+<section ng-view ng-cloak></section>
+<site-nav ng-cloak></site-nav>
 
-<footer class="site__footer">
+<footer class="site__footer" ng-cloak>
   <p>{{contactBlurb}}</p>
   <p>Contact me at <a href="#">{{contactEmail}}</a> or <a href="#">{{contactPhone}}</a></p>
 </footer>

@@ -7,3 +7,21 @@
 		display: block;
 	}
 }
+
+.site__nav {
+	ul {
+		li {
+
+		}
+		a {
+
+		}
+		.active {
+			display: none;
+		}
+	}
+}
+
+[ng-cloak] {
+	display: none;
+}

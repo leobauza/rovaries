@@ -18,11 +18,13 @@
 
     Page.get({'nid':nid}, function (page) {
 
+      //update node id for navigation
+      $scope.setNid(nid);
+
       //root scope stuff...move into servie as well...
       $rootScope.siteTitle = bs.siteTitle + ' | ' + page.node.title;
 
 
-      $scope.page.nid = nid;
       //$scope.node = page.node;
       $scope.outputHtml = "<h1>" + page.node.title + "</h1>" + page.node.body.safe_value;
       $scope.slider = page.node.composed_fields.field_philosophy_slider;

@@ -31,16 +31,20 @@
         controller: 'HomeCtrl'
       })
       .when('/design', {
-        templateUrl: bs.tplsPath + '/design.html',
+        templateUrl: bs.tplsPath + '/projects-landing.html',
         controller: 'ProjectsCtrl'
       })
       .when('/ux', {
-        templateUrl: bs.tplsPath + '/design.html',
+        templateUrl: bs.tplsPath + '/projects-landing.html',
         controller: 'ProjectsCtrl'
       })
       .when('/ux/:name', {
-        templateUrl: bs.tplsPath + '/design.html',
-        controller: 'ProjectsCtrl'
+        templateUrl: bs.tplsPath + '/project.html',
+        controller: 'ProjectCtrl'
+      })
+      .when('/design/:name', {
+        templateUrl: bs.tplsPath + '/project.html',
+        controller: 'ProjectCtrl'
       })
       .otherwise({
         //redirectTo: '/'
@@ -77,10 +81,9 @@
     //getting node id should be a service...
     //specially with the more complicated ones for projects
     var nid = $scope.nidsMap[$location.path()];
-
     Page.get({'nid':nid}, function (page) {
-      $scope.page.nid = nid;
-      //$scope.node = page.node;
+      //update node id for navigation
+      $scope.setNid(nid);
       $scope.outputHtml = page.node.body.safe_value;
     });
 
@@ -99,27 +102,32 @@
   ['$scope', '$location', '$rootScope',
   function ($scope, $location, $rootScope) {
 
-    //root scope
-    console.log(bs.contactInfo);
-    console.log(bs.siteTitle);
-
+    //browser title and header title
     $rootScope.siteTitle = bs.siteTitle;
     $rootScope.siteName = bs.siteTitle;
 
-
+    //contact block
     $scope.contactBlurb = bs.contactInfo.blurb;
     $scope.contactEmail = bs.contactInfo.email;
     $scope.contactPhone = bs.contactInfo.phone;
 
+    //
     $scope.links = bs.menu.links;
-    $scope.page = bs.node;
-    $scope.page.nid = bs.node.nid;
+    //$scope.page = bs.node;
+    //$scope.nid = bs.node.nid;
+
+
     //map the paths to the nids for the API calls
+    //only for pages
     $scope.nidsMap = {};
     for (key in $scope.links) {
       $scope.nidsMap[$scope.links[key].path] = $scope.links[key].nid;
     }
 
+    $scope.setNid = function (nid) {
+      $scope.nid = nid;
+      console.log("set nid to:", nid);
+    };
 
   } ]);
 
@@ -164,11 +172,13 @@
 
     Page.get({'nid':nid}, function (page) {
 
+      //update node id for navigation
+      $scope.setNid(nid);
+
       //root scope stuff...move into servie as well...
       $rootScope.siteTitle = bs.siteTitle + ' | ' + page.node.title;
 
 
-      $scope.page.nid = nid;
       //$scope.node = page.node;
       $scope.outputHtml = "<h1>" + page.node.title + "</h1>" + page.node.body.safe_value;
       $scope.slider = page.node.composed_fields.field_philosophy_slider;
@@ -194,16 +204,48 @@
   /**
    * Design Controller
    */
+  app.controller('ProjectCtrl',
+  ['$scope', '$location', 'Page', '$routeParams',
+  function ($scope, $location, Page, $routeParams) {
+    $scope.title = "nothing";
+    console.log($routeParams);
+
+  }]);
+
+})(bootstrap);
+(function (bs) {
+
+  var app = angular.module('app');
+
+  /**
+   * Design Controller
+   */
   app.controller('ProjectsCtrl',
   ['$scope', '$location', 'Page',
   function ($scope, $location, Page) {
 
     var nid = $scope.nidsMap[$location.path()];
+
     //console.log($scope.nidsMap);
-    var page = Page.get({'nid':nid}, function () {
-      $scope.page.nid = nid;
+    Page.get({'nid':nid}, function (page) {
+
+      //update node id for navigation
+      $scope.setNid(nid);
+
+      if (page.views) {
+        var views = page.views.design_projects || page.views.ux_projects;
+      } else {
+        var views = null;
+      }
+
+
+      // console.log(page);
+      // console.log(views);
+
+      $scope.projects = views;
       $scope.node = page.node;
-      $scope.outputHtml = "<h1>" + page.node.title + "</h1>" + page.node.body.safe_value;
+      $scope.title = page.node.title;
+      //$scope.outputHtml = "<h1>" + page.node.title + "</h1>" + page.node.body.safe_value;
     });
 
 

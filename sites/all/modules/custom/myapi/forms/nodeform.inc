@@ -24,15 +24,20 @@ function myapi_form_node_form_alter(&$form, $form_state, $form_id) {
     $options_views[$view->name] = t($view->name);
   }
 
-  $form['view_data'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('View Data'),
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-    // '#group' => 'additional_settings',
-    '#group' => 'data_settings',
-    '#weight' => 100,
-  );
+  /**
+   * Only make vertical tabs if assoc_bloks exists in this node
+   */
+  if (isset($form['assoc_views'])) {
+    $form['view_data'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('View Data'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+      // '#group' => 'additional_settings',
+      '#group' => 'data_settings',
+      '#weight' => 100,
+    );
+  }
 
   if (isset($form['assoc_views'])) {
     $assoc_views_default = array();
@@ -60,16 +65,19 @@ function myapi_form_node_form_alter(&$form, $form_state, $form_id) {
 
   /**
    * BLOCKS
+   * Only make vertical tabs if assoc_bloks exists in this node
    */
-  $form['block_data'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Block Data'),
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-    // '#group' => 'additional_settings',
-    '#group' => 'data_settings',
-    '#weight' => 101,
-  );
+  if (isset($form['assoc_blocks'])) {
+    $form['block_data'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Block Data'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+      // '#group' => 'additional_settings',
+      '#group' => 'data_settings',
+      '#weight' => 101,
+    );
+  }
 
   global $theme;
   $all_blocks = _block_rehash($theme);

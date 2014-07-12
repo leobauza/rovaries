@@ -9,27 +9,32 @@
   ['$scope', '$location', '$rootScope',
   function ($scope, $location, $rootScope) {
 
-    //root scope
-    console.log(bs.contactInfo);
-    console.log(bs.siteTitle);
-
+    //browser title and header title
     $rootScope.siteTitle = bs.siteTitle;
     $rootScope.siteName = bs.siteTitle;
 
-
+    //contact block
     $scope.contactBlurb = bs.contactInfo.blurb;
     $scope.contactEmail = bs.contactInfo.email;
     $scope.contactPhone = bs.contactInfo.phone;
 
+    //
     $scope.links = bs.menu.links;
-    $scope.page = bs.node;
-    $scope.page.nid = bs.node.nid;
+    //$scope.page = bs.node;
+    //$scope.nid = bs.node.nid;
+
+
     //map the paths to the nids for the API calls
+    //only for pages
     $scope.nidsMap = {};
     for (key in $scope.links) {
       $scope.nidsMap[$scope.links[key].path] = $scope.links[key].nid;
     }
 
+    $scope.setNid = function (nid) {
+      $scope.nid = nid;
+      console.log("set nid to:", nid);
+    };
 
   } ]);
 
