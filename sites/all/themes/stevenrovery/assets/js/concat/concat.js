@@ -123,9 +123,10 @@
 
     //get nid for projects
     $scope.getProjectNid = function (base, view_name, node_title) {
-      return _.find(bs.views[base][view_name], function (data) {
-        return data.node_title = node_title;
-      }).nid;
+      var node = _.find(bs.views[base][view_name], function (data) {
+        return data.alias === base + '/' + node_title;
+      });
+      return node.nid
     };
 
     $scope.setNid = function (nid) {
@@ -201,7 +202,7 @@
     }
 
     Page.get({'nid':$scope.nid}, function (page) {
-      console.log(page);
+      //console.log(page);
       var custom = page.node.custom_fields,
           composed = page.node.composed_fields;
 
@@ -209,6 +210,8 @@
       $scope.role = custom.field_role.value;
       $scope.tag = custom.field_tags.taxonomy_term.name;
       $scope.rows = composed.field_project_rows;
+
+      //console.log($scope.rows);
 
       $scope.setPageTitle(custom.field_tags.taxonomy_term.name);
 
@@ -251,7 +254,7 @@
       node_title = loc.split('/')[2];
 
       nid = $scope.getProjectNid(base, view_name, node_title);
-
+      console.log(nid);
       $scope.landing = false;
       $scope.setNid(nid);
 

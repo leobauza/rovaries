@@ -30,7 +30,7 @@
       node_title = loc.split('/')[2];
 
       nid = $scope.getProjectNid(base, view_name, node_title);
-
+      console.log(nid);
       $scope.landing = false;
       $scope.setNid(nid);
 

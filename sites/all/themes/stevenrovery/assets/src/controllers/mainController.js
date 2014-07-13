@@ -30,9 +30,10 @@
 
     //get nid for projects
     $scope.getProjectNid = function (base, view_name, node_title) {
-      return _.find(bs.views[base][view_name], function (data) {
-        return data.node_title = node_title;
-      }).nid;
+      var node = _.find(bs.views[base][view_name], function (data) {
+        return data.alias === base + '/' + node_title;
+      });
+      return node.nid
     };
 
     $scope.setNid = function (nid) {

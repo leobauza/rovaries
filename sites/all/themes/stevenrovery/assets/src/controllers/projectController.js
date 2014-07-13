@@ -17,7 +17,7 @@
     }
 
     Page.get({'nid':$scope.nid}, function (page) {
-      console.log(page);
+      //console.log(page);
       var custom = page.node.custom_fields,
           composed = page.node.composed_fields;
 
@@ -25,6 +25,8 @@
       $scope.role = custom.field_role.value;
       $scope.tag = custom.field_tags.taxonomy_term.name;
       $scope.rows = composed.field_project_rows;
+
+      //console.log($scope.rows);
 
       $scope.setPageTitle(custom.field_tags.taxonomy_term.name);
 

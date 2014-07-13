@@ -7,5 +7,10 @@
 <article ng-show="!landing" ng-controller="ProjectCtrl">
   <h1>{{project_title}}</h1>
   <h3>{{role}}</h3>
-
+  <div ng-repeat="row in rows">
+    <p>{{row.description}}</p>
+    <img alt="{{row.description}}" ng-src="{{row.file_uri}}" />
+    <p><strong>image:</strong> {{row.file_uri}}</p>
+    <p><strong>image position:</strong> {{row.image_position}}</p>
+  </div>
 </article>
