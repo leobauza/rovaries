@@ -29,12 +29,12 @@
         controller: 'ProjectsCtrl'
       })
       .when('/ux/:name', {
-        templateUrl: bs.tplsPath + '/projects.html',
-        controller: 'ProjectsCtrl'
+        templateUrl: bs.tplsPath + '/project.html',
+        controller: 'ProjectCtrl'
       })
       .when('/design/:name', {
-        templateUrl: bs.tplsPath + '/projects.html',
-        controller: 'ProjectsCtrl'
+        templateUrl: bs.tplsPath + '/project.html',
+        controller: 'ProjectCtrl'
       })
       .otherwise({
         //redirectTo: '/'

@@ -41,6 +41,11 @@
       //console.log("set nid to:", nid);
     };
 
+    $scope.setPageTitle = function (title) {
+      $scope.page_title = title;
+    }
+
+
   } ]);
 
 

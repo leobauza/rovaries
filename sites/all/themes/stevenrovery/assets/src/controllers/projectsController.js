@@ -10,36 +10,10 @@
   function ($scope, $location, Page, $routeParams) {
 
     var loc = $location.path(),
-        nid = null,
-        view_name = null,
-        base = null;
+        nid = null;
 
-    //console.log(type);
-    $scope.setPageTitle = function (title) {
-      $scope.title = title;
-    }
+    nid = $scope.getNid(loc);
 
-    if (!$routeParams.name) {
-
-      nid = $scope.getNid(loc);
-      $scope.landing = true;
-
-    } else {
-      base = loc.split('/')[1];
-      view_name = base + '_projects';
-      node_title = loc.split('/')[2];
-
-      nid = $scope.getProjectNid(base, view_name, node_title);
-      console.log(nid);
-      $scope.landing = false;
-      $scope.setNid(nid);
-
-    }
-
-    //Return if not a landing page...
-    if (!$scope.landing) {
-      return;
-    }
     //console.log($scope.nidsMap);
     Page.get({'nid':nid}, function (page) {
 

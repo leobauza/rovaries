@@ -1,16 +1,7 @@
-<h1>{{title}}</h1>
-<ul ng-show="landing">
+<h1>{{page_title}}</h1>
+<ul>
   <li ng-repeat="project in projects">
     <a href="/{{project.alias}}">{{project.node_title}}</a>
   </li>
 </ul>
-<article ng-show="!landing" ng-controller="ProjectCtrl">
-  <h1>{{project_title}}</h1>
-  <h3>{{role}}</h3>
-  <div ng-repeat="row in rows">
-    <p>{{row.description}}</p>
-    <img alt="{{row.description}}" ng-src="{{row.file_uri}}" />
-    <p><strong>image:</strong> {{row.file_uri}}</p>
-    <p><strong>image position:</strong> {{row.image_position}}</p>
-  </div>
-</article>
+

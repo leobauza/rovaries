@@ -39,12 +39,12 @@
         controller: 'ProjectsCtrl'
       })
       .when('/ux/:name', {
-        templateUrl: bs.tplsPath + '/projects.html',
-        controller: 'ProjectsCtrl'
+        templateUrl: bs.tplsPath + '/project.html',
+        controller: 'ProjectCtrl'
       })
       .when('/design/:name', {
-        templateUrl: bs.tplsPath + '/projects.html',
-        controller: 'ProjectsCtrl'
+        templateUrl: bs.tplsPath + '/project.html',
+        controller: 'ProjectCtrl'
       })
       .otherwise({
         //redirectTo: '/'
@@ -134,6 +134,11 @@
       //console.log("set nid to:", nid);
     };
 
+    $scope.setPageTitle = function (title) {
+      $scope.page_title = title;
+    }
+
+
   } ]);
 
 
@@ -193,16 +198,25 @@
   app.controller('ProjectCtrl',
   ['$scope', '$location', 'Page',
   function ($scope, $location, Page) {
-    //get node ID for this project
-    $scope.title = "nothing";
 
-    //return if it's a landing page
-    if ($scope.landing || !$scope.nid) {
-      return;
-    }
+    //initiate vars
+    var loc = $location.path(),
+        nid = null,
+        view_name = null,
+        base = null;
 
+
+    //get location variables
+    base = loc.split('/')[1];
+    view_name = base + '_projects';
+    node_title = loc.split('/')[2];
+
+    //get nid from url and set scope's nid
+    nid = $scope.getProjectNid(base, view_name, node_title);
+    $scope.setNid(nid);
+
+    //request individual project page
     Page.get({'nid':$scope.nid}, function (page) {
-      //console.log(page);
       var custom = page.node.custom_fields,
           composed = page.node.composed_fields;
 
@@ -214,7 +228,6 @@
       //console.log($scope.rows);
 
       $scope.setPageTitle(custom.field_tags.taxonomy_term.name);
-
 
     });
 
@@ -234,36 +247,10 @@
   function ($scope, $location, Page, $routeParams) {
 
     var loc = $location.path(),
-        nid = null,
-        view_name = null,
-        base = null;
+        nid = null;
 
-    //console.log(type);
-    $scope.setPageTitle = function (title) {
-      $scope.title = title;
-    }
+    nid = $scope.getNid(loc);
 
-    if (!$routeParams.name) {
-
-      nid = $scope.getNid(loc);
-      $scope.landing = true;
-
-    } else {
-      base = loc.split('/')[1];
-      view_name = base + '_projects';
-      node_title = loc.split('/')[2];
-
-      nid = $scope.getProjectNid(base, view_name, node_title);
-      console.log(nid);
-      $scope.landing = false;
-      $scope.setNid(nid);
-
-    }
-
-    //Return if not a landing page...
-    if (!$scope.landing) {
-      return;
-    }
     //console.log($scope.nidsMap);
     Page.get({'nid':nid}, function (page) {
 
