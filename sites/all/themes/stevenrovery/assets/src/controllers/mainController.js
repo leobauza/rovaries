@@ -13,6 +13,10 @@
     $rootScope.siteTitle = bs.siteTitle;
     $rootScope.siteName = bs.siteTitle;
 
+    $scope.setSiteTitle = function (segment) {
+      $rootScope.siteTitle = bs.siteTitle + ' | ' + segment;
+    };
+
     //contact block
     $scope.contactBlurb = bs.contactInfo.blurb;
     $scope.contactEmail = bs.contactInfo.email;

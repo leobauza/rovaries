@@ -82,9 +82,13 @@
     //specially with the more complicated ones for projects
     var nid = $scope.getNid($location.path());
     Page.get({'nid':nid}, function (page) {
+
+      $scope.setSiteTitle('Home');
+
       //update node id for navigation
       $scope.setNid(nid);
       $scope.outputHtml = page.node.body.safe_value;
+
     });
 
   } ]);
@@ -105,6 +109,10 @@
     //browser title and header title
     $rootScope.siteTitle = bs.siteTitle;
     $rootScope.siteName = bs.siteTitle;
+
+    $scope.setSiteTitle = function (segment) {
+      $rootScope.siteTitle = bs.siteTitle + ' | ' + segment;
+    };
 
     //contact block
     $scope.contactBlurb = bs.contactInfo.blurb;
@@ -168,7 +176,9 @@
       //update node id for navigation
       $scope.setNid(nid);
       //root scope stuff...move into servie as well...
-      $rootScope.siteTitle = bs.siteTitle + ' | ' + page.node.title;
+      $scope.setSiteTitle(page.node.title);
+
+      //$rootScope.siteTitle = bs.siteTitle + ' | ' + page.node.title;
 
       //$scope.node = page.node;
       $scope.outputHtml = "<h1>" + page.node.title + "</h1>" + page.node.body.safe_value;
@@ -220,6 +230,8 @@
       var custom = page.node.custom_fields,
           composed = page.node.composed_fields;
 
+      $scope.setSiteTitle(page.node.title);
+
       $scope.project_title = page.node.title;
       $scope.role = custom.field_role.value;
       $scope.tag = custom.field_tags.taxonomy_term.name;
@@ -253,6 +265,8 @@
 
     //console.log($scope.nidsMap);
     Page.get({'nid':nid}, function (page) {
+
+      $scope.setSiteTitle(page.node.title);
 
       //update node id for navigation
       $scope.setNid(nid);

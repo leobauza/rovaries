@@ -17,6 +17,8 @@
     //console.log($scope.nidsMap);
     Page.get({'nid':nid}, function (page) {
 
+      $scope.setSiteTitle(page.node.title);
+
       //update node id for navigation
       $scope.setNid(nid);
 

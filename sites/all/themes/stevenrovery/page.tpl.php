@@ -74,8 +74,6 @@ if (!$variables['logged_in'] && $current_path === '/login') {
 
   <?php endif;?>
 
-
-
   bootstrap.siteTitle = '<?php print $site_name; ?>';
   bootstrap.contactInfo = {
     blurb: '<?php print theme_get_setting('contact_blurb'); ?>',

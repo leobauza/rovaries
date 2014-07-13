@@ -30,6 +30,8 @@
       var custom = page.node.custom_fields,
           composed = page.node.composed_fields;
 
+      $scope.setSiteTitle(page.node.title);
+
       $scope.project_title = page.node.title;
       $scope.role = custom.field_role.value;
       $scope.tag = custom.field_tags.taxonomy_term.name;
