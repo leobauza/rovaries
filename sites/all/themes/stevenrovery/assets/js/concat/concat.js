@@ -31,20 +31,20 @@
         controller: 'HomeCtrl'
       })
       .when('/design', {
-        templateUrl: bs.tplsPath + '/projects-landing.html',
+        templateUrl: bs.tplsPath + '/projects.html',
         controller: 'ProjectsCtrl'
       })
       .when('/ux', {
-        templateUrl: bs.tplsPath + '/projects-landing.html',
+        templateUrl: bs.tplsPath + '/projects.html',
         controller: 'ProjectsCtrl'
       })
       .when('/ux/:name', {
-        templateUrl: bs.tplsPath + '/project.html',
-        controller: 'ProjectCtrl'
+        templateUrl: bs.tplsPath + '/projects.html',
+        controller: 'ProjectsCtrl'
       })
       .when('/design/:name', {
-        templateUrl: bs.tplsPath + '/project.html',
-        controller: 'ProjectCtrl'
+        templateUrl: bs.tplsPath + '/projects.html',
+        controller: 'ProjectsCtrl'
       })
       .otherwise({
         //redirectTo: '/'
@@ -80,7 +80,7 @@
 
     //getting node id should be a service...
     //specially with the more complicated ones for projects
-    var nid = $scope.nidsMap[$location.path()];
+    var nid = $scope.getNid($location.path());
     Page.get({'nid':nid}, function (page) {
       //update node id for navigation
       $scope.setNid(nid);
@@ -111,42 +111,29 @@
     $scope.contactEmail = bs.contactInfo.email;
     $scope.contactPhone = bs.contactInfo.phone;
 
-    //
+    //site navigation
     $scope.links = bs.menu.links;
-    //$scope.page = bs.node;
-    //$scope.nid = bs.node.nid;
 
+    //get nid only for top level pages
+    $scope.getNid = function (path) {
+      return link = _.find(bs.menu.links, function (data) {
+        return data.path === path;
+      }).nid;
+    };
 
-    //map the paths to the nids for the API calls
-    //only for pages
-    $scope.nidsMap = {};
-    for (key in $scope.links) {
-      $scope.nidsMap[$scope.links[key].path] = $scope.links[key].nid;
-    }
+    //get nid for projects
+    $scope.getProjectNid = function (base, view_name, node_title) {
+      return _.find(bs.views[base][view_name], function (data) {
+        return data.node_title = node_title;
+      }).nid;
+    };
 
     $scope.setNid = function (nid) {
       $scope.nid = nid;
-      console.log("set nid to:", nid);
+      //console.log("set nid to:", nid);
     };
 
   } ]);
-
-  /**
-   * Test Controller
-   */
-  app.controller('TestCtrl',
-  ['$scope', '$location', 'Page', '$timeout',
-  function ($scope, $location, Page, $timeout) {
-
-    var nid = $scope.nidsMap[$location.path()];
-
-    var page = Page.get({'nid':nid}, function () {
-      $scope.page.nid = nid;
-      $scope.outputHtml = "<h1>" + page.node.title + "</h1>" + page.node.body.safe_value;
-    });
-
-  } ]);
-
 
 
 
@@ -166,7 +153,7 @@
     var location = $location.path(),
         splitLoc = location.split('/'),
         name = $routeParams.name || null,
-        nid = $scope.nidsMap['/' + splitLoc[1]];
+        nid = $scope.getNid('/' + splitLoc[1]);
 
     //console.log($scope.nidsMap);
 
@@ -174,10 +161,8 @@
 
       //update node id for navigation
       $scope.setNid(nid);
-
       //root scope stuff...move into servie as well...
       $rootScope.siteTitle = bs.siteTitle + ' | ' + page.node.title;
-
 
       //$scope.node = page.node;
       $scope.outputHtml = "<h1>" + page.node.title + "</h1>" + page.node.body.safe_value;
@@ -205,10 +190,31 @@
    * Design Controller
    */
   app.controller('ProjectCtrl',
-  ['$scope', '$location', 'Page', '$routeParams',
-  function ($scope, $location, Page, $routeParams) {
+  ['$scope', '$location', 'Page',
+  function ($scope, $location, Page) {
+    //get node ID for this project
     $scope.title = "nothing";
-    console.log($routeParams);
+
+    //return if it's a landing page
+    if ($scope.landing || !$scope.nid) {
+      return;
+    }
+
+    Page.get({'nid':$scope.nid}, function (page) {
+      console.log(page);
+      var custom = page.node.custom_fields,
+          composed = page.node.composed_fields;
+
+      $scope.project_title = page.node.title;
+      $scope.role = custom.field_role.value;
+      $scope.tag = custom.field_tags.taxonomy_term.name;
+      $scope.rows = composed.field_project_rows;
+
+      $scope.setPageTitle(custom.field_tags.taxonomy_term.name);
+
+
+    });
+
 
   }]);
 
@@ -221,32 +227,63 @@
    * Design Controller
    */
   app.controller('ProjectsCtrl',
-  ['$scope', '$location', 'Page',
-  function ($scope, $location, Page) {
+  ['$scope', '$location', 'Page', '$routeParams',
+  function ($scope, $location, Page, $routeParams) {
 
-    var nid = $scope.nidsMap[$location.path()];
+    var loc = $location.path(),
+        nid = null,
+        view_name = null,
+        base = null;
 
+    //console.log(type);
+    $scope.setPageTitle = function (title) {
+      $scope.title = title;
+    }
+
+    if (!$routeParams.name) {
+
+      nid = $scope.getNid(loc);
+      $scope.landing = true;
+
+    } else {
+      base = loc.split('/')[1];
+      view_name = base + '_projects';
+      node_title = loc.split('/')[2];
+
+      nid = $scope.getProjectNid(base, view_name, node_title);
+
+      $scope.landing = false;
+      $scope.setNid(nid);
+
+    }
+
+    //Return if not a landing page...
+    if (!$scope.landing) {
+      return;
+    }
     //console.log($scope.nidsMap);
     Page.get({'nid':nid}, function (page) {
 
       //update node id for navigation
       $scope.setNid(nid);
 
+      //show the right view
       if (page.views) {
         var views = page.views.design_projects || page.views.ux_projects;
       } else {
         var views = null;
       }
 
-
       // console.log(page);
       // console.log(views);
 
       $scope.projects = views;
-      $scope.node = page.node;
-      $scope.title = page.node.title;
+      //$scope.node = page.node;
+      $scope.setPageTitle(page.node.title);
       //$scope.outputHtml = "<h1>" + page.node.title + "</h1>" + page.node.body.safe_value;
     });
+
+
 
 
   } ]);
@@ -298,10 +335,11 @@
 
   } ]);
 
+
   /**
    * Non API Services
    */
-  
+
 
 
 })(bootstrap);

@@ -19,6 +19,7 @@ stylesheets[all][] = assets/css/styles.css
 scripts[] = vendor/angular/angular.js
 scripts[] = vendor/angular-route/angular-route.js
 scripts[] = vendor/angular-resource/angular-resource.js
+scripts[] = vendor/underscore/underscore.js
 scripts[] = assets/js/concat/concat.js
 
 ;settings

@@ -57,6 +57,10 @@ if (!$variables['logged_in'] && $current_path === '/login') {
 
   	var bootstrap = <?php echo file_get_contents("{$base_url}/api/page/{$node_info['nid']}",false,$context) ;?>;
     bootstrap.tplsPath = <?php echo "\"/{$path_to_theme}/templates\""; ?>;
+    bootstrap.views = {
+      ux: <?php echo file_get_contents("{$base_url}/api/view/ux_projects"); ?>,
+      design: <?php echo file_get_contents("{$base_url}/api/view/design_projects"); ?>
+    }
 
   <?php else: ?>
 

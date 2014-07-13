@@ -12,7 +12,7 @@
     var location = $location.path(),
         splitLoc = location.split('/'),
         name = $routeParams.name || null,
-        nid = $scope.nidsMap['/' + splitLoc[1]];
+        nid = $scope.getNid('/' + splitLoc[1]);
 
     //console.log($scope.nidsMap);
 
@@ -20,10 +20,8 @@
 
       //update node id for navigation
       $scope.setNid(nid);
-
       //root scope stuff...move into servie as well...
       $rootScope.siteTitle = bs.siteTitle + ' | ' + page.node.title;
-
 
       //$scope.node = page.node;
       $scope.outputHtml = "<h1>" + page.node.title + "</h1>" + page.node.body.safe_value;

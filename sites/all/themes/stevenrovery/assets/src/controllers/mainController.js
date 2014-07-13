@@ -18,42 +18,29 @@
     $scope.contactEmail = bs.contactInfo.email;
     $scope.contactPhone = bs.contactInfo.phone;
 
-    //
+    //site navigation
     $scope.links = bs.menu.links;
-    //$scope.page = bs.node;
-    //$scope.nid = bs.node.nid;
 
+    //get nid only for top level pages
+    $scope.getNid = function (path) {
+      return link = _.find(bs.menu.links, function (data) {
+        return data.path === path;
+      }).nid;
+    };
 
-    //map the paths to the nids for the API calls
-    //only for pages
-    $scope.nidsMap = {};
-    for (key in $scope.links) {
-      $scope.nidsMap[$scope.links[key].path] = $scope.links[key].nid;
-    }
+    //get nid for projects
+    $scope.getProjectNid = function (base, view_name, node_title) {
+      return _.find(bs.views[base][view_name], function (data) {
+        return data.node_title = node_title;
+      }).nid;
+    };
 
     $scope.setNid = function (nid) {
       $scope.nid = nid;
-      console.log("set nid to:", nid);
+      //console.log("set nid to:", nid);
     };
 
   } ]);
-
-  /**
-   * Test Controller
-   */
-  app.controller('TestCtrl',
-  ['$scope', '$location', 'Page', '$timeout',
-  function ($scope, $location, Page, $timeout) {
-
-    var nid = $scope.nidsMap[$location.path()];
-
-    var page = Page.get({'nid':nid}, function () {
-      $scope.page.nid = nid;
-      $scope.outputHtml = "<h1>" + page.node.title + "</h1>" + page.node.body.safe_value;
-    });
-
-  } ]);
-
 
 
 

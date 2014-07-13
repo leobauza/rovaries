@@ -21,20 +21,20 @@
         controller: 'HomeCtrl'
       })
       .when('/design', {
-        templateUrl: bs.tplsPath + '/projects-landing.html',
+        templateUrl: bs.tplsPath + '/projects.html',
         controller: 'ProjectsCtrl'
       })
       .when('/ux', {
-        templateUrl: bs.tplsPath + '/projects-landing.html',
+        templateUrl: bs.tplsPath + '/projects.html',
         controller: 'ProjectsCtrl'
       })
       .when('/ux/:name', {
-        templateUrl: bs.tplsPath + '/project.html',
-        controller: 'ProjectCtrl'
+        templateUrl: bs.tplsPath + '/projects.html',
+        controller: 'ProjectsCtrl'
       })
       .when('/design/:name', {
-        templateUrl: bs.tplsPath + '/project.html',
-        controller: 'ProjectCtrl'
+        templateUrl: bs.tplsPath + '/projects.html',
+        controller: 'ProjectsCtrl'
       })
       .otherwise({
         //redirectTo: '/'
