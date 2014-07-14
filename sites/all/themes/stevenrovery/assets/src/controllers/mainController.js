@@ -14,7 +14,8 @@
     $rootScope.siteName = bs.siteTitle;
 
     $scope.setSiteTitle = function (segment) {
-      $rootScope.siteTitle = bs.siteTitle + ' | ' + segment;
+      //$rootScope.siteTitle = bs.siteTitle + ' | ' + segment;
+      $rootScope.siteTitle = segment;
     };
 
     //contact block
@@ -34,11 +35,17 @@
 
     //get nid for projects
     $scope.getProjectNid = function (base, view_name, node_title) {
-      var node = _.find(bs.views[base][view_name], function (data) {
+      return _.find(bs.views[base][view_name], function (data) {
         return data.alias === base + '/' + node_title;
       });
-      return node.nid
     };
+
+    $scope.getPrevProject = function (base, view_name, pos) {
+      return _.find(bs.views[base][view_name], function (data) {
+        return data.pos === pos;
+      });
+    }
+
 
     $scope.setNid = function (nid) {
       $scope.nid = nid;

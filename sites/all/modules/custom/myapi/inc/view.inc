@@ -28,11 +28,15 @@ function getViews($name, $page=0) {
       $view_result = $view->result;
 
       $rows = array();
+      $rid = 1; //row id
       foreach ($view_result as $row) {
         if (isset($row->nid)) {
           $alias = drupal_get_path_alias('node/' . $row->nid);
-          $rows[$row->nid] = $row;
-          $rows[$row->nid]->alias = $alias;
+          $rows[$rid] = $row;
+          $rows[$rid]->alias = $alias;
+          $rows[$rid]->pos = $rid;
+          $rows[$rid]->node_created = format_date($rows[$rid]->node_created, 'custom', "m-d-Y");
+          $rid++;
         }
       }
 

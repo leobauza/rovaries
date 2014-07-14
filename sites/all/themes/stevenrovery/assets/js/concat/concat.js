@@ -111,7 +111,8 @@
     $rootScope.siteName = bs.siteTitle;
 
     $scope.setSiteTitle = function (segment) {
-      $rootScope.siteTitle = bs.siteTitle + ' | ' + segment;
+      //$rootScope.siteTitle = bs.siteTitle + ' | ' + segment;
+      $rootScope.siteTitle = segment;
     };
 
     //contact block
@@ -131,11 +132,17 @@
 
     //get nid for projects
     $scope.getProjectNid = function (base, view_name, node_title) {
-      var node = _.find(bs.views[base][view_name], function (data) {
+      return _.find(bs.views[base][view_name], function (data) {
         return data.alias === base + '/' + node_title;
       });
-      return node.nid
     };
+
+    $scope.getPrevProject = function (base, view_name, pos) {
+      return _.find(bs.views[base][view_name], function (data) {
+        return data.pos === pos;
+      });
+    }
+
 
     $scope.setNid = function (nid) {
       $scope.nid = nid;
@@ -209,37 +216,49 @@
   ['$scope', '$location', 'Page',
   function ($scope, $location, Page) {
 
-    //initiate vars
+    //set location vars
     var loc = $location.path(),
-        nid = null,
-        view_name = null,
-        base = null;
-
-
-    //get location variables
-    base = loc.split('/')[1];
-    view_name = base + '_projects';
-    node_title = loc.split('/')[2];
+        base = loc.split('/')[1],
+        view_name = base + '_projects',
+        node_title = loc.split('/')[2],
+        totalProjects = _.size(bs.views[base][view_name]),
+        project = $scope.getProjectNid(base, view_name, node_title),
+        nid = project.nid;
 
     //get nid from url and set scope's nid
-    nid = $scope.getProjectNid(base, view_name, node_title);
     $scope.setNid(nid);
+    $scope.base = base;
 
     //request individual project page
     Page.get({'nid':$scope.nid}, function (page) {
       var custom = page.node.custom_fields,
           composed = page.node.composed_fields;
 
+      //<title>
       $scope.setSiteTitle(page.node.title);
 
+      //<header>
+      $scope.setPageTitle(custom.field_tags.taxonomy_term.name);
+      //get previous project
+      if (project.pos - 1 !== 0) {
+        $scope.prevProject = $scope.getPrevProject(base, view_name, project.pos - 1);
+      } else {
+        $scope.prevProject = $scope.getPrevProject(base, view_name, totalProjects);
+      }
+
+      //get next project
+      if (project.pos + 1 > totalProjects) {
+        $scope.nextProject = $scope.getPrevProject(base, view_name, 1);
+      } else {
+        $scope.nextProject = $scope.getPrevProject(base, view_name, project.pos + 1);
+      }
+
+      //<article>
       $scope.project_title = page.node.title;
       $scope.role = custom.field_role.value;
       $scope.tag = custom.field_tags.taxonomy_term.name;
       $scope.rows = composed.field_project_rows;
 
-      //console.log($scope.rows);
-
-      $scope.setPageTitle(custom.field_tags.taxonomy_term.name);
 
     });
 
@@ -265,7 +284,6 @@
 
     //console.log($scope.nidsMap);
     Page.get({'nid':nid}, function (page) {
-
       $scope.setSiteTitle(page.node.title);
 
       //update node id for navigation
@@ -277,9 +295,6 @@
       } else {
         var views = null;
       }
-
-      // console.log(page);
-      // console.log(views);
 
       $scope.projects = views;
       //$scope.node = page.node;

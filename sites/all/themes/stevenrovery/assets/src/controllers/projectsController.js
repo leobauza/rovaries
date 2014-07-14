@@ -16,7 +16,6 @@
 
     //console.log($scope.nidsMap);
     Page.get({'nid':nid}, function (page) {
-
       $scope.setSiteTitle(page.node.title);
 
       //update node id for navigation
@@ -28,9 +27,6 @@
       } else {
         var views = null;
       }
-
-      // console.log(page);
-      // console.log(views);
 
       $scope.projects = views;
       //$scope.node = page.node;

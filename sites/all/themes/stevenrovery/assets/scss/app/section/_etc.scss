@@ -41,7 +41,7 @@
 	font-weight: 600;
 	letter-spacing: 1px;
 	h2 {
-		@include bgImg('sprite.png', 0, 0);
+		//@include bgImg('sprite.png', 0, 0);
 		@include square(13px, 13px);
 		position: absolute;
 		right: 25px;

@@ -11,7 +11,6 @@
 function getNode($id) {
 
   $fields = node_load($id);
-
   if(!$fields) {
     return array();
   }
@@ -38,6 +37,9 @@ function getNode($id) {
     }
     if ($field === 'body') {
       $fields->body = field_view_field('node', $fields, 'body')['#items'][0];
+    }
+    if ($field === 'created') {
+      $fields->created = format_date($fields->created, 'custom', "m-d-Y");
     }
   }
 
