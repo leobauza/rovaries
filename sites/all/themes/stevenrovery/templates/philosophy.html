@@ -1,8 +1,13 @@
-<article ng-bind-html="outputHtml | unsafe"></article>
-<ul class="slider">
-  <li ng-repeat="this in slider" ng-class="{active:compareToName(this.slide_title)}">
-    <strong>{{this.slide_title}}</strong>
-    <span ng-bind-html="this.slide_body | unsafe"></span>
-    <div ng-hide="this.slide_image === 0">{{this.slide_image}}</div>
-  </li>
-</ul>
+<header>
+  <h1>{{page_title}}</h1>
+</header>
+
+
+<section class="slider">
+  <div ng-repeat="slide in slider" class="slide" ng-class="{active:compareToName(slide.slide_title)}">
+    <h3>{{slide.slide_title}}</h3>
+    <!-- <span ng-bind-html="slide.slide_body | unsafe"></span> -->
+    <div btf-markdown="slide.slide_body"></div>
+    <div ng-hide="slide.slide_image === 0">{{slide.slide_image}}</div>
+  </div>
+</section>

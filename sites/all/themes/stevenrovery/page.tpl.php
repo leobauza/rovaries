@@ -32,7 +32,7 @@ if (!$variables['logged_in'] && $current_path === '/login') {
 
 ?>
 <header ng-cloak>
-  <h1>{{siteName}}</h1>
+  <h1>{{siteName}}<a href="/">=</a></h1>
 </header>
 
 <section ng-view ng-cloak></section>
@@ -80,9 +80,6 @@ if (!$variables['logged_in'] && $current_path === '/login') {
     ux: <?php echo file_get_contents("{$base_url}/api/view/ux_projects"); ?>,
     design: <?php echo file_get_contents("{$base_url}/api/view/design_projects"); ?>
   }
-
-
-  console.log(bootstrap);
 
 </script>
 

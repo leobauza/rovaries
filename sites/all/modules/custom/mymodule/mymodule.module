@@ -44,7 +44,7 @@ function _change_upload_location(&$form, $field_name, $upload_location) {
   if (isset($form[$field_name])) {
 
     //dpm out to test
-    dpm($form[$field_name][$lang][0]['composed']);
+    //dpm($form[$field_name][$lang][0]['composed']);
 
     $composed_fields = $form[$field_name][$lang];
   } else {

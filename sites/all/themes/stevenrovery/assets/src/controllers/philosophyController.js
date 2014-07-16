@@ -20,13 +20,11 @@
 
       //update node id for navigation
       $scope.setNid(nid);
-      //root scope stuff...move into servie as well...
       $scope.setSiteTitle(page.node.title);
+      $scope.setPageTitle(page.node.title);
 
-      //$rootScope.siteTitle = bs.siteTitle + ' | ' + page.node.title;
 
       //$scope.node = page.node;
-      $scope.outputHtml = "<h1>" + page.node.title + "</h1>" + page.node.body.safe_value;
       $scope.slider = page.node.composed_fields.field_philosophy_slider;
     });
 

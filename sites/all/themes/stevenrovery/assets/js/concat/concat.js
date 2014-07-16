@@ -2,7 +2,9 @@
 
   var app = angular.module('app', [
     'ngRoute',
-    'ngResource'
+    'ngResource',
+    'ngSanitize',
+    'btford.markdown'
   ]);
 
 
@@ -27,8 +29,8 @@
         controller: 'PhilCtrl'
       })
       .when('/resume', {
-        templateUrl: bs.tplsPath + '/design.html',
-        controller: 'HomeCtrl'
+        templateUrl: bs.tplsPath + '/resume.html',
+        controller: 'ResumeCtrl'
       })
       .when('/design', {
         templateUrl: bs.tplsPath + '/projects.html',
@@ -47,24 +49,30 @@
         controller: 'ProjectCtrl'
       })
       .otherwise({
-        //redirectTo: '/'
-        template: "doesn't exist",
-        controller: function ($scope, $route, $location) {
-          var path = $location.path(),
-              parts = path.split("/"),
-              admin = parts[1];
-          //best I got for going to the admin menu for now...
-          if (admin === 'admin') {
-            window.location.reload();
-          } else {
-            //$location.path('/');
-          }
-        }
+
+        template: "doesn't exist"
+
       });
 
     $locationProvider.html5Mode(true).hashPrefix('!');
 
   } ]);
+
+  app.run(['$rootScope', '$location', '$window',
+  function ($rootScope, $location, $window) {
+
+    $rootScope.$on('$locationChangeStart', function (event, next) {
+
+      var parts = next.split('/');
+      //handle admin route
+      if (_.contains(parts, 'admin') || _.contains(parts, 'admin_menu')) {
+        $window.location.href = next;
+      }
+
+    });
+
+
+  }]);
 
 
 })(bootstrap);
@@ -182,13 +190,11 @@
 
       //update node id for navigation
       $scope.setNid(nid);
-      //root scope stuff...move into servie as well...
       $scope.setSiteTitle(page.node.title);
+      $scope.setPageTitle(page.node.title);
 
-      //$rootScope.siteTitle = bs.siteTitle + ' | ' + page.node.title;
 
       //$scope.node = page.node;
-      $scope.outputHtml = "<h1>" + page.node.title + "</h1>" + page.node.body.safe_value;
       $scope.slider = page.node.composed_fields.field_philosophy_slider;
     });
 
@@ -306,6 +312,40 @@
 
 
   } ]);
+
+})(bootstrap);
+(function (bs) {
+
+  var app = angular.module('app');
+  /**
+   * Home Controller
+   */
+  app.controller('ResumeCtrl',
+  ['$scope', '$location', 'Page', '$rootScope',
+  function ($scope, $location, Page, $rootScope) {
+
+    //getting node id should be a service...
+    //specially with the more complicated ones for projects
+    var nid = $scope.getNid($location.path());
+
+    Page.get({'nid':nid}, function (page) {
+
+      var composed = page.node.composed_fields;
+
+      $scope.setSiteTitle(page.node.title);
+      $scope.setPageTitle(page.node.title);
+
+      //update node id for navigation
+      $scope.setNid(nid);
+      console.log(page.node);
+      $scope.experience = composed.field_experience;
+      $scope.schools = composed.field_education;
+      $scope.awards = composed.field_awards;
+
+    });
+
+  } ]);
+
 
 })(bootstrap);
 (function (bs) {

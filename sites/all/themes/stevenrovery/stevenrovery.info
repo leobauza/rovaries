@@ -19,7 +19,13 @@ stylesheets[all][] = assets/css/styles.css
 scripts[] = vendor/angular/angular.js
 scripts[] = vendor/angular-route/angular-route.js
 scripts[] = vendor/angular-resource/angular-resource.js
+
 scripts[] = vendor/underscore/underscore.js
+
+scripts[] = vendor/angular-sanitize/angular-sanitize.min.js
+scripts[] = vendor/showdown/compressed/showdown.js
+scripts[] = vendor/angular-markdown-directive/markdown.js
+
 scripts[] = assets/js/concat/concat.js
 
 ;settings

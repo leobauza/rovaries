@@ -2,7 +2,9 @@
 
   var app = angular.module('app', [
     'ngRoute',
-    'ngResource'
+    'ngResource',
+    'ngSanitize',
+    'btford.markdown'
   ]);
 
 

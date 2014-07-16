@@ -1,0 +1,39 @@
+<header>
+  <h1>{{page_title}}</h1>
+</header>
+
+
+<h3>Experience</h3>
+<hr>
+<div ng-repeat="job in experience">
+  <p>{{job.role}}</p>
+  <p>{{job.company}}</p>
+  <p>{{job.date_range}}</p>
+  <p>{{job.location}}</p>
+  <div btf-markdown="job.body"></div>
+  <hr>
+</div>
+
+<hr>
+<hr>
+
+<h3>Education</h3>
+<hr>
+<div ng-repeat="school in schools">
+  <p>{{school.name}}</p>
+  <p>{{school.location}}</p>
+  <div btf-markdown="school.body"></div>
+  <hr>
+</div>
+
+<hr>
+<hr>
+
+<h3>Awards/Nominations</h3>
+<hr>
+<div ng-repeat="award in awards">
+  <p>{{award.year}}</p>
+  <p>{{award.name}}</p>
+  <div btf-markdown="award.body"></div>
+  <hr>
+</div>

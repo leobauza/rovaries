@@ -17,8 +17,8 @@
         controller: 'PhilCtrl'
       })
       .when('/resume', {
-        templateUrl: bs.tplsPath + '/design.html',
-        controller: 'HomeCtrl'
+        templateUrl: bs.tplsPath + '/resume.html',
+        controller: 'ResumeCtrl'
       })
       .when('/design', {
         templateUrl: bs.tplsPath + '/projects.html',
@@ -37,24 +37,30 @@
         controller: 'ProjectCtrl'
       })
       .otherwise({
-        //redirectTo: '/'
-        template: "doesn't exist",
-        controller: function ($scope, $route, $location) {
-          var path = $location.path(),
-              parts = path.split("/"),
-              admin = parts[1];
-          //best I got for going to the admin menu for now...
-          if (admin === 'admin') {
-            window.location.reload();
-          } else {
-            //$location.path('/');
-          }
-        }
+
+        template: "doesn't exist"
+
       });
 
     $locationProvider.html5Mode(true).hashPrefix('!');
 
   } ]);
+
+  app.run(['$rootScope', '$location', '$window',
+  function ($rootScope, $location, $window) {
+
+    $rootScope.$on('$locationChangeStart', function (event, next) {
+
+      var parts = next.split('/');
+      //handle admin route
+      if (_.contains(parts, 'admin') || _.contains(parts, 'admin_menu')) {
+        $window.location.href = next;
+      }
+
+    });
+
+
+  }]);
 
 
 })(bootstrap);
