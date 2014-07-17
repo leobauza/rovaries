@@ -31,17 +31,26 @@ if (!$variables['logged_in'] && $current_path === '/login') {
 
 
 ?>
-<header ng-cloak>
-  <h1>{{siteName}}<a href="/">=</a></h1>
+<header class="site__header" ng-cloak>
+  <h1>{{siteName}}</h1>
+  <a class="hamburger" href="/">
+    <span></span>
+    <span></span>
+    <span></span>
+  </a>
 </header>
 
 <section ng-view ng-cloak></section>
 <site-nav ng-cloak></site-nav>
 
 <footer class="site__footer" ng-cloak>
-  <p>{{contactBlurb}}</p>
-  <p>Contact me at <a href="#">{{contactEmail}}</a> or <a href="#">{{contactPhone}}</a></p>
+  <div class="footer__contact">
+    <p>{{contactBlurb}}</p>
+    <p>Contact me at <a class="contact__item" href>{{contactEmail}}</a> or <a class="contact__item" href>{{contactPhone}}</a></p>
+  </div>
 </footer>
+
+<div class="loading" ng-cloak></div>
 
 <script>
   //bootstrap the data so no initial ajax call is required

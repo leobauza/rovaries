@@ -1,6 +1,6 @@
 <nav class="site__nav">
   <ul>
-    <li ng-class="{active:link.nid === nid}" ng-repeat='link in links' >
+    <li ng-class="{active:link.nid === nid, last:$last}" ng-repeat='link in links' >
       <a href="{{link.path}}">{{link.title}}</a>
     </li>
   </ul>

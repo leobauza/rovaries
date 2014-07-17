@@ -1,0 +1,34 @@
+/* app/section/nav */
+.site__nav {
+
+	ul {
+		@include resetList();
+		border-top: 1px solid $brand_grey;
+	}
+	li {
+		border-bottom: 1px solid $brand_grey;
+		padding: 3px 0px;
+		margin: 0;
+		&.last {
+			display: none;
+		}
+	}
+	a {
+		display: block;
+		padding: 12px 10px 14px;
+		color: $brand_grey;
+		font-size: $h1;
+		font-family: $display;
+		font-weight: 300;
+		text-align: center;
+		text-transform: uppercase;
+		&:hover {
+			background: $brand;
+			color: $white;
+		}
+	}
+	.active {
+		display: none;
+	}
+
+}

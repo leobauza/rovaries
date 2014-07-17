@@ -1,20 +1,13 @@
 //libs
-@import 'app/libs/nav';
 @import 'app/libs/btn';
-@import 'app/libs/modal';
 @import 'app/libs/callout';
-@import 'app/libs/listgroup';
-@import 'app/libs/box';
-@import 'app/libs/hero';
 
+//segments
+@import 'app/segment/slider';
 
-//vendor
-@import 'app/vendors/btnfx';
-@import 'app/vendors/dropdown';
-
-
-//devs
+//sections
 @import 'app/section/header';
+@import 'app/section/nav';
 @import 'app/section/footer';
 @import 'app/section/etc';
 @import 'app/section/site';

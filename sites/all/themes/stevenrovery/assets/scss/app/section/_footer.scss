@@ -1,3 +1,25 @@
 /* app/devs/footer */
-.site-footer {
+.site__footer {
+  padding: 35px 10px 31px;
+  border-bottom: 4px solid $brand;
+}
+.footer__contact {
+  background: $brand_grey;
+  width: 605px;
+  margin: 0 auto;
+  padding: 16px 20px 6px; //39 - 20 = 19
+  p {
+    text-align: center;
+    color: $white;
+    line-height: 1.75em;
+    margin-bottom: 6px;
+  }
+}
+.contact__item {
+  color: $white;
+  font-weight: 700;
+  font-style: italic;
+  &:hover {
+    color: $white;
+  }
 }

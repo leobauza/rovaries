@@ -1,27 +1,19 @@
-/* app/section/site (documentation css) */
-.slider {
-	.slide {
-		display: none;
-	}
-	.active {
-		display: block;
-	}
-}
+/* app/section/site */
 
-.site__nav {
-	ul {
-		li {
-
-		}
-		a {
-
-		}
-		.active {
-			display: none;
-		}
-	}
-}
-
+//angular cloaks
 [ng-cloak] {
 	display: none;
+}
+
+.loading {
+	display: none;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+	background: $white;
+	&[ng-cloak] {
+		display: block;
+	}
 }
