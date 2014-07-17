@@ -22,7 +22,6 @@ function getNode($id) {
 
   foreach ($fields as $field => $value) {
     if (strpos($field, 'field_') !== FALSE && !empty($value)) {
-
       //get field information and field type to manage composed fields
       $field_info = field_info_field($field);
       $field_type = $field_info['type'];

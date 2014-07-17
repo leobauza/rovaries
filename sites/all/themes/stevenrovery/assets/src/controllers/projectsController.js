@@ -28,6 +28,8 @@
         var views = null;
       }
 
+      console.log(views);
+
       $scope.projects = views;
       //$scope.node = page.node;
       $scope.setPageTitle(page.node.title);

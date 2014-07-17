@@ -36,6 +36,9 @@ function getViews($name, $page=0) {
           $rows[$rid]->alias = $alias;
           $rows[$rid]->pos = $rid;
           $rows[$rid]->node_created = format_date($rows[$rid]->node_created, 'custom', "m-d-Y");
+          if (isset($rows[$rid]->field_field_image)) {
+            $rows[$rid]->field_field_image = (isset($rows[$rid]->field_field_image[0]['raw']))? file_create_url($rows[$rid]->field_field_image[0]['raw']['uri']) : false;
+          }
           $rid++;
         }
       }

@@ -23,3 +23,11 @@
     color: $white;
   }
 }
+
+@media (max-width: 59.938em) { //959px
+
+  .footer__contact {
+    width: auto;
+  }
+
+}

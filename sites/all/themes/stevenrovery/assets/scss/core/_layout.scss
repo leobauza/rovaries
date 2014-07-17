@@ -155,7 +155,7 @@ $global_gutter: 3.183;
  * Responsive
  */
 
-@media (max-width: 959px) {
+@media (max-width: 59.938em) { //959px
 
 	/*margin right instead of margin left to do overflow hidden*/
 	[class*="row"] > [class*="span"] {
