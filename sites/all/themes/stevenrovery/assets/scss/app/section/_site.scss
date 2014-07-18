@@ -13,6 +13,50 @@
 	}
 }
 
+//projects
+.projects-listing {
+	list-style: none;
+	font-size: 100%;
+}
+.projects-listing__item {
+	a {
+		display: block;
+		position: relative;
+		border: 1px solid $global_border;
+		z-index: 1;
+	}
+	.inner {
+		@include bgImg('bg_project_overlay.png', 0%, 0%, repeat);
+		@include square(100%, 100%);
+		position: absolute;
+		overflow: hidden;
+		top: 0;
+		left: 0;
+		//border-bottom: 4px solid $brand;
+		.table {
+			@include square(100%, 100%);
+			display: table;
+		}
+	}
+	img {
+		display: block;
+
+	}
+	h2 {
+		display: table-cell;
+		vertical-align: middle;
+		text-align: center;
+		font-size: $h1;
+		font-weight: 300;
+		color: $white;
+		.sub-title {
+			display: block;
+			font-size: .46em;
+			font-weight: 500;
+		}
+	}
+}
+
 //angular cloaks
 [ng-cloak] {
 	display: none;

@@ -40,7 +40,7 @@ if (!$variables['logged_in'] && $current_path === '/login') {
   </a>
 </header>
 
-<section ng-view ng-cloak></section>
+<section ng-view ng-cloak  class="site__main"></section>
 <site-nav ng-cloak></site-nav>
 
 <footer class="site__footer" ng-cloak>

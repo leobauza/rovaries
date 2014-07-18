@@ -36,7 +36,7 @@
  */
 //grid
 $global_columns: 12;
-$global_gutter: 3.183;
+$global_gutter: .8;
 
 @mixin rows($gutter: 3.183, $columns: 12) {
 	width:100%;
