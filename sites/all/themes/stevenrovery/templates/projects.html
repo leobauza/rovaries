@@ -4,20 +4,23 @@
 
 <ul ng-hide="mobile" ng-repeat="group in groups" class="row projects-listing">
   <li ng-class="{f: $first, l: $last}" ng-repeat="project in group" class="span4 projects-listing__item">
+    <img alt="{{project.node_title}}" ng-src="{{project.field_field_image}}">
     <a href="/{{project.alias}}">
-      <img alt="{{project.node_title}}" ng-src="{{project.field_field_image}}">
       <div class="inner">
-        <div class="table">
-          <h2>
+        <h2>
+          <span class="text">
             {{project.node_title}}
             <span class="sub-title">{{project.field_field_role[0].raw.value}}</span>
-          </h2>
-          <!-- {{project.node_created}} -->
-        </div>
+          </span>
+        </h2>
+        <i class="border"></i>
       </div>
     </a>
   </li>
 </ul>
+
+
+
 
 
 <ul ng-show="mobile" class="projects-listing">
