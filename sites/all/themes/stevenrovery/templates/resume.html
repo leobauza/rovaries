@@ -2,37 +2,37 @@
   <h1>{{page_title}}</h1>
 </header>
 
-<h3>Experience</h3>
-<hr>
-<div ng-repeat="job in experience">
-  <p>{{job.role}}</p>
-  <p>{{job.company}}</p>
-  <p>{{job.date_range}}</p>
-  <p>{{job.location}}</p>
-  <div btf-markdown="job.body"></div>
-  <hr>
-</div>
+<section class="main__listing">
+  <article class="listing__section">
+    <h2 class="listing__title h1">Experience</h2>
+    <div ng-repeat="job in experience">
+      <h3 class="h2">{{job.role}}</h3>
+      <p class="h2">{{job.company}}</p>
+      <p class="h3">{{job.date_range}} &bull; {{job.location}}</p>
+      <div btf-markdown="job.body"></div>
+    </div>
+  </article>
 
-<hr>
-<hr>
+  <article class="listing__section">
+    <h2 class="listing__title h1">Education</h2>
+    <div ng-repeat="school in schools">
+      <h3 class="h2">{{school.name}}</h3>
+      <p class="h3">{{school.location}}</p>
+      <div btf-markdown="school.body"></div>
+    </div>
+  </article>
 
-<h3>Education</h3>
-<hr>
-<div ng-repeat="school in schools">
-  <p>{{school.name}}</p>
-  <p>{{school.location}}</p>
-  <div btf-markdown="school.body"></div>
-  <hr>
-</div>
+  <article class="listing__section">
+    <h2 class="listing_title h1">Awards/Nominations</h2>
+    <div ng-repeat="award in awards">
+      <h3 class="h2">{{award.year}} {{award.name}}</h3>
+      <div btf-markdown="award.body"></div>
+    </div>
+  </article>
 
-<hr>
-<hr>
 
-<h3>Awards/Nominations</h3>
-<hr>
-<div ng-repeat="award in awards">
-  <p>{{award.year}}</p>
-  <p>{{award.name}}</p>
-  <div btf-markdown="award.body"></div>
-  <hr>
-</div>
+</section>
+
+<aside class="main__sidebar -left">
+
+</aside>

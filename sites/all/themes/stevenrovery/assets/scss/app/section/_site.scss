@@ -13,6 +13,42 @@
 	}
 }
 
+.main__header {
+	padding: 19px 10px 18px;//25-18 43 25
+	h1 {
+		margin: 0px;
+		text-align: center;
+	}
+	&.-project {
+		position: relative;
+	}
+}
+.project__nav {
+	@extend %group;
+	position: absolute;
+	top: 0;
+	right: 0;
+	a {
+		@include bgImg('sprite_project_nav.png', 50%, 50%);
+		@include square(23px, 23px);
+		padding: 25px 0px;
+		margin: 0 14px;
+		float: left;
+		text-indent: -9999px;
+	}
+	.prev {
+		background-position: 0px 50%;
+		margin-right: 10px;
+	}
+	.next {
+		background-position: 100% 50%;
+		margin-left: 10px;
+	}
+	.back {
+
+	}
+}
+
 
 //angular cloaks
 [ng-cloak] {

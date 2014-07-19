@@ -1,8 +1,10 @@
-<header class="main__header--project">
+<header class="main__header -project">
   <h1>{{page_title}}</h1>
-  <a href="/{{nextProject.alias}}">{{nextProject.node_title}} &gt;</a><br>
-  <a href="/{{base}}">GO BACK TO BASE (UX/DESIGN)</a><br>
-  <a href="/{{prevProject.alias}}">&lt; {{prevProject.node_title}}</a><br>
+  <nav class="project__nav">
+    <a class="prev" href="/{{prevProject.alias}}">&lt;</a>
+    <a class="back" href="/{{base}}">...</a>
+    <a class="next" href="/{{nextProject.alias}}">&gt;</a>
+  </nav>
 </header>
 
 <article>
