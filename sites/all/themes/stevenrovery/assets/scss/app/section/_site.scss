@@ -49,6 +49,40 @@
 	}
 }
 
+.main__listing {
+	border-top: 4px solid $global_border;
+	padding-top: 20px;
+	.h1, .h2, .h3 {
+		margin: 0;
+	}
+}
+.listing__section {
+	.row {
+		width: 100%;
+	}
+}
+.listing__title {
+	padding: 5px 13px 3px; //10 15 10
+	background: $brand_grey;
+	color: $white;
+}
+.listing__sub-section {
+	border-bottom: 1px solid $section_border;
+	padding: 37px 17px 14px;
+	margin: 0;
+	&.last {
+		border: none;
+	}
+	&.short {
+		//
+	}
+	._header {
+		padding: 0 0 12px;
+	}
+	.alt ul {
+		padding-top: 30px;
+	}
+}
 
 //angular cloaks
 [ng-cloak] {

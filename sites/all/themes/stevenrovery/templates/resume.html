@@ -2,37 +2,50 @@
   <h1>{{page_title}}</h1>
 </header>
 
-<section class="main__listing">
-  <article class="listing__section">
-    <h2 class="listing__title h1">Experience</h2>
-    <div ng-repeat="job in experience">
-      <h3 class="h2">{{job.role}}</h3>
-      <p class="h2">{{job.company}}</p>
-      <p class="h3">{{job.date_range}} &bull; {{job.location}}</p>
-      <div btf-markdown="job.body"></div>
-    </div>
-  </article>
+<main class="row">
 
-  <article class="listing__section">
-    <h2 class="listing__title h1">Education</h2>
-    <div ng-repeat="school in schools">
-      <h3 class="h2">{{school.name}}</h3>
-      <p class="h3">{{school.location}}</p>
-      <div btf-markdown="school.body"></div>
-    </div>
-  </article>
+  <section class="main__listing span8">
 
-  <article class="listing__section">
-    <h2 class="listing_title h1">Awards/Nominations</h2>
-    <div ng-repeat="award in awards">
-      <h3 class="h2">{{award.year}} {{award.name}}</h3>
-      <div btf-markdown="award.body"></div>
-    </div>
-  </article>
+    <section class="listing__section">
+      <h2 class="listing__title h1">Experience</h2>
+      <article class="listing__sub-section" ng-class="{last: $last}" ng-repeat="job in experience">
+        <header class="_header row">
+          <h3 class="h2 span6">{{job.role}}</h3>
+          <p class="h2 span6 al-r">{{job.company}}</p>
+        </header>
+        <p class="h3">{{job.date_range}} &bull; {{job.location}}</p>
+        <div class="alt" btf-markdown="job.body"></div>
+      </article>
+    </section>
 
+    <section class="listing__section">
+      <h2 class="listing__title h1">Education</h2>
+      <article class="listing__sub-section" ng-class="{last: $last}" ng-repeat="school in schools">
+        <div class="row">
+          <header class="_header span5">
+            <h3 class="h2 _header">{{school.name}}</h3>
+            <p class="h3">{{school.location}}</p>
+          </header>
+          <div class="span7" btf-markdown="school.body"></div>
+        </div>
+      </article>
+    </section>
 
-</section>
+    <section class="listing__section">
+      <h2 class="listing__title h1">Awards/Nominations</h2>
+      <article class="listing__sub-section" ng-class="{last: $last}" ng-repeat="award in awards">
+        <div class="row">
+          <h3 class="h2 span6">{{award.year}} {{award.name}}</h3>
+          <div class="span6" btf-markdown="award.body"></div>
+        </div>
+      </article>
+    </section>
 
-<aside class="main__sidebar -left">
+  </section>
 
-</aside>
+  <aside class="main__sidebar -left span4">
+    my aside....
+  </aside>
+
+</main>
+
