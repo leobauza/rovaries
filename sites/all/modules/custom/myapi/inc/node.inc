@@ -30,16 +30,21 @@ function getNode($id) {
         _manageComposed($field, $fields, $bundle);
       } else {
         if ($field === 'field_resume') {
-          $fields->custom_fields[$field] = file_create_url(field_view_field('node', $fields, $field)['#items'][0]['uri']);
+
+          $resume_url = field_view_field('node', $fields, $field);
+          $resume_url = $resume_url['#items'][0]['uri'];
+          $fields->custom_fields[$field] = file_create_url($resume_url);
         } else {
-          $fields->custom_fields[$field] = field_view_field('node', $fields, $field)['#items'][0];
+          $custom_field_item = field_view_field('node', $fields, $field);
+          $fields->custom_fields[$field] = $custom_field_item['#items'][0];
         }
       }
       //unset the old values
       unset($fields->$field);
     }
     if ($field === 'body') {
-      $fields->body = field_view_field('node', $fields, 'body')['#items'][0];
+      $field_body = field_view_field('node', $fields, 'body');
+      $fields->body = $field_body['#items'][0];
     }
     if ($field === 'created') {
       $fields->created = format_date($fields->created, 'custom', "m-d-Y");
@@ -77,8 +82,10 @@ function getNode($id) {
 function _manageComposed($field, $fields, $bundle) {
 
   //THIS GIVES YOU INFORMATION ABOUT THE COMPOSED FIELD
-  $types = field_info_instance($entity_type='node', $field_name=$field, $bundle_name=$bundle)['widget']['settings']['composed_field']['type'];
-  $titles = field_info_instance($entity_type='node', $field_name=$field, $bundle_name=$bundle)['widget']['settings']['composed_field']['title'];
+  $types = field_info_instance($entity_type='node', $field_name=$field, $bundle_name=$bundle);
+  $types = $types['widget']['settings']['composed_field']['type'];
+  $titles = field_info_instance($entity_type='node', $field_name=$field, $bundle_name=$bundle);
+  $titles = $titles['widget']['settings']['composed_field']['title'];
 
   //$raw = field_view_field('node', $fields, $field)['#items'];
 
@@ -91,8 +98,9 @@ function _manageComposed($field, $fields, $bundle) {
   }
 
   foreach($composed_field['#items'] as $ktop => $vtop) {
-
-    $composed[$ktop] = unserialize(field_view_field('node', $fields, $field)['#items'][$ktop]['composed']);
+    $to_unserialize = field_view_field('node', $fields, $field);
+    $to_unserialize = $to_unserialize['#items'][$ktop]['composed'];
+    $composed[$ktop] = unserialize($to_unserialize);
 
     //set titles and get file uri
     foreach ($types as $k => $v) {
