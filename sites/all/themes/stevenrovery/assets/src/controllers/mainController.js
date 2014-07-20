@@ -40,7 +40,7 @@
       });
     };
 
-    $scope.getPrevProject = function (base, view_name, pos) {
+    $scope.getNeighbourProject = function (base, view_name, pos) {
       return _.find(bs.views[base][view_name], function (data) {
         return data.pos === pos;
       });

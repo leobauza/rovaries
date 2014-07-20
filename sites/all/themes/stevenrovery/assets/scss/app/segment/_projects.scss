@@ -64,3 +64,41 @@
 		margin: 0 3.06%;
 	}
 }
+
+//single page
+
+.project-rows {
+	border-top: 1px solid $section_border;
+	padding: 40px 0px 30px;
+}
+.project__header {
+	padding: 0 11px 0 19px;
+	h1 {
+		font-size: $h2;
+		font-weight: 600;
+	}
+	h3 {
+
+	}
+}
+.-project.row {
+	margin-bottom: 40px;
+	position: relative;
+}
+.project-row__text {
+}
+.project-row__image {
+
+}
+.project-row__description {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 33.60013%;
+	margin: 0 0 0 66.39987%;
+	p {
+		border-bottom: 1px solid $section_border;
+		margin: 0 11px 0 26px;
+		padding: 0 0 26px;
+	}
+}

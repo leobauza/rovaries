@@ -7,13 +7,51 @@
   </nav>
 </header>
 
-<article>
-  <h1>{{project_title}}</h1>
-  <h3>{{role}}</h3>
-  <div ng-repeat="row in rows">
-    <p>{{row.description}}</p>
-    <img alt="{{row.description}}" ng-src="{{row.file_uri}}" />
-    <p><strong>image:</strong> {{row.file_uri}}</p>
-    <p><strong>image position:</strong> {{row.image_position}}</p>
+<article class="project-rows">
+  <div class="row -project" ng-repeat="row in rows">
+
+    <img alt="{{row.description}}" class="project-row__image span8" ng-src="{{row.file_uri}}" />
+    <div class="project-row__text span4">
+      <header ng-if="$first" class="project__header">
+        <h1>{{project_title}}</h1>
+        <h3>{{role}}</h3>
+      </header>
+      <div class="project-row__description">
+        <p>{{row.description}}</p>
+      </div>
+    </div>
+    <!-- <p><strong>image:</strong> {{row.file_uri}}</p> -->
+    <!-- <p><strong>image position:</strong> {{row.image_position}}</p> -->
   </div>
 </article>
+
+<ul ng-hide="mobile" ng-repeat="group in groups" class="row projects-listing">
+  <li ng-class="{f: $first, l: $last}" ng-repeat="project in group" class="span4 projects-listing__item">
+    <img alt="{{project.node_title}}" ng-src="{{project.field_field_image}}">
+    <a href="/{{project.alias}}">
+      <div class="inner">
+        <h2>
+          <span class="text">
+            {{project.node_title}}
+            <span class="sub-title">{{project.field_field_role[0].raw.value}}</span>
+          </span>
+        </h2>
+        <i class="border"></i>
+      </div>
+    </a>
+  </li>
+</ul>
+
+<ul ng-show="mobile" class="projects-listing">
+  <li ng-repeat="project in projects" class="projects-listing__item">
+    <a href="/{{project.alias}}">
+      <img alt="{{project.node_title}}" ng-src="{{project.field_field_image}}">
+      <div class="inner">
+        <h2>
+          {{project.node_title}}
+          <span class="sub-title">{{project.field_field_role[0].raw.value}}</span>
+        </h2>
+      </div>
+    </a>
+  </li>
+</ul>
