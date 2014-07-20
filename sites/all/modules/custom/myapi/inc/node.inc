@@ -29,7 +29,11 @@ function getNode($id) {
       //if (strpos($field, '_composed') !== FALSE) {
         _manageComposed($field, $fields, $bundle);
       } else {
-        $fields->custom_fields[$field] = field_view_field('node', $fields, $field)['#items'][0];
+        if ($field === 'field_resume') {
+          $fields->custom_fields[$field] = file_create_url(field_view_field('node', $fields, $field)['#items'][0]['uri']);
+        } else {
+          $fields->custom_fields[$field] = field_view_field('node', $fields, $field)['#items'][0];
+        }
       }
       //unset the old values
       unset($fields->$field);

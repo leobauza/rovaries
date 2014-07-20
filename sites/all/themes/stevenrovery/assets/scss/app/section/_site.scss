@@ -14,7 +14,7 @@
 }
 
 .main__header {
-	padding: 19px 10px 18px;//25-18 43 25
+	padding: 19px 10px 18px;
 	h1 {
 		margin: 0px;
 		text-align: center;
@@ -49,6 +49,7 @@
 	}
 }
 
+//Resume Page
 .main__listing {
 	border-top: 4px solid $global_border;
 	padding-top: 20px;
@@ -57,30 +58,72 @@
 	}
 }
 .listing__section {
+	padding: 0 0 30px;
 	.row {
 		width: 100%;
+	}
+	&.short {
+		padding: 0 0 49px;
+		header {
+			padding: 0 0 9px;
+		}
 	}
 }
 .listing__title {
 	padding: 5px 13px 3px; //10 15 10
 	background: $brand_grey;
 	color: $white;
+	font-weight: 300;
 }
 .listing__sub-section {
 	border-bottom: 1px solid $section_border;
-	padding: 37px 17px 14px;
+	padding: 39px 17px 14px;
 	margin: 0;
 	&.last {
 		border: none;
 	}
-	&.short {
-		//
+	.short & {
+		padding: 17px 17px 8px;
+		ul {
+			padding-bottom: 0;
+			margin-top: -2px;
+			margin-bottom: 0;
+		}
 	}
 	._header {
-		padding: 0 0 12px;
+		padding: 0 0 4px;
 	}
 	.alt ul {
-		padding-top: 30px;
+		padding-top: 22px;
+		padding-left: 15px;
+	}
+}
+
+.link__boxes {
+	padding-left: 11px;
+}
+.link__box {
+	display: table;
+	width: 96%;
+	height: 198px;
+	padding: 10px 2%;
+	margin: 0 0 10px;
+	border: 1px solid $section_border;
+	font-family: $display;
+	font-size: $h1;
+	font-weight: 300;
+	color: $text_colour;
+	text-align: center;
+	&:hover {
+		color: $text_colour;
+		span {
+			border-bottom: 4px solid $brand;
+		}
+	}
+	span {
+		display: table-cell;
+		vertical-align: middle;
+		border-bottom: 4px solid $white;
 	}
 }
 
