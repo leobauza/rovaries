@@ -1,13 +1,38 @@
 <header class="main__header">
   <h1>{{page_title}}</h1>
 </header>
+<section ng-if="!slider_philosophy" class="link__boxes philosophy__body">
+  <div ng-repeat="group in phil_groups" class="row">
+    <article ng-repeat="box in group" class="span4">
+      <a href="/philosophy/{{box.slide_title | lowercase}}" class="link__box"><span>{{box.slide_title}}<i>{{box.id}}</i></span></a>
+    </article>
+  </div>
+</section>
 
-
-<section class="slider">
+<section ng-if="slider_philosophy" class="slider">
   <div ng-repeat="slide in slider" class="slide" ng-class="{active:compareToName(slide.slide_title)}">
-    <h3>{{slide.slide_title}}</h3>
-    <!-- <span ng-bind-html="slide.slide_body | unsafe"></span> -->
-    <div btf-markdown="slide.slide_body"></div>
-    <div ng-hide="slide.slide_image === 0">{{slide.slide_image}}</div>
+
+    <a class="prev-slide" href="/philosophy/{{getPrevSlide(slide.id)[0].slide_title | lowercase}}"><span>PREV</span></a>
+    <img alt="{{slide.slide_title}}" ng-src="{{slide.file_uri}}">
+    <article class="slide__text">
+      <div class="inner">
+        <div class="slide__content">
+          <div class="background">
+            <table ng-if="!mobile">
+              <td><span class="h1">{{slide.id}}</span></td>
+              <td><h2 class="h1">{{slide.slide_title}}</h2></td>
+              <td><div class="description" btf-markdown="slide.slide_body"></div></td>
+            </table>
+            <div ng-if="mobile">
+              <span class="h1">{{slide.id}}</span>
+              <h2 class="h1">{{slide.slide_title}}</h2>
+              <div class="description" btf-markdown="slide.slide_body"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+    <a class="next-slide" href="/philosophy/{{getNextSlide(slide.id)[0].slide_title | lowercase}}"><span>NEXT</span></a>
+
   </div>
 </section>

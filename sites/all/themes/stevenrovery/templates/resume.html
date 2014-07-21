@@ -2,7 +2,7 @@
   <h1>{{page_title}}</h1>
 </header>
 
-<section ng-show="mobile">
+<section ng-if="mobile">
   <div class="link__boxes">
     <a href="{{resume}}" class="link__box" target="_self" download><span>Download PDF</span></a>
     <a href="{{link.link}}" class="link__box" target="_self" ng-repeat="link in arbitrary_links"><span>{{link.text}}</span></a>
@@ -51,7 +51,7 @@
 
   </section>
 
-  <aside ng-hide="mobile" class="main__sidebar -left span4">
+  <aside ng-if="!mobile" class="main__sidebar -left span4">
     <div class="link__boxes">
       <a href="{{resume}}" class="link__box" target="_self" download><span>Download PDF</span></a>
       <a href="{{link.link}}" class="link__box" target="_self" ng-repeat="link in arbitrary_links"><span>{{link.text}}</span></a>

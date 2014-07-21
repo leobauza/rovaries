@@ -99,10 +99,19 @@
 	}
 }
 
+//philosophy page
+.philosophy__body {
+	padding-bottom: 60px;
+}
+
+
+
+//common
 .link__boxes {
 	padding-left: 11px;
 }
 .link__box {
+	position: relative;
 	display: table;
 	width: 96%;
 	height: 198px;
@@ -119,11 +128,24 @@
 		span {
 			border-bottom: 4px solid $brand;
 		}
+		i {
+			position: absolute;
+			display: block;
+		}
 	}
 	span {
 		display: table-cell;
 		vertical-align: middle;
 		border-bottom: 4px solid $white;
+	}
+	i {
+		display: none;
+		//position: absolute;
+		bottom: 20px;
+		right: 12px;
+		font-style: normal;
+		font-size: 14px;
+		font-weight: 400;
 	}
 }
 
