@@ -9,9 +9,14 @@
   ['$resource',
   function ($resource) {
 
-    return $resource('/api/page/:nid');
+    return $resource('/api/page/:nid', {}, {
+      get: {
+        cache: true,
+        method: 'GET'
+      }
+    });
 
-  } ]);
+  }]);
 
 
   /**

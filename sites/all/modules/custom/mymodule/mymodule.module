@@ -54,9 +54,10 @@ function _change_upload_location(&$form, $field_name, $upload_location) {
   //set upload location for all managed files
   $set = 0;
   foreach ($composed_fields as $field) {
-    if (isset($field['composed'])) {
+    if (isset($field['composed']) && is_array($field)) {
       $subset = -1;
-      foreach ($field['composed'] as $part) {
+      $field_composed = $field['composed'];
+      foreach ($field_composed as $part) {
         $subset++;
         //dpm($count);
         if (isset($part['#type']) && $part['#type'] === 'managed_file') {

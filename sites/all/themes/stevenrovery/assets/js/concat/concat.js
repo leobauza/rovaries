@@ -179,14 +179,20 @@
    * Philosophy Controller
    */
   app.controller('PhilCtrl',
-  ['$scope', '$location', '$routeParams', 'Page', '$rootScope',
-  function ($scope, $location, $routeParams, Page, $rootScope) {
+  ['$scope', '$location', '$routeParams', 'Page', '$rootScope', '$cacheFactory',
+  function ($scope, $location, $routeParams, Page, $rootScope, $cacheFactory) {
 
     var location = $location.path(),
         splitLoc = location.split('/'),
         name = $routeParams.name || null,
         nid = $scope.getNid('/' + splitLoc[1]);
 
+    var cache = $cacheFactory.get('$http'),
+        page = cache.get('/api/page/' + nid);
+
+    if (page) {
+      //console.log(JSON.parse(page[1]));
+    }
 
     $scope.slider_philosophy = name; //true or false decides whether to show the slider or front page
 
@@ -226,6 +232,7 @@
       $scope.phil_groups = groups;
 
     });
+
 
     $scope.compareToName = function (title) {
       if (name) {
@@ -470,9 +477,14 @@
   ['$resource',
   function ($resource) {
 
-    return $resource('/api/page/:nid');
+    return $resource('/api/page/:nid', {}, {
+      get: {
+        cache: true,
+        method: 'GET'
+      }
+    });
 
-  } ]);
+  }]);
 
 
   /**
