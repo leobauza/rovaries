@@ -23,7 +23,7 @@ scripts[] = vendor/angular-animate/angular-animate.js
 
 scripts[] = vendor/underscore/underscore.js
 
-scripts[] = vendor/angular-sanitize/angular-sanitize.min.js
+scripts[] = vendor/angular-sanitize/angular-sanitize.js
 scripts[] = vendor/showdown/compressed/showdown.js
 scripts[] = vendor/angular-markdown-directive/markdown.js
 

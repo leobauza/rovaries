@@ -17,6 +17,7 @@
 
   app.config([ '$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     $routeProvider
+
       .when('/', {
         templateUrl: bs.tplsPath + '/home.html',
         controller: 'HomeCtrl',
@@ -28,6 +29,7 @@
         }
 
       })
+
       .when('/philosophy', {
         templateUrl: bs.tplsPath + '/philosophy.html',
         controller: 'PhilCtrl',
@@ -39,6 +41,7 @@
         // }
 
       })
+
       .when('/philosophy/:name', {
         templateUrl: bs.tplsPath + '/philosophy.html',
         controller: 'PhilCtrl',
@@ -83,7 +86,10 @@
   app.run(['$rootScope', '$location', '$window',
   function ($rootScope, $location, $window) {
 
+
+
     $rootScope.$on('$locationChangeStart', function (event, next) {
+
 
       var parts = next.split('/');
       //handle admin route
@@ -170,8 +176,8 @@
    * Top Level Controller
    */
   app.controller('MainCtrl',
-  ['$scope', '$location', '$rootScope',
-  function ($scope, $location, $rootScope) {
+  ['$scope', '$location', '$rootScope', '$timeout',
+  function ($scope, $location, $rootScope, $timeout) {
 
     //browser title and header title
     $rootScope.siteTitle = bs.siteTitle;
@@ -219,6 +225,17 @@
     $scope.setPageTitle = function (title) {
       $scope.page_title = title;
     }
+
+    $scope.$on('$routeChangeStart', function () {
+      $scope.viewLoading = true;
+    });
+
+    $scope.$on('$routeChangeSuccess', function () {
+      $timeout(function () {
+        $scope.viewLoading = false;
+      }, 1000);
+    });
+
 
 
   } ]);
@@ -552,6 +569,7 @@
 
       nid = _.find(bs.menu.links, function (data) { return data.path === route; }).nid;
 
+      //check that 'bootstrap' doesn't have this before doing a get request...
 
       $http.get('/api/page/' + nid)
       .success(function (data) {

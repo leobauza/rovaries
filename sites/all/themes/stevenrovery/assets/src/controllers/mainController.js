@@ -6,8 +6,8 @@
    * Top Level Controller
    */
   app.controller('MainCtrl',
-  ['$scope', '$location', '$rootScope',
-  function ($scope, $location, $rootScope) {
+  ['$scope', '$location', '$rootScope', '$timeout',
+  function ($scope, $location, $rootScope, $timeout) {
 
     //browser title and header title
     $rootScope.siteTitle = bs.siteTitle;
@@ -55,6 +55,17 @@
     $scope.setPageTitle = function (title) {
       $scope.page_title = title;
     }
+
+    $scope.$on('$routeChangeStart', function () {
+      $scope.viewLoading = true;
+    });
+
+    $scope.$on('$routeChangeSuccess', function () {
+      $timeout(function () {
+        $scope.viewLoading = false;
+      }, 1000);
+    });
+
 
 
   } ]);

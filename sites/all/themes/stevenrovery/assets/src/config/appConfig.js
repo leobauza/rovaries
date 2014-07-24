@@ -4,6 +4,7 @@
 
   app.config([ '$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     $routeProvider
+
       .when('/', {
         templateUrl: bs.tplsPath + '/home.html',
         controller: 'HomeCtrl',
@@ -15,6 +16,7 @@
         }
 
       })
+
       .when('/philosophy', {
         templateUrl: bs.tplsPath + '/philosophy.html',
         controller: 'PhilCtrl',
@@ -26,6 +28,7 @@
         // }
 
       })
+
       .when('/philosophy/:name', {
         templateUrl: bs.tplsPath + '/philosophy.html',
         controller: 'PhilCtrl',
@@ -70,7 +73,10 @@
   app.run(['$rootScope', '$location', '$window',
   function ($rootScope, $location, $window) {
 
+
+
     $rootScope.$on('$locationChangeStart', function (event, next) {
+
 
       var parts = next.split('/');
       //handle admin route

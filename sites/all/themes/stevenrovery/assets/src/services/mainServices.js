@@ -27,6 +27,7 @@
 
       nid = _.find(bs.menu.links, function (data) { return data.path === route; }).nid;
 
+      //check that 'bootstrap' doesn't have this before doing a get request...
 
       $http.get('/api/page/' + nid)
       .success(function (data) {
