@@ -1,7 +1,7 @@
 /* app/libs/btn */
 
 .site__main {
-  @include transition (all 1s);
+  @include transition (max-height 1s, opacity .5s);
   overflow: hidden;
 
   &.ng-enter {

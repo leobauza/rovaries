@@ -6,15 +6,36 @@
     $routeProvider
       .when('/', {
         templateUrl: bs.tplsPath + '/home.html',
-        controller: 'HomeCtrl'
+        controller: 'HomeCtrl',
+
+        resolve: {
+          "page": ['Resolver', function (Resolver) {
+            return Resolver.get('/');
+          }]
+        }
+
       })
       .when('/philosophy', {
         templateUrl: bs.tplsPath + '/philosophy.html',
-        controller: 'PhilCtrl'
+        controller: 'PhilCtrl',
+
+        // resolve: {
+        //   "test" : ['$routeParams', function ($routeParams) {
+        //     return $routeParams;
+        //   }]
+        // }
+
       })
       .when('/philosophy/:name', {
         templateUrl: bs.tplsPath + '/philosophy.html',
-        controller: 'PhilCtrl'
+        controller: 'PhilCtrl',
+
+        // resolve: {
+        //   "test" : ['$routeParams', function ($routeParams) {
+        //     return $routeParams;
+        //   }]
+        // }
+
       })
       .when('/resume', {
         templateUrl: bs.tplsPath + '/resume.html',
@@ -62,17 +83,14 @@
   }]);
 
 
-  // app.animation('.site__main', ['$timeout', function ($timeout) {
-  //
+  // app.animation('.site__main', ['$rootScope', function ($rootScope) {
+  //   console.log($rootScope);
   //   return {
   //     enter: function (element, done) {
-  //       console.log("entering a page");
-  //       $timeout(function () {
-  //         done();
-  //       }, 1000);
+  //       console.log(element);
   //     },
   //     leave: function (element, done) {
-  //       console.log("leaving a page");
+  //       console.log("done", done);
   //       done();
   //     }
   //

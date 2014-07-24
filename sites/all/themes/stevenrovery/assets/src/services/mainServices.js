@@ -1,4 +1,4 @@
-(function (bootstrap) {
+(function (bs) {
 
   var app = angular.module('app');
 
@@ -18,10 +18,33 @@
 
   }]);
 
+  app.service('Resolver', ['$http', '$q', function ($http, $q) {
 
-  /**
-   * Non API Services
-   */
+    this.get = function (route) {
+
+      var nid,
+          d = $q.defer();
+
+      nid = _.find(bs.menu.links, function (data) { return data.path === route; }).nid;
+
+
+      $http.get('/api/page/' + nid)
+      .success(function (data) {
+        d.resolve(data);
+      })
+      .error(function (err) {
+        d.reject(err);
+      });
+
+      return d.promise;
+
+    };
+
+    return this;
+
+
+  }]);
+
 
 
 

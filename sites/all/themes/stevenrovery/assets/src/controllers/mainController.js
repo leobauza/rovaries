@@ -14,8 +14,8 @@
     $rootScope.siteName = bs.siteTitle;
 
     $scope.setSiteTitle = function (segment) {
-      //$rootScope.siteTitle = bs.siteTitle + ' | ' + segment;
-      $rootScope.siteTitle = segment;
+      $rootScope.siteTitle = bs.siteTitle + ' | ' + segment;
+      //$rootScope.siteTitle = segment;
     };
 
     //contact block

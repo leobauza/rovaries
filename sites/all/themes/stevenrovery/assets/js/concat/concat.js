@@ -19,15 +19,36 @@
     $routeProvider
       .when('/', {
         templateUrl: bs.tplsPath + '/home.html',
-        controller: 'HomeCtrl'
+        controller: 'HomeCtrl',
+
+        resolve: {
+          "page": ['Resolver', function (Resolver) {
+            return Resolver.get('/');
+          }]
+        }
+
       })
       .when('/philosophy', {
         templateUrl: bs.tplsPath + '/philosophy.html',
-        controller: 'PhilCtrl'
+        controller: 'PhilCtrl',
+
+        // resolve: {
+        //   "test" : ['$routeParams', function ($routeParams) {
+        //     return $routeParams;
+        //   }]
+        // }
+
       })
       .when('/philosophy/:name', {
         templateUrl: bs.tplsPath + '/philosophy.html',
-        controller: 'PhilCtrl'
+        controller: 'PhilCtrl',
+
+        // resolve: {
+        //   "test" : ['$routeParams', function ($routeParams) {
+        //     return $routeParams;
+        //   }]
+        // }
+
       })
       .when('/resume', {
         templateUrl: bs.tplsPath + '/resume.html',
@@ -75,17 +96,14 @@
   }]);
 
 
-  // app.animation('.site__main', ['$timeout', function ($timeout) {
-  //
+  // app.animation('.site__main', ['$rootScope', function ($rootScope) {
+  //   console.log($rootScope);
   //   return {
   //     enter: function (element, done) {
-  //       console.log("entering a page");
-  //       $timeout(function () {
-  //         done();
-  //       }, 1000);
+  //       console.log(element);
   //     },
   //     leave: function (element, done) {
-  //       console.log("leaving a page");
+  //       console.log("done", done);
   //       done();
   //     }
   //
@@ -102,8 +120,8 @@
    * Home Controller
    */
   app.controller('HomeCtrl',
-  ['$scope', '$location', 'Page', '$rootScope',
-  function ($scope, $location, Page, $rootScope) {
+  ['$scope', '$location', 'page',
+  function ($scope, $location, page) {
 
     //getting node id should be a service...
     //specially with the more complicated ones for projects
@@ -111,17 +129,36 @@
 
     console.log(nid);
 
-    Page.get({'nid':nid}, function (page) {
+    $scope.setSiteTitle('Home');
 
-      $scope.setSiteTitle('Home');
+    $scope.setNid(nid);
 
-      //update node id for navigation
-      $scope.setNid(nid);
-      $scope.outputHtml = page.node.body.safe_value;
+    $scope.outputHtml = page.node.body.safe_value;
 
-    });
+    // console.log("page", page);
+    //
+    // page.then(
+    // function (data) {
+    //   console.log(data);
+    //   $scope.outputHtml = data.node.body.safe_value;
+    // },
+    // function (error) {
+    //
+    // })
 
-  } ]);
+    //console.log(page);
+
+    // Page.get({'nid':nid}, function (page) {
+    //
+    //   $scope.setSiteTitle('Home');
+    //
+    //   //update node id for navigation
+    //   $scope.setNid(nid);
+    //   $scope.outputHtml = page.node.body.safe_value;
+    //
+    // });
+
+  }]);
 
 
 })(bootstrap);
@@ -141,8 +178,8 @@
     $rootScope.siteName = bs.siteTitle;
 
     $scope.setSiteTitle = function (segment) {
-      //$rootScope.siteTitle = bs.siteTitle + ' | ' + segment;
-      $rootScope.siteTitle = segment;
+      $rootScope.siteTitle = bs.siteTitle + ' | ' + segment;
+      //$rootScope.siteTitle = segment;
     };
 
     //contact block
@@ -200,6 +237,7 @@
   app.controller('PhilCtrl',
   ['$scope', '$location', '$routeParams', 'Page', '$rootScope', '$cacheFactory',
   function ($scope, $location, $routeParams, Page, $rootScope, $cacheFactory) {
+
 
     var location = $location.path(),
         splitLoc = location.split('/'),
@@ -485,7 +523,7 @@
   });
 
 })(bootstrap);
-(function (bootstrap) {
+(function (bs) {
 
   var app = angular.module('app');
 
@@ -505,10 +543,33 @@
 
   }]);
 
+  app.service('Resolver', ['$http', '$q', function ($http, $q) {
 
-  /**
-   * Non API Services
-   */
+    this.get = function (route) {
+
+      var nid,
+          d = $q.defer();
+
+      nid = _.find(bs.menu.links, function (data) { return data.path === route; }).nid;
+
+
+      $http.get('/api/page/' + nid)
+      .success(function (data) {
+        d.resolve(data);
+      })
+      .error(function (err) {
+        d.reject(err);
+      });
+
+      return d.promise;
+
+    };
+
+    return this;
+
+
+  }]);
+
 
 
 

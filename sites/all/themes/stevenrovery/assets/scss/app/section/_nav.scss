@@ -29,7 +29,11 @@
 		}
 	}
 	.active {
-		display: none;
+		a {
+			color: $white;
+			background: $brand;
+		}
+		//display: none;
 	}
 
 }

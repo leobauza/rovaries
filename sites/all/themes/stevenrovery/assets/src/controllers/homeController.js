@@ -5,8 +5,8 @@
    * Home Controller
    */
   app.controller('HomeCtrl',
-  ['$scope', '$location', 'Page', '$rootScope',
-  function ($scope, $location, Page, $rootScope) {
+  ['$scope', '$location', 'page',
+  function ($scope, $location, page) {
 
     //getting node id should be a service...
     //specially with the more complicated ones for projects
@@ -14,17 +14,36 @@
 
     console.log(nid);
 
-    Page.get({'nid':nid}, function (page) {
+    $scope.setSiteTitle('Home');
 
-      $scope.setSiteTitle('Home');
+    $scope.setNid(nid);
 
-      //update node id for navigation
-      $scope.setNid(nid);
-      $scope.outputHtml = page.node.body.safe_value;
+    $scope.outputHtml = page.node.body.safe_value;
 
-    });
+    // console.log("page", page);
+    //
+    // page.then(
+    // function (data) {
+    //   console.log(data);
+    //   $scope.outputHtml = data.node.body.safe_value;
+    // },
+    // function (error) {
+    //
+    // })
 
-  } ]);
+    //console.log(page);
+
+    // Page.get({'nid':nid}, function (page) {
+    //
+    //   $scope.setSiteTitle('Home');
+    //
+    //   //update node id for navigation
+    //   $scope.setNid(nid);
+    //   $scope.outputHtml = page.node.body.safe_value;
+    //
+    // });
+
+  }]);
 
 
 })(bootstrap);

@@ -9,6 +9,7 @@
   ['$scope', '$location', '$routeParams', 'Page', '$rootScope', '$cacheFactory',
   function ($scope, $location, $routeParams, Page, $rootScope, $cacheFactory) {
 
+
     var location = $location.path(),
         splitLoc = location.split('/'),
         name = $routeParams.name || null,
