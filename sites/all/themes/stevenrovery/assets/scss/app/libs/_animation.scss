@@ -1,0 +1,28 @@
+/* app/libs/btn */
+
+.site__main {
+  @include transition (all 1s);
+  overflow: hidden;
+
+  &.ng-enter {
+    transition-delay: 1.25s;
+    max-height: 0;
+  }
+
+  &.ng-enter.ng-enter-active {
+    max-height: 5000px;
+  }
+
+  &.ng-leave {
+    opacity: 1;
+    max-height: 5000px;
+  }
+
+  &.ng-leave.ng-leave-active {
+    max-height: 0;
+    opacity: 0;
+  }
+
+
+}
+

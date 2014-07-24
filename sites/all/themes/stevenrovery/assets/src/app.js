@@ -4,7 +4,8 @@
     'ngRoute',
     'ngResource',
     'ngSanitize',
-    'btford.markdown'
+    'btford.markdown',
+    'ngAnimate'
   ]);
 
 

@@ -59,8 +59,26 @@
 
     });
 
-
   }]);
+
+
+  // app.animation('.site__main', ['$timeout', function ($timeout) {
+  //
+  //   return {
+  //     enter: function (element, done) {
+  //       console.log("entering a page");
+  //       $timeout(function () {
+  //         done();
+  //       }, 1000);
+  //     },
+  //     leave: function (element, done) {
+  //       console.log("leaving a page");
+  //       done();
+  //     }
+  //
+  //   };
+  //
+  // }]);
 
 
 })(bootstrap);
