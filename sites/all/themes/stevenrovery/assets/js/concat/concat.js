@@ -11,102 +11,9 @@
 
 })(bootstrap);
 
-(function (bs) {
+(function () {
 
-  var app = angular.module('app');
-
-  app.config([ '$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-    $routeProvider
-
-      .when('/', {
-        templateUrl: bs.tplsPath + '/home.html',
-        controller: 'HomeCtrl',
-
-        resolve: {
-          "page": ['Resolver', function (Resolver) {
-            return Resolver.get('/');
-          }]
-        }
-
-      })
-
-      .when('/home', {
-
-        redirectTo: '/'
-
-      })
-
-      .when('/philosophy', {
-        templateUrl: bs.tplsPath + '/philosophy.html',
-        controller: 'PhilCtrl',
-
-        // resolve: {
-        //   "test" : ['$routeParams', function ($routeParams) {
-        //     return $routeParams;
-        //   }]
-        // }
-
-      })
-
-      .when('/philosophy/:name', {
-        templateUrl: bs.tplsPath + '/philosophy.html',
-        controller: 'PhilCtrl',
-
-        // resolve: {
-        //   "test" : ['$routeParams', function ($routeParams) {
-        //     return $routeParams;
-        //   }]
-        // }
-
-      })
-      .when('/resume', {
-        templateUrl: bs.tplsPath + '/resume.html',
-        controller: 'ResumeCtrl'
-      })
-      .when('/design', {
-        templateUrl: bs.tplsPath + '/projects.html',
-        controller: 'ProjectsCtrl'
-      })
-      .when('/ux', {
-        templateUrl: bs.tplsPath + '/projects.html',
-        controller: 'ProjectsCtrl'
-      })
-      .when('/ux/:name', {
-        templateUrl: bs.tplsPath + '/project.html',
-        controller: 'ProjectCtrl'
-      })
-      .when('/design/:name', {
-        templateUrl: bs.tplsPath + '/project.html',
-        controller: 'ProjectCtrl'
-      })
-      .otherwise({
-
-        template: "doesn't exist"
-
-      });
-
-    $locationProvider.html5Mode(true).hashPrefix('!');
-
-  } ]);
-
-  app.run(['$rootScope', '$location', '$window',
-  function ($rootScope, $location, $window) {
-
-
-
-    $rootScope.$on('$locationChangeStart', function (event, next) {
-
-
-      var parts = next.split('/');
-      //handle admin route
-      if (_.contains(parts, 'admin') || _.contains(parts, 'admin_menu')) {
-        $window.location.href = next;
-      }
-
-    });
-
-  }]);
-
+  //var app = angular.module('app');
 
   // app.animation('.site__main', ['$rootScope', function ($rootScope) {
   //   console.log($rootScope);
@@ -118,10 +25,104 @@
   //       console.log("done", done);
   //       done();
   //     }
-  //
   //   };
   //
   // }]);
+
+})();
+(function (bs) {
+
+  var app = angular.module('app');
+
+  app.config([ '$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+    $routeProvider
+    .when('/', {
+      templateUrl: bs.tplsPath + '/home.html',
+      controller: 'HomeCtrl',
+
+      resolve: {
+        "page": ['Resolver', function (Resolver) {
+          return Resolver.get('/');
+        }]
+      }
+
+    })
+
+    .when('/philosophy', {
+      templateUrl: bs.tplsPath + '/philosophy.html',
+      controller: 'PhilCtrl',
+
+      resolve: {
+        "page" : ['$routeParams', 'Resolver', function ($routeParams, Resolver) {
+          return Resolver.get('/philosophy');
+        }]
+      }
+
+    })
+
+    .when('/philosophy/:name', {
+      templateUrl: bs.tplsPath + '/philosophy.html',
+      controller: 'PhilCtrl',
+
+      resolve: {
+        "page" : ['$routeParams', 'Resolver', function ($routeParams, Resolver) {
+          return Resolver.get('/philosophy');
+        }]
+      }
+
+    })
+
+    .when('/resume', {
+      templateUrl: bs.tplsPath + '/resume.html',
+      controller: 'ResumeCtrl'
+    })
+
+    .when('/design', {
+      templateUrl: bs.tplsPath + '/projects.html',
+      controller: 'ProjectsCtrl'
+    })
+
+    .when('/ux', {
+      templateUrl: bs.tplsPath + '/projects.html',
+      controller: 'ProjectsCtrl'
+    })
+
+    .when('/ux/:name', {
+      templateUrl: bs.tplsPath + '/project.html',
+      controller: 'ProjectCtrl'
+    })
+
+    .when('/design/:name', {
+      templateUrl: bs.tplsPath + '/project.html',
+      controller: 'ProjectCtrl'
+    })
+
+    .when('/home', {
+      redirectTo: '/'
+    })
+
+    .otherwise({
+      template: "doesn't exist"
+    });
+
+    $locationProvider.html5Mode(true).hashPrefix('!');
+
+  }]);
+
+  app.run(['$rootScope', '$location', '$window',
+  function ($rootScope, $location, $window) {
+
+    $rootScope.$on('$locationChangeStart', function (event, next) {
+
+      var parts = next.split('/');
+      //handle admin route
+      if (_.contains(parts, 'admin') || _.contains(parts, 'admin_menu')) {
+        $window.location.href = next;
+      }
+
+    });
+
+  }]);
 
 
 })(bootstrap);
@@ -258,60 +259,48 @@
    * Philosophy Controller
    */
   app.controller('PhilCtrl',
-  ['$scope', '$location', '$routeParams', 'Page', '$rootScope', '$cacheFactory',
-  function ($scope, $location, $routeParams, Page, $rootScope, $cacheFactory) {
+  ['$scope', '$location', '$routeParams', 'Page', '$rootScope', '$cacheFactory', 'page',
+  function ($scope, $location, $routeParams, Page, $rootScope, $cacheFactory, page) {
 
 
-    var location = $location.path(),
-        splitLoc = location.split('/'),
+    console.log(page)
+
+    var node = page.node,
         name = $routeParams.name || null,
-        nid = $scope.getNid('/' + splitLoc[1]);
+        slider = node.composed_fields.field_philosophy_slider,
+        slider_size = _.size(slider);
+        phil_boxes = node.composed_fields.field_philosophy_slider,
+        si = 1, //slide iterator
+        groups = {}, //group boxes together
+        i = 0, //individual iterator for boxes
+        gi = 0; //groups iterator
 
-    var cache = $cacheFactory.get('$http'),
-        page = cache.get('/api/page/' + nid);
+    //true or false decides whether to show the slider or front page
+    $scope.slider_philosophy = name;
 
-    if (page) {
-      //console.log(JSON.parse(page[1]));
-    }
+    //$scope.node = page.node;
+    //$scope.slider_size = _.size(slider);
 
-    $scope.slider_philosophy = name; //true or false decides whether to show the slider or front page
+    //update node id for navigation
+    $scope.setNid(node.nid);
+    $scope.setSiteTitle(node.title);
+    $scope.setPageTitle(node.title);
 
-    Page.get({'nid':nid}, function (page) {
-
-      //update node id for navigation
-      $scope.setNid(nid);
-      $scope.setSiteTitle(page.node.title);
-      $scope.setPageTitle(page.node.title);
-
-      //$scope.node = page.node;
-      var slider = page.node.composed_fields.field_philosophy_slider,
-          si = 1; //slide iterator
-
-      $scope.slider_size = _.size(slider);
-
-      $scope.slider = _.map(slider, function (slide) {
-        slide['id'] = si;
-        si += 1;
-        return slide;
-      });
-
-
-
-      var phil_boxes = page.node.composed_fields.field_philosophy_slider,
-          groups = {},
-          i = 0, //iterator
-          gi = 0; //group iterator
-
-      _.each(phil_boxes, function (box) {
-        (i % 3 === 0)? gi += 1 : gi = gi; //increase group iterator by one every 3
-        groups[gi] = groups[gi] || {}; //make sure it exists
-        groups[gi][i] = box; //add view to right group
-        i += 1; //increase iterator by one
-      });
-
-      $scope.phil_groups = groups;
-
+    $scope.slider = _.map(slider, function (slide) {
+      slide['id'] = si;
+      si += 1;
+      return slide;
     });
+
+    _.each(phil_boxes, function (box) {
+      (i % 3 === 0)? gi += 1 : gi = gi; //increase group iterator by one every 3
+      groups[gi] = groups[gi] || {}; //make sure it exists
+      groups[gi][i] = box; //add view to right group
+      i += 1; //increase iterator by one
+    });
+
+    $scope.phil_groups = groups;
+
 
 
     $scope.compareToName = function (title) {
@@ -326,7 +315,7 @@
     $scope.getPrevSlide = function (id) {
 
       if (id - 1 === 0) {
-        return _.where($scope.slider, {id: $scope.slider_size});
+        return _.where($scope.slider, {id: slider_size});
       } else {
         return _.where($scope.slider, {id: id-1});
       }
@@ -336,7 +325,7 @@
     $scope.getNextSlide = function (id) {
 
 
-      if (id + 1 > $scope.slider_size) {
+      if (id + 1 > slider_size) {
         return _.where($scope.slider, {id: 1});
       } else {
         return _.where($scope.slider, {id: id+1});
@@ -344,7 +333,65 @@
 
     };
 
-  } ]);
+
+
+
+
+
+    // var location = $location.path(),
+    //     splitLoc = location.split('/'),
+    //     name = $routeParams.name || null,
+    //     nid = $scope.getNid('/' + splitLoc[1]);
+    //
+    // var cache = $cacheFactory.get('$http'),
+    //     page = cache.get('/api/page/' + nid);
+    //
+    // if (page) {
+    //   //console.log(JSON.parse(page[1]));
+    // }
+    //
+    // $scope.slider_philosophy = name; //true or false decides whether to show the slider or front page
+
+    // Page.get({'nid':nid}, function (page) {
+    //
+    //   //update node id for navigation
+    //   $scope.setNid(nid);
+    //   $scope.setSiteTitle(page.node.title);
+    //   $scope.setPageTitle(page.node.title);
+    //
+    //   //$scope.node = page.node;
+    //   var slider = page.node.composed_fields.field_philosophy_slider,
+    //       si = 1; //slide iterator
+    //
+    //   $scope.slider_size = _.size(slider);
+    //
+    //   $scope.slider = _.map(slider, function (slide) {
+    //     slide['id'] = si;
+    //     si += 1;
+    //     return slide;
+    //   });
+    //
+    //
+    //
+    //   var phil_boxes = page.node.composed_fields.field_philosophy_slider,
+    //       groups = {},
+    //       i = 0, //iterator
+    //       gi = 0; //group iterator
+    //
+    //   _.each(phil_boxes, function (box) {
+    //     (i % 3 === 0)? gi += 1 : gi = gi; //increase group iterator by one every 3
+    //     groups[gi] = groups[gi] || {}; //make sure it exists
+    //     groups[gi][i] = box; //add view to right group
+    //     i += 1; //increase iterator by one
+    //   });
+    //
+    //   $scope.phil_groups = groups;
+    //
+    // });
+    //
+
+
+  }]);
 
 })(bootstrap);
 (function (bs) {

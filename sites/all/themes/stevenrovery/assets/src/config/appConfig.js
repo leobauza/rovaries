@@ -4,85 +4,83 @@
 
   app.config([ '$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     $routeProvider
+    .when('/', {
+      templateUrl: bs.tplsPath + '/home.html',
+      controller: 'HomeCtrl',
 
-      .when('/', {
-        templateUrl: bs.tplsPath + '/home.html',
-        controller: 'HomeCtrl',
+      resolve: {
+        "page": ['Resolver', function (Resolver) {
+          return Resolver.get('/');
+        }]
+      }
 
-        resolve: {
-          "page": ['Resolver', function (Resolver) {
-            return Resolver.get('/');
-          }]
-        }
+    })
 
-      })
+    .when('/philosophy', {
+      templateUrl: bs.tplsPath + '/philosophy.html',
+      controller: 'PhilCtrl',
 
-      .when('/home', {
+      resolve: {
+        "page" : ['$routeParams', 'Resolver', function ($routeParams, Resolver) {
+          return Resolver.get('/philosophy');
+        }]
+      }
 
-        redirectTo: '/'
+    })
 
-      })
+    .when('/philosophy/:name', {
+      templateUrl: bs.tplsPath + '/philosophy.html',
+      controller: 'PhilCtrl',
 
-      .when('/philosophy', {
-        templateUrl: bs.tplsPath + '/philosophy.html',
-        controller: 'PhilCtrl',
+      resolve: {
+        "page" : ['$routeParams', 'Resolver', function ($routeParams, Resolver) {
+          return Resolver.get('/philosophy');
+        }]
+      }
 
-        // resolve: {
-        //   "test" : ['$routeParams', function ($routeParams) {
-        //     return $routeParams;
-        //   }]
-        // }
+    })
 
-      })
+    .when('/resume', {
+      templateUrl: bs.tplsPath + '/resume.html',
+      controller: 'ResumeCtrl'
+    })
 
-      .when('/philosophy/:name', {
-        templateUrl: bs.tplsPath + '/philosophy.html',
-        controller: 'PhilCtrl',
+    .when('/design', {
+      templateUrl: bs.tplsPath + '/projects.html',
+      controller: 'ProjectsCtrl'
+    })
 
-        // resolve: {
-        //   "test" : ['$routeParams', function ($routeParams) {
-        //     return $routeParams;
-        //   }]
-        // }
+    .when('/ux', {
+      templateUrl: bs.tplsPath + '/projects.html',
+      controller: 'ProjectsCtrl'
+    })
 
-      })
-      .when('/resume', {
-        templateUrl: bs.tplsPath + '/resume.html',
-        controller: 'ResumeCtrl'
-      })
-      .when('/design', {
-        templateUrl: bs.tplsPath + '/projects.html',
-        controller: 'ProjectsCtrl'
-      })
-      .when('/ux', {
-        templateUrl: bs.tplsPath + '/projects.html',
-        controller: 'ProjectsCtrl'
-      })
-      .when('/ux/:name', {
-        templateUrl: bs.tplsPath + '/project.html',
-        controller: 'ProjectCtrl'
-      })
-      .when('/design/:name', {
-        templateUrl: bs.tplsPath + '/project.html',
-        controller: 'ProjectCtrl'
-      })
-      .otherwise({
+    .when('/ux/:name', {
+      templateUrl: bs.tplsPath + '/project.html',
+      controller: 'ProjectCtrl'
+    })
 
-        template: "doesn't exist"
+    .when('/design/:name', {
+      templateUrl: bs.tplsPath + '/project.html',
+      controller: 'ProjectCtrl'
+    })
 
-      });
+    .when('/home', {
+      redirectTo: '/'
+    })
+
+    .otherwise({
+      template: "doesn't exist"
+    });
 
     $locationProvider.html5Mode(true).hashPrefix('!');
 
-  } ]);
+  }]);
 
   app.run(['$rootScope', '$location', '$window',
   function ($rootScope, $location, $window) {
 
-
-
     $rootScope.$on('$locationChangeStart', function (event, next) {
-
 
       var parts = next.split('/');
       //handle admin route
@@ -93,22 +91,6 @@
     });
 
   }]);
-
-
-  // app.animation('.site__main', ['$rootScope', function ($rootScope) {
-  //   console.log($rootScope);
-  //   return {
-  //     enter: function (element, done) {
-  //       console.log(element);
-  //     },
-  //     leave: function (element, done) {
-  //       console.log("done", done);
-  //       done();
-  //     }
-  //
-  //   };
-  //
-  // }]);
 
 
 })(bootstrap);
