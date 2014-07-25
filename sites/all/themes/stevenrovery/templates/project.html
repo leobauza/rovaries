@@ -10,14 +10,14 @@
 <article class="project-rows">
   <div class="row -project" ng-repeat="row in rows">
 
-    <img alt="{{row.description}}" class="project-row__image span8" ng-src="{{row.file_uri}}" />
+    <img alt="{{row.desc}}" class="project-row__image span8" ng-src="{{row.img}}" />
     <div class="project-row__text span4">
       <header ng-if="$first" class="project__header">
         <h1>{{project_title}}</h1>
         <h3>{{role}}</h3>
       </header>
       <div class="project-row__description">
-        <p>{{row.description}}</p>
+        <p>{{row.desc}}</p>
       </div>
     </div>
     <!-- <p><strong>image:</strong> {{row.file_uri}}</p> -->

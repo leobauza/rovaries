@@ -1,28 +1,28 @@
 /* app/libs/btn */
 
 .site__main {
-  .test {
-    @include transition (max-height 1s, opacity .5s);
-    overflow: hidden;
-  }
+  @include transition (max-height .5s, opacity .5s);
+  overflow: hidden;
 
-  &.ng-enter .test {
-    transition-delay: 1.25s;
+  &.ng-enter {
+    transition-delay: 1s;
     max-height: 0;
+    //opacity: 0;
   }
 
-  &.ng-enter.ng-enter-active .test {
+  &.ng-enter.ng-enter-active {
+    max-height: 5000px;
+    //opacity: 1
+  }
+
+  &.ng-leave {
+    //opacity: 1;
     max-height: 5000px;
   }
 
-  &.ng-leave .test {
-    opacity: 1;
-    max-height: 5000px;
-  }
-
-  &.ng-leave.ng-leave-active .test {
+  &.ng-leave.ng-leave-active {
     max-height: 0;
-    opacity: 0;
+    //opacity: 0;
   }
 
 

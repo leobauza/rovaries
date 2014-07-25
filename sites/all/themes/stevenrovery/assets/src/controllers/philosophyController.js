@@ -9,18 +9,18 @@
   ['$scope', '$routeParams', 'page',
   function ($scope, $routeParams, page) {
 
-
     var node = page.node,
         name = $routeParams.name || null,
-        slider = node.composed_fields.field_philosophy_slider,
+        slider = node.collections_fields,
         slider_size = _.size(slider);
-        phil_boxes = node.composed_fields.field_philosophy_slider,
+        phil_boxes = node.collections_fields,
         si = 1, //slide iterator
         groups = {}, //group boxes together
         i = 0, //individual iterator for boxes
         gi = 0; //groups iterator
 
     //true or false decides whether to show the slider or front page
+
     $scope.slider_philosophy = name;
 
 

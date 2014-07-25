@@ -16,18 +16,64 @@ function getNode($id) {
   }
   $fields->custom_fields = array();
   $fields->composed_fields = array();
-
+  $fields->collections_fields = array();
   //bundle for use in _manageComposed
   $bundle = $fields->type;
+  $lang = $fields->language;
 
   foreach ($fields as $field => $value) {
     if (strpos($field, 'field_') !== FALSE && !empty($value)) {
       //get field information and field type to manage composed fields
       $field_info = field_info_field($field);
       $field_type = $field_info['type'];
-      if ($field_type === 'composed_field') {
+
+      if ($field_type === 'field_collection') {
+        //return $value;
+        $field_collection_data = field_view_field('node', $fields, $field);
+        $field_collection_items = $field_collection_data['#items'];
+
+
+        foreach ($field_collection_items as $field_collection_item) {
+
+          $key = $field_collection_item['value'];
+          $collection = entity_load('field_collection_item', array($field_collection_item['value']));
+          $collection = $collection[$key];
+
+          if (isset($collection->field_description)) {
+            $collection->desc = $collection->field_description[$lang][0]['safe_value'];
+            unset($collection->field_description);
+          }
+          if (isset($collection->field_work_image)) {
+            $collection_img = $collection->field_work_image[$lang][0]['uri'];
+            $collection->img = file_create_url($collection_img);
+            unset($collection->field_work_image);
+          }
+
+
+          if (isset($collection->field_slide_title)) {
+            $collection->title = $collection->field_slide_title[$lang][0]['safe_value'];
+            unset($collection->field_slide_title);
+          }
+          if (isset($collection->field_slide_body)) {
+            $collection->body = $collection->field_slide_body[$lang][0]['safe_value'];
+            unset($collection->field_slide_body);
+          }
+          if (isset($collection->field_slide_image)) {
+            if (isset($collection->field_slide_image[$lang])) {
+              $collection_img = $collection->field_slide_image[$lang][0]['uri'];
+              $collection->img = file_create_url($collection_img);
+            }
+            unset($collection->field_slide_image);
+          }
+
+
+          $fields->collections_fields[] = $collection; //(integer)$field_collection_item['value'];
+        }
+
+
+      } else if ($field_type === 'composed_field') {
       //if (strpos($field, '_composed') !== FALSE) {
-        _manageComposed($field, $fields, $bundle);
+        _manageComposed($field, $fields, $bundle, $field_type);
       } else {
         if ($field === 'field_resume') {
 
@@ -80,6 +126,7 @@ function getNode($id) {
  * to work with. (e.g. unserializes the array for you)
  */
 function _manageComposed($field, $fields, $bundle) {
+
 
   //THIS GIVES YOU INFORMATION ABOUT THE COMPOSED FIELD
   $types = field_info_instance($entity_type='node', $field_name=$field, $bundle_name=$bundle);

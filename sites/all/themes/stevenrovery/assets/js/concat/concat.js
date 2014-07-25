@@ -15,19 +15,19 @@
 
   var app = angular.module('app');
 
-  app.animation('.site__main', ['$rootScope', function ($rootScope) {
-    console.log($rootScope);
-    return {
-      enter: function (element, done) {
-        console.log(element);
-      },
-      leave: function (element, done) {
-        console.log(element);
-        done();
-      }
-    };
-
-  }]);
+  // app.animation('.site__main', ['$rootScope', function ($rootScope) {
+  //   console.log($rootScope);
+  //   return {
+  //     enter: function (element, done) {
+  //       console.log(element);
+  //     },
+  //     leave: function (element, done) {
+  //       console.log(element);
+  //       done();
+  //     }
+  //   };
+  //
+  // }]);
 
 })();
 (function (bs) {
@@ -263,18 +263,18 @@
   ['$scope', '$routeParams', 'page',
   function ($scope, $routeParams, page) {
 
-
     var node = page.node,
         name = $routeParams.name || null,
-        slider = node.composed_fields.field_philosophy_slider,
+        slider = node.collections_fields,
         slider_size = _.size(slider);
-        phil_boxes = node.composed_fields.field_philosophy_slider,
+        phil_boxes = node.collections_fields,
         si = 1, //slide iterator
         groups = {}, //group boxes together
         i = 0, //individual iterator for boxes
         gi = 0; //groups iterator
 
     //true or false decides whether to show the slider or front page
+
     $scope.slider_philosophy = name;
 
 
@@ -418,8 +418,9 @@
 
     //request individual project page
     Page.get({'nid':$scope.nid}, function (page) {
+
       var custom = page.node.custom_fields,
-          composed = page.node.composed_fields;
+          composed = page.node.collections_fields;
 
       //<title>
       $scope.setSiteTitle(page.node.title);
@@ -444,7 +445,7 @@
       $scope.project_title = page.node.title;
       $scope.role = custom.field_role.value;
       $scope.tag = custom.field_tags.taxonomy_term.name;
-      $scope.rows = composed.field_project_rows;
+      $scope.rows = composed;
 
       //displaying all projects at the bottom
       var views = bs.views[base][view_name],

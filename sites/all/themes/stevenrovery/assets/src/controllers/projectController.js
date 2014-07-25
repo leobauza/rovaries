@@ -25,8 +25,9 @@
 
     //request individual project page
     Page.get({'nid':$scope.nid}, function (page) {
+
       var custom = page.node.custom_fields,
-          composed = page.node.composed_fields;
+          composed = page.node.collections_fields;
 
       //<title>
       $scope.setSiteTitle(page.node.title);
@@ -51,7 +52,7 @@
       $scope.project_title = page.node.title;
       $scope.role = custom.field_role.value;
       $scope.tag = custom.field_tags.taxonomy_term.name;
-      $scope.rows = composed.field_project_rows;
+      $scope.rows = composed;
 
       //displaying all projects at the bottom
       var views = bs.views[base][view_name],
