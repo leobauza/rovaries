@@ -17,6 +17,12 @@
 
       })
 
+      .when('/home', {
+
+        redirectTo: '/'
+
+      })
+
       .when('/philosophy', {
         templateUrl: bs.tplsPath + '/philosophy.html',
         controller: 'PhilCtrl',

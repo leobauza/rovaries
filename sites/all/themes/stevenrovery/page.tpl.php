@@ -56,26 +56,105 @@ if (!$variables['logged_in'] && $current_path === '/login') {
 
 <div class="loading" ng-cloak></div>
 
-<script>
-  //bootstrap the data so no initial ajax call is required
 
-  /**
-   * Node contains all the information about blocks and views so no querie
-   * string is needed just the request for the page and node ID
-   * Something should contain some global data gotten from the theme settings or
-   * something like that...in steve's site this would be used for the homepage text,
-   * the title of the site and the contact footer bit...
-   */
+
+
+
+<?php
+
+  function multiRequest($data, $options = array()) {
+
+    // array of curl handles
+    $curly = array();
+    // data to be returned
+    $result = array();
+
+    // multi handle
+    $mh = curl_multi_init();
+
+    // loop through $data and create curl handles
+    // then add them to the multi-handle
+    foreach ($data as $id => $d) {
+
+      $curly[$id] = curl_init();
+
+      $url = (is_array($d) && !empty($d['url'])) ? $d['url'] : $d;
+      curl_setopt($curly[$id], CURLOPT_URL,            $url);
+      curl_setopt($curly[$id], CURLOPT_HEADER,         0);
+      curl_setopt($curly[$id], CURLOPT_RETURNTRANSFER, 1);
+
+      // post?
+      if (is_array($d)) {
+        if (!empty($d['post'])) {
+          curl_setopt($curly[$id], CURLOPT_POST,       1);
+          curl_setopt($curly[$id], CURLOPT_POSTFIELDS, $d['post']);
+        }
+      }
+
+      // extra options?
+      if (!empty($options)) {
+        curl_setopt_array($curly[$id], $options);
+      }
+
+      curl_multi_add_handle($mh, $curly[$id]);
+    }
+
+    // execute the handles
+    $running = null;
+    do {
+      curl_multi_exec($mh, $running);
+    } while($running > 0);
+
+
+    // get content and remove handles
+    foreach($curly as $id => $c) {
+      $result[$id] = curl_multi_getcontent($c);
+      curl_multi_remove_handle($mh, $c);
+    }
+
+    // all done
+    curl_multi_close($mh);
+
+    return $result;
+
+  } //end multi
+
+  if (isset($node_info)) {
+    $api_urls = array(
+      "{$base_url}/api/page/{$node_info['nid']}",
+      "{$base_url}/api/view/ux_projects",
+      "{$base_url}/api/view/design_projects"
+    );
+  } else {
+    $api_urls = array(
+      "{$base_url}/api/menu/main-menu",
+      "{$base_url}/api/view/ux_projects",
+      "{$base_url}/api/view/design_projects"
+    );
+  }
+
+  $r = multiRequest($api_urls);
+
+  // echo '<pre>';
+  // print_r($r);
+
+
+
+?>
+
+
+
+<script>
   <?php if (isset($node_info)) :?>
 
-  	var bootstrap = <?php echo file_get_contents("{$base_url}/api/page/{$node_info['nid']}",false,$context) ;?>;
+  	var bootstrap = <?php echo $r[0] ;?>;
     bootstrap.tplsPath = <?php echo "\"/{$path_to_theme}/templates\""; ?>;
 
   <?php else: ?>
 
     var bootstrap = {
       tplsPath: <?php echo "\"/{$path_to_theme}/templates\""; ?>,
-      menu: <?php echo file_get_contents("{$base_url}/api/menu/main-menu",false,$context); ?>,
+      menu: <?php echo $r[0]; ?>,
       node: {
         nid: 0
       }
@@ -90,8 +169,8 @@ if (!$variables['logged_in'] && $current_path === '/login') {
     phone: '<?php print theme_get_setting('contact_phone'); ?>'
   }
   bootstrap.views = {
-    ux: <?php echo file_get_contents("{$base_url}/api/view/ux_projects"); ?>,
-    design: <?php echo file_get_contents("{$base_url}/api/view/design_projects"); ?>
+    ux: <?php echo $r[1]; ?>,
+    design: <?php echo $r[2]; ?>
   }
 
 </script>

@@ -30,6 +30,12 @@
 
       })
 
+      .when('/home', {
+
+        redirectTo: '/'
+
+      })
+
       .when('/philosophy', {
         templateUrl: bs.tplsPath + '/philosophy.html',
         controller: 'PhilCtrl',
@@ -571,7 +577,9 @@
 
       //check that 'bootstrap' doesn't have this before doing a get request...
 
-      $http.get('/api/page/' + nid)
+      $http.get('/api/page/' + nid, {
+        cache: true
+      })
       .success(function (data) {
         d.resolve(data);
       })
