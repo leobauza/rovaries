@@ -6,11 +6,9 @@
    * Philosophy Controller
    */
   app.controller('PhilCtrl',
-  ['$scope', '$location', '$routeParams', 'Page', '$rootScope', '$cacheFactory', 'page',
-  function ($scope, $location, $routeParams, Page, $rootScope, $cacheFactory, page) {
+  ['$scope', '$routeParams', 'page',
+  function ($scope, $routeParams, page) {
 
-
-    console.log(page)
 
     var node = page.node,
         name = $routeParams.name || null,
@@ -25,8 +23,6 @@
     //true or false decides whether to show the slider or front page
     $scope.slider_philosophy = name;
 
-    //$scope.node = page.node;
-    //$scope.slider_size = _.size(slider);
 
     //update node id for navigation
     $scope.setNid(node.nid);

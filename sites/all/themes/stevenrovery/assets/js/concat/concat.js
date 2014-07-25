@@ -13,21 +13,21 @@
 
 (function () {
 
-  //var app = angular.module('app');
+  var app = angular.module('app');
 
-  // app.animation('.site__main', ['$rootScope', function ($rootScope) {
-  //   console.log($rootScope);
-  //   return {
-  //     enter: function (element, done) {
-  //       console.log(element);
-  //     },
-  //     leave: function (element, done) {
-  //       console.log("done", done);
-  //       done();
-  //     }
-  //   };
-  //
-  // }]);
+  app.animation('.site__main', ['$rootScope', function ($rootScope) {
+    console.log($rootScope);
+    return {
+      enter: function (element, done) {
+        console.log(element);
+      },
+      leave: function (element, done) {
+        console.log(element);
+        done();
+      }
+    };
+
+  }]);
 
 })();
 (function (bs) {
@@ -195,6 +195,7 @@
       //$rootScope.siteTitle = segment;
     };
 
+
     //contact block
     $scope.contactBlurb = bs.contactInfo.blurb;
     $scope.contactEmail = bs.contactInfo.email;
@@ -259,11 +260,9 @@
    * Philosophy Controller
    */
   app.controller('PhilCtrl',
-  ['$scope', '$location', '$routeParams', 'Page', '$rootScope', '$cacheFactory', 'page',
-  function ($scope, $location, $routeParams, Page, $rootScope, $cacheFactory, page) {
+  ['$scope', '$routeParams', 'page',
+  function ($scope, $routeParams, page) {
 
-
-    console.log(page)
 
     var node = page.node,
         name = $routeParams.name || null,
@@ -278,8 +277,6 @@
     //true or false decides whether to show the slider or front page
     $scope.slider_philosophy = name;
 
-    //$scope.node = page.node;
-    //$scope.slider_size = _.size(slider);
 
     //update node id for navigation
     $scope.setNid(node.nid);

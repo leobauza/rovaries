@@ -5,7 +5,10 @@
 
 function mymodule_form_node_form_alter(&$form, $form_state, $form_id) {
 
+
+
   // $form['field_test_composed'][$lang][0]['composed'][2]['#upload_location'] = 'public://test/';
+
 
   if (isset($form['field_project_rows'])) {
     $field_name = 'field_project_rows';
@@ -19,20 +22,56 @@ function mymodule_form_node_form_alter(&$form, $form_state, $form_id) {
     _change_upload_location($form, $field_name, $upload_location);
   }
 
-  //dpm($file_ids);
-
-  //dpm($form_state);
-
   //dpm($form['field_test_composed'][$lang][0]['composed']);
   //$serialized = $form_state['node']->field_test_composed['und'][0]['composed'];
   //dpm(unserialize($serialized));
 
 }
 
+function mymodule_file_insert ($file) {
 
-function mymodule_node_submit($node, $form, &$form_state) {
+  // if ($file->status === 0) {
+  //   $file->status = FILE_STATUS_PERMANENT;
+  //   file_usage_add($file, 'file', 'file', $file->fid);
+  //   file_save($file);
+  // }
 
-  $lang = $form['language']['#value'];
+}
+
+
+function mymodule_node_submit ($node, $form, &$form_state) {
+
+
+  //
+  // $lang = $node->language;
+  //
+  // if (isset($node->field_project_rows)) {
+  //
+  //   $rows = $node->field_project_rows[$lang];
+  //
+  //   //dpm($rows);
+  //
+  //   foreach ($rows as $row) {
+  //
+  //     $file_id = $row['composed'][2];
+  //
+  //     if ($file_id !== 0) {
+  //       $file = file_load($file_id);
+  //       if ($file->status === '0') {
+  //         $file->status = FILE_STATUS_PERMANENT;
+  //         file_save($file);
+  //         file_usage_add($file, 'file', 'node', $node->nid);
+  //       }
+  //     }
+  //
+  //   }
+  //
+  // }
+  //
+  //
+  //
+  //
+  // $lang = $form['language']['#value'];
 
 }
 

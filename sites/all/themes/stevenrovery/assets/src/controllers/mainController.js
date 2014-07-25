@@ -18,6 +18,7 @@
       //$rootScope.siteTitle = segment;
     };
 
+
     //contact block
     $scope.contactBlurb = bs.contactInfo.blurb;
     $scope.contactEmail = bs.contactInfo.email;
