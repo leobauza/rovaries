@@ -42,27 +42,87 @@
 
     .when('/resume', {
       templateUrl: bs.tplsPath + '/resume.html',
-      controller: 'ResumeCtrl'
+      controller: 'ResumeCtrl',
+
+      resolve: {
+        "page" : ['Resolver', function (Resolver) {
+          return Resolver.get('/resume');
+        }]
+      }
+
     })
 
     .when('/design', {
       templateUrl: bs.tplsPath + '/projects.html',
-      controller: 'ProjectsCtrl'
+      controller: 'ProjectsCtrl',
+
+      resolve: {
+        "page" : ['Resolver', function (Resolver) {
+          return Resolver.get('/design');
+        }]
+      }
+
     })
 
     .when('/ux', {
       templateUrl: bs.tplsPath + '/projects.html',
-      controller: 'ProjectsCtrl'
+      controller: 'ProjectsCtrl',
+
+      resolve: {
+        "page" : ['Resolver', function (Resolver) {
+          return Resolver.get('/ux');
+        }]
+      }
+
+
     })
 
     .when('/ux/:name', {
       templateUrl: bs.tplsPath + '/project.html',
-      controller: 'ProjectCtrl'
+      controller: 'ProjectCtrl',
+
+      resolve: {
+        "page" : ['Resolver', '$route', function (Resolver, $route) {
+          return Resolver.getProject('/ux/' + $route.current.params.name);
+        }],
+        "project" : ['$route', function ($route) {
+          return _.find(bs.views.ux.ux_projects, function (data) {
+            return data.alias === 'ux' + '/' + $route.current.params.name;
+          });
+        }],
+        "data" : [function () {
+          return {
+            total_projects: _.size(bs.views.ux.ux_projects),
+            base: 'ux',
+            view_name: 'ux_projects',
+          }
+        }]
+      }
+
     })
 
     .when('/design/:name', {
       templateUrl: bs.tplsPath + '/project.html',
-      controller: 'ProjectCtrl'
+      controller: 'ProjectCtrl',
+
+      resolve: {
+        "page" : ['Resolver', '$route', function (Resolver, $route) {
+          return Resolver.getProject('/design/' + $route.current.params.name);
+        }],
+        "project" : ['$route', function ($route) {
+          return _.find(bs.views.design.design_projects, function (data) {
+            return data.alias === 'design' + '/' + $route.current.params.name;
+          });
+        }],
+        "data" : [function () {
+          return {
+            total_projects: _.size(bs.views.design.design_projects),
+            base: 'design',
+            view_name: 'design_projects',
+          }
+        }]
+      }
+
     })
 
     .when('/home', {
