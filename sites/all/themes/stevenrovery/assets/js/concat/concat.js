@@ -2,7 +2,6 @@
 
   var app = angular.module('app', [
     'ngRoute',
-    'ngResource',
     'ngSanitize',
     'btford.markdown',
     'ngAnimate'
@@ -193,43 +192,16 @@
    * Home Controller
    */
   app.controller('HomeCtrl',
-  ['$scope', '$location', 'page',
-  function ($scope, $location, page) {
+  ['$scope', 'page',
+  function ($scope, page) {
 
-    //getting node id should be a service...
-    //specially with the more complicated ones for projects
-    var nid = $scope.getNid($location.path());
-
-    console.log(nid);
 
     $scope.setSiteTitle('Home');
 
-    $scope.setNid(nid);
+    $scope.setNid(page.node.nid);
 
     $scope.outputHtml = page.node.body.safe_value;
 
-    // console.log("page", page);
-    //
-    // page.then(
-    // function (data) {
-    //   console.log(data);
-    //   $scope.outputHtml = data.node.body.safe_value;
-    // },
-    // function (error) {
-    //
-    // })
-
-    //console.log(page);
-
-    // Page.get({'nid':nid}, function (page) {
-    //
-    //   $scope.setSiteTitle('Home');
-    //
-    //   //update node id for navigation
-    //   $scope.setNid(nid);
-    //   $scope.outputHtml = page.node.body.safe_value;
-    //
-    // });
 
   }]);
 
@@ -243,8 +215,8 @@
    * Top Level Controller
    */
   app.controller('MainCtrl',
-  ['$scope', '$location', '$rootScope', '$timeout',
-  function ($scope, $location, $rootScope, $timeout) {
+  ['$scope', '$rootScope', '$timeout',
+  function ($scope, $rootScope, $timeout) {
 
     //browser title and header title
     $rootScope.siteTitle = bs.siteTitle;
@@ -334,7 +306,6 @@
         gi = 0; //groups iterator
 
     //true or false decides whether to show the slider or front page
-
     $scope.slider_philosophy = name;
 
 
@@ -381,7 +352,6 @@
 
     $scope.getNextSlide = function (id) {
 
-
       if (id + 1 > slider_size) {
         return _.where($scope.slider, {id: 1});
       } else {
@@ -389,63 +359,6 @@
       }
 
     };
-
-
-
-
-
-
-    // var location = $location.path(),
-    //     splitLoc = location.split('/'),
-    //     name = $routeParams.name || null,
-    //     nid = $scope.getNid('/' + splitLoc[1]);
-    //
-    // var cache = $cacheFactory.get('$http'),
-    //     page = cache.get('/api/page/' + nid);
-    //
-    // if (page) {
-    //   //console.log(JSON.parse(page[1]));
-    // }
-    //
-    // $scope.slider_philosophy = name; //true or false decides whether to show the slider or front page
-
-    // Page.get({'nid':nid}, function (page) {
-    //
-    //   //update node id for navigation
-    //   $scope.setNid(nid);
-    //   $scope.setSiteTitle(page.node.title);
-    //   $scope.setPageTitle(page.node.title);
-    //
-    //   //$scope.node = page.node;
-    //   var slider = page.node.composed_fields.field_philosophy_slider,
-    //       si = 1; //slide iterator
-    //
-    //   $scope.slider_size = _.size(slider);
-    //
-    //   $scope.slider = _.map(slider, function (slide) {
-    //     slide['id'] = si;
-    //     si += 1;
-    //     return slide;
-    //   });
-    //
-    //
-    //
-    //   var phil_boxes = page.node.composed_fields.field_philosophy_slider,
-    //       groups = {},
-    //       i = 0, //iterator
-    //       gi = 0; //group iterator
-    //
-    //   _.each(phil_boxes, function (box) {
-    //     (i % 3 === 0)? gi += 1 : gi = gi; //increase group iterator by one every 3
-    //     groups[gi] = groups[gi] || {}; //make sure it exists
-    //     groups[gi][i] = box; //add view to right group
-    //     i += 1; //increase iterator by one
-    //   });
-    //
-    //   $scope.phil_groups = groups;
-    //
-    // });
-    //
 
 
   }]);
@@ -459,8 +372,8 @@
    * Design Controller
    */
   app.controller('ProjectCtrl',
-  ['$scope', '$location', 'Page', 'page', 'project', 'data',
-  function ($scope, $location, Page, page, project, data) {
+  ['$scope', 'page', 'project', 'data',
+  function ($scope, page, project, data) {
 
     var custom = page.node.custom_fields,
         composed = page.node.collections_fields,
@@ -511,77 +424,6 @@
     $scope.projects = views;
 
 
-
-
-
-
-
-
-    //set location vars
-    // var loc = $location.path(),
-    //     base = loc.split('/')[1],
-    //     view_name = base + '_projects',
-    //     node_title = loc.split('/')[2],
-    //     totalProjects = _.size(bs.views[base][view_name]),
-    //     project = $scope.getProjectNid(base, view_name, node_title),
-    //     nid = project.nid;
-    //
-    //
-    // //get nid from url and set scope's nid
-    // $scope.setNid(nid);
-    // $scope.base = base;
-    //
-    // //request individual project page
-    // Page.get({'nid':$scope.nid}, function (page) {
-    //
-    //   var custom = page.node.custom_fields,
-    //       composed = page.node.collections_fields;
-    //
-    //   //<title>
-    //   $scope.setSiteTitle(page.node.title);
-    //
-    //   //<header>
-    //   $scope.setPageTitle(custom.field_tags.taxonomy_term.name);
-    //   //get previous project
-    //   if (project.pos - 1 !== 0) {
-    //     $scope.prevProject = $scope.getNeighbourProject(base, view_name, project.pos - 1);
-    //   } else {
-    //     $scope.prevProject = $scope.getNeighbourProject(base, view_name, totalProjects);
-    //   }
-    //
-    //   //get next project
-    //   if (project.pos + 1 > totalProjects) {
-    //     $scope.nextProject = $scope.getNeighbourProject(base, view_name, 1);
-    //   } else {
-    //     $scope.nextProject = $scope.getNeighbourProject(base, view_name, project.pos + 1);
-    //   }
-    //
-    //   //<article>
-    //   $scope.project_title = page.node.title;
-    //   $scope.role = custom.field_role.value;
-    //   $scope.tag = custom.field_tags.taxonomy_term.name;
-    //   $scope.rows = composed;
-    //
-    //   //displaying all projects at the bottom
-    //   var views = bs.views[base][view_name],
-    //       groups = {},
-    //       i = 0, //iterator
-    //       gi = 0; //group iterator
-    //
-    //   _.each(views, function (view) {
-    //     (i % 3 === 0)? gi += 1 : gi = gi; //increase group iterator by one every 3
-    //     groups[gi] = groups[gi] || {}; //make sure it exists
-    //     groups[gi][i] = view; //add view to right group
-    //     i += 1; //increase iterator by one
-    //   });
-    //
-    //
-    //   $scope.groups = groups;
-    //   $scope.projects = views;
-    //
-    // });
-
-
   }]);
 
 })(bootstrap);
@@ -593,8 +435,8 @@
    * Design Controller
    */
   app.controller('ProjectsCtrl',
-  ['$scope', '$location', 'Page', '$routeParams', 'page',
-  function ($scope, $location, Page, $routeParams, page) {
+  ['$scope', 'page',
+  function ($scope, page) {
 
     var nid = page.node.nid;
 
@@ -638,8 +480,8 @@
    * Home Controller
    */
   app.controller('ResumeCtrl',
-  ['$scope', '$location', 'Page', '$rootScope', 'page',
-  function ($scope, $location, Page, $rootScope, page) {
+  ['$scope', 'page',
+  function ($scope, page) {
 
     var composed = page.node.composed_fields,
         custom = page.node.custom_fields,
@@ -695,22 +537,6 @@
 (function (bs) {
 
   var app = angular.module('app');
-
-  /**
-   * API Services
-   */
-  app.factory('Page',
-  ['$resource',
-  function ($resource) {
-
-    return $resource('/api/page/:nid', {}, {
-      get: {
-        cache: true,
-        method: 'GET'
-      }
-    });
-
-  }]);
 
   app.service('Resolver', ['$http', '$q', function ($http, $q) {
 

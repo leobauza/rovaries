@@ -6,8 +6,8 @@
    * Top Level Controller
    */
   app.controller('MainCtrl',
-  ['$scope', '$location', '$rootScope', '$timeout',
-  function ($scope, $location, $rootScope, $timeout) {
+  ['$scope', '$rootScope', '$timeout',
+  function ($scope, $rootScope, $timeout) {
 
     //browser title and header title
     $rootScope.siteTitle = bs.siteTitle;

@@ -6,8 +6,8 @@
    * Design Controller
    */
   app.controller('ProjectsCtrl',
-  ['$scope', '$location', 'Page', '$routeParams', 'page',
-  function ($scope, $location, Page, $routeParams, page) {
+  ['$scope', 'page',
+  function ($scope, page) {
 
     var nid = page.node.nid;
 

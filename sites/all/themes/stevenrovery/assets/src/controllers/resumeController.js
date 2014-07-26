@@ -5,8 +5,8 @@
    * Home Controller
    */
   app.controller('ResumeCtrl',
-  ['$scope', '$location', 'Page', '$rootScope', 'page',
-  function ($scope, $location, Page, $rootScope, page) {
+  ['$scope', 'page',
+  function ($scope, page) {
 
     var composed = page.node.composed_fields,
         custom = page.node.custom_fields,
