@@ -26,6 +26,18 @@ module.exports = function(grunt) {
           '<%= path %>/assets/src/**/*.js'
         ],
         dest: '<%= path %>/assets/js/concat/concat.js'
+      },
+      libs: {
+        src: [
+          '<%= path %>/vendor/**/angular.js',
+          '<%= path %>/vendor/**/angular-animate.js',
+          '<%= path %>/vendor/**/angular-route.js',
+          '<%= path %>/vendor/**/angular-sanitize.js',
+          '<%= path %>/vendor/**/showdown.js',
+          '<%= path %>/vendor/**/markdown.js',
+          '<%= path %>/vendor/**/underscore.js',
+        ],
+        dest: '<%= path %>/assets/js/concat/concat-libs.js'
       }
     },
 

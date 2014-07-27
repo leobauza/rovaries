@@ -59,8 +59,17 @@ function stevenrovery_css_alter(&$css) {
 		'modules/tracker/tracker.css' => FALSE,
 		'modules/update/update.css' => FALSE,
 		'modules/user/user.css' => FALSE,
+
+		'modules/field/theme/field.css' => FALSE,
+		'modules/shortcut/shortcut.css' => FALSE,
+		'sites/all/modules/contrib/ctools/css/ctools.css' => FALSE,
+		'sites/all/modules/contrib/views/css/views.css' => FALSE,
 	);
 	$css = array_diff_key($css, $exclude);
+
+	// unset($css[drupal_get_path('module','views').'/css/views.css']);
+	// unset($css[drupal_get_path('module','ctools').'/css/ctools.css']);
+
 }
 
 /**
@@ -74,9 +83,25 @@ function stevenrovery_js_alter(&$js) {
     $js['misc/jquery.js']['data'] = $jquery_path ;
 		$js['misc/jquery.js']['version'] = '1.8.3' ;
 		$js['misc/jquery.js']['type'] = 'external' ;
+
+		// unset($js['misc/jquery.js']);
+		// unset($js['misc/jquery.once.js']);
+		// unset($js['misc/drupal.js']);
+
+		//dpm($js);
+
     // print "<pre>";
     // print_r($js);
     // print "</pre>";
+
+
+		// $jquery_path = '';
+    // $js['misc/jquery.js']['data'] = $jquery_path ;
+		//$js['misc/jquery.js']['version'] = '1.8.3' ;
+		//$js['misc/jquery.js']['type'] = 'external' ;
+
+
+
 	}
 }
 

@@ -29,6 +29,7 @@
     })
 
     .when('/philosophy/:name', {
+      //reloadOnSearch: false,
       templateUrl: bs.tplsPath + '/philosophy.html',
       controller: 'PhilCtrl',
 
