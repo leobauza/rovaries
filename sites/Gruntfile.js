@@ -44,7 +44,8 @@ module.exports = function(grunt) {
     uglify: {
       script: {
         files: {
-          '<%= path %>/assets/js/min/script.min.js' : '<%= path %>/assets/js/concat/concat.js'
+          '<%= path %>/assets/js/min/script.min.js' : '<%= path %>/assets/js/concat/concat.js',
+          '<%= path %>/assets/js/min/script-libs.min.js' : '<%= path %>/assets/js/concat/concat-libs.js'
         }
       }
     },

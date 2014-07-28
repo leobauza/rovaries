@@ -102,3 +102,59 @@
 		padding: 0 0 26px;
 	}
 }
+
+@media (max-width: 43.75em) { //700px
+
+	.projects-listing__item {
+		position: relative;
+		img {
+			@include square(100%, auto);
+			position: static;
+			top: auto;
+			left: auto;
+			display: block;
+			margin-bottom: 10px;
+		}
+		a {
+			padding: 0;
+			height: auto;
+			display: block;
+			border: none;
+		}
+		.inner {
+			@include square(auto, auto);
+			background: none;
+			position: static;
+			overflow: visible;
+			top: auto;
+			left: auto;
+	    display: block;
+		}
+		h2 {
+			display: block;
+			margin: 0;
+			height: auto;
+			width: auto;
+			font-size: $mh2;
+			color: $text_colour;
+			.text {
+				display: block;
+			}
+			.sub-title {
+				font-size: .75em;
+			}
+		}
+		.border {
+			display: none;
+		}
+	}
+
+
+
+
+
+}
+
+
+
+

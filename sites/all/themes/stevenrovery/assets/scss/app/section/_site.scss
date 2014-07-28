@@ -4,6 +4,7 @@
 	padding: 49px 0px 53px;
 	margin: 0 auto;
 	p {
+		text-align: center;
 		font-size: 3.8em;
 		line-height: 1.5em;
 		margin: 0;
@@ -166,3 +167,14 @@
 		display: block;
 	}
 }
+
+@media (max-width: 43.75em) { //700px
+	.intro {
+		width: 97%;
+		padding: 40px 0;
+		p {
+			font-size: 2.1em;
+		}
+	}
+}
+

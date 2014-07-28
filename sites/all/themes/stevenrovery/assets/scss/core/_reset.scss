@@ -196,3 +196,37 @@ footer,
 [class*="-group"] {
 	@extend %group;
 }
+
+
+@media (max-width: 43.75em) { //700px
+
+	h1, .h1,
+	h2, .h2,
+	h3, .h3,
+	h4, .h4,
+	h5, .h5,
+	h6, .h6 {
+
+	}
+	h1, .h1 {
+		font-size: $mh1;
+		letter-spacing: 3px;
+	}
+	h2, .h2 {
+		font-size: $mh2;
+	}
+	h3, .h3 {
+		font-size: $mh3;
+	}
+	h4, .h4 {
+		font-size: $mh4;
+	}
+	h5, .h5 {
+		font-size: $mh5;
+	}
+	h6, .h6 {
+		font-size: $mh6;
+	}
+
+
+}

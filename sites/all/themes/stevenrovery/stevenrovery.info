@@ -26,8 +26,8 @@ stylesheets[all][] = assets/css/styles.css
 ;scripts[] = vendor/showdown/compressed/showdown.js
 ;scripts[] = vendor/angular-markdown-directive/markdown.js
 
-scripts[] = assets/js/concat/concat-libs.js
-scripts[] = assets/js/concat/concat.js
+scripts[] = assets/js/min/script-libs.min.js
+scripts[] = assets/js/min/script.min.js
 
 ;settings
 settings[contact_blurb] = I am available for Information Architecture and Art Direction opportunities in the Northern Virginia & D.C. Metro area.

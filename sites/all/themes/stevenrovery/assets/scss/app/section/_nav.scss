@@ -37,3 +37,13 @@
 	}
 
 }
+
+
+@media (max-width: 43.75em) { //700px
+	.site__nav {
+		a {
+			font-size: $mh1;
+			padding: 8px; //??
+		}
+	}
+}

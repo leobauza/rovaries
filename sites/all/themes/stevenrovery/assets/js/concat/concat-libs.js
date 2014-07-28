@@ -26564,7 +26564,7 @@ angular.module('btford.markdown', ['ngSanitize']).
       }
     };
   }).
-  directive('btfMarkdown', function ($sanitize, markdownConverter) {
+  directive('btfMarkdown', ['$sanitize', 'markdownConverter', function ($sanitize, markdownConverter) {
     return {
       restrict: 'AE',
       link: function (scope, element, attrs) {
@@ -26579,7 +26579,7 @@ angular.module('btford.markdown', ['ngSanitize']).
         }
       }
     };
-  });
+  }]);
 
 //     Underscore.js 1.6.0
 //     http://underscorejs.org

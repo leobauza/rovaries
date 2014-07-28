@@ -99,5 +99,49 @@
 	}
 }
 
+@media (max-width: 43.75em) { //700px
 
+	.slide__text {
+		position: static;
+		top: auto;
+		left: auto;
+		@include square(100%, auto);
+		.inner {
+			display: block;
+			@include square(100%, auto);
+		}
+		.slide__content {
+			display: block;
+			.background {
+				padding: 40px 70px;
+				background: $brand;
+			}
+			span {
+				display: block;
+				padding: 13px 16px 16px 0px;
+				border-right: 1px solid $white;
+				color: $white;
+				font-weight: 300;
+				float: left;
+				margin: 0;
+			}
+			h2 {
+				color: $white;
+				font-weight: 300;
+				float: left;
+				margin: 0;
+				padding: 0 30px 0 20px;
+			}
+			.description {
+				clear: both;
+				p {
+					color: $white;
+					margin: 0;
+					overflow: visible;
+				}
+			}
+		}
+	}
+
+}
 

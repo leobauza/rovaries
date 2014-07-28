@@ -27,3 +27,19 @@
     margin-bottom: 7px;
   }
 }
+
+
+@media (max-width: 43.75em) { //700px
+
+  .hamburger {
+    height: 18px;
+    width: 19px;
+    right: 10px;
+    padding: 9px 0px 0px;
+    span {
+      width: 19px;
+      margin-bottom: 6px;
+    }
+  }
+
+}
