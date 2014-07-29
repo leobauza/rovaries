@@ -101,6 +101,10 @@
 
 @media (max-width: 43.75em) { //700px
 
+	.next-slide, .prev-slide {
+		display: none;
+	}
+
 	.slide__text {
 		position: static;
 		top: auto;
@@ -113,12 +117,12 @@
 		.slide__content {
 			display: block;
 			.background {
-				padding: 40px 70px;
+				padding: 20px;
 				background: $brand;
 			}
 			span {
 				display: block;
-				padding: 13px 16px 16px 0px;
+				padding: 0px 12px 2px 0px;
 				border-right: 1px solid $white;
 				color: $white;
 				font-weight: 300;
@@ -128,12 +132,12 @@
 			h2 {
 				color: $white;
 				font-weight: 300;
-				float: left;
 				margin: 0;
-				padding: 0 30px 0 20px;
+				padding: 0 0px 0 12px;
 			}
 			.description {
 				clear: both;
+				padding-top: 10px;
 				p {
 					color: $white;
 					margin: 0;

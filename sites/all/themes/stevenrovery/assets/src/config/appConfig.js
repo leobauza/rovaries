@@ -29,7 +29,7 @@
     })
 
     .when('/philosophy/:name', {
-      //reloadOnSearch: false,
+      reloadOnSearch: false,
       templateUrl: bs.tplsPath + '/philosophy.html',
       controller: 'PhilCtrl',
 
@@ -152,7 +152,7 @@
     });
 
 
-    
+
 
 
   }]);

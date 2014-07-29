@@ -27,7 +27,8 @@
 	}
 	.inner {
 		@include bgImg('bg_project_overlay.png', 0%, 0%, repeat);
-		@include square(100%, 100%);
+		@include square(98%, 100%);
+		padding: 0px 1%;
 		position: absolute;
 		overflow: hidden;
 		top: 0;

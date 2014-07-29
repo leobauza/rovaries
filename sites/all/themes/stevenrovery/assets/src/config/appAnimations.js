@@ -7,14 +7,20 @@
     var isNextPhilosophy, isCurrentPhilosophy;
     isCurrentPhilosophy = _.contains($location.path().split('/'), 'philosophy');
 
-    $rootScope.$on('$viewContentLoaded', function (event) {
-      //$rootScope.animationAux = 'loaded';
-    });
+    if (isCurrentPhilosophy) {
+      $rootScope.animationClass = 'animate--phil';
+    } else {
+      $rootScope.animationClass = 'animate';
+    }
 
+
+    /**
+     * Router has started changing the url
+     */
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
 
       //start a class to be taken off by $viewContentLoaded
-      //$rootScope.animationAux = 'pending';
+      $rootScope.animationAux = 'pending';
 
       var parts = next.split('/');
       isCurrentPhilosophy = _.contains(current.split('/'), 'philosophy');
@@ -43,14 +49,19 @@
 
     });
 
-    if (isCurrentPhilosophy) {
-      $rootScope.animationClass = 'animate--phil';
-    } else {
-      $rootScope.animationClass = 'animate';
-    }
+    /**
+     * View content has been loaded
+     */
+    $rootScope.$on('$viewContentLoaded', function (event) {
+      $rootScope.animationAux = null;
+    });
+
 
     return {
       enter: function (element, done) {
+
+        // var height = element[0].offsetHeight
+
         element.addClass('hide');
         $timeout(function () {
           element.removeClass('hide');

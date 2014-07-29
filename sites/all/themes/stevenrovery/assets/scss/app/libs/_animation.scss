@@ -1,11 +1,20 @@
 /* app/libs/btn */
 
+.site__main.pending {
+  @include bgImg('ajax-loader.gif');
+  height: 500px;
+  * {
+    visibility: hidden;
+  }
+}
+
 .site__main.animate {
   @include transition (max-height .5s, opacity .5s);
   overflow: hidden;
   max-height: 5000px;
 
   &.ng-enter {
+    background: none;
     transition-delay: .5s;
     // -webkit-transition-delay: 1s;
     max-height: 0;

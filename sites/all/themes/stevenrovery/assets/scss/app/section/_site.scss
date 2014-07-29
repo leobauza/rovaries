@@ -103,6 +103,9 @@
 //philosophy page
 .philosophy__body {
 	padding-bottom: 60px;
+	&.link__boxes {
+		padding-left: 0;
+	}
 }
 
 
