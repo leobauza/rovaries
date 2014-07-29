@@ -2,7 +2,7 @@
 
   var app = angular.module('app');
 
-  app.service('Resolver', ['$http', '$q', function ($http, $q) {
+  app.service('Resolver', ['$http', '$q', '$timeout', '$rootScope', function ($http, $q, $timeout, $rootScope) {
 
     this.get = function (route) {
 
@@ -48,6 +48,12 @@
         cache: true
       })
       .success(function (data) {
+        //console.log(data.node.collections_fields);
+
+        // _.each(data.node.collections_fields, function (fields) {
+        //   fields.img = fields.img + "?v=1&cache=" + ( new Date() ).getTime();
+        // });
+
         d.resolve(data);
       })
       .error(function (err) {

@@ -1,100 +1,106 @@
 /* app/libs/btn */
 
-.site__main.pending {
+.view-parent {
+  @include transition (height .5s, opacity .5s);
+  overflow: hidden;
   @include bgImg('ajax-loader.gif');
-  height: 500px;
-  * {
-    visibility: hidden;
-  }
 }
 
-.site__main.animate {
-  @include transition (max-height .5s, opacity .5s);
-  overflow: hidden;
-  max-height: 5000px;
-
-  &.ng-enter {
-    background: none;
-    transition-delay: .5s;
-    // -webkit-transition-delay: 1s;
-    max-height: 0;
-    //opacity: 0;
-  }
-
-  &.ng-enter.ng-enter-active {
-    max-height: 5000px;
-    //opacity: 1
-  }
-
-  &.ng-leave {
-    //opacity: 1;
-    max-height: 5000px;
-  }
-
-  &.ng-leave.ng-leave-active {
-    max-height: 0;
-    //opacity: 0;
-  }
-
-
+.site__main {
+  background: $white;
+}
+.site__main.pending {
+  //height: 500px;
+  visibility: hidden;
 }
 
-
-.site__main.animate--transition-in {
-
-  @include transition (max-height .5s, opacity .5s);
-  overflow: hidden;
-  opacity: 1;
-  &.ng-enter {
-    transition-delay: .5s;
-    max-height: 0;
-    //opacity: 0;
-  }
-
-  &.ng-enter.ng-enter-active {
-    max-height: 5000px;
-    //opacity: 1
-  }
-
-  &.ng-leave {
-    //opacity: 1;
-    //display: none;
-    //max-height: 5000px;
-  }
-
-  &.ng-leave.ng-leave-active {
-    //max-height: 0;
-    //opacity: 0;
-  }
-
-}
-
-
-
-.site__main.animate--phil {
-  @include transition (max-height .5s, opacity .5s);
-  overflow: visible;
-  opacity: 1;
-  &.ng-enter {
-    transition-delay: .5s;
-    opacity: 0;
-    &.hide {
-      position: absolute;
-    }
-  }
-
-  &.ng-enter.ng-enter-active {
-    display: block;
-    opacity: 1;
-  }
-
-  &.ng-leave {
-    opacity: 1;
-  }
-
-  &.ng-leave.ng-leave-active {
-    opacity: 0;
-  }
+// .site__main.animate {
+//   @include transition (max-height .5s, opacity .5s);
+//   overflow: hidden;
+//   max-height: 5000px;
+//
+//   &.ng-enter {
+//     //background: none;
+//     transition-delay: .5s;
+//     // -webkit-transition-delay: 1s;
+//     //max-height: 0;
+//     //opacity: 0;
+//   }
+//
+//   &.ng-enter.ng-enter-active {
+//     max-height: 5000px;
+//     //opacity: 1
+//   }
+//
+//   &.ng-leave {
+//     //opacity: 1;
+//     max-height: 5000px;
+//   }
+//
+//   &.ng-leave.ng-leave-active {
+//     max-height: 0;
+//     //opacity: 0;
+//   }
+//
+//
+// }
 
 
-}
+// .site__main.animate--transition-in {
+//
+//   @include transition (max-height .5s, opacity .5s);
+//   overflow: hidden;
+//   opacity: 1;
+//   &.ng-enter {
+//     transition-delay: .5s;
+//     max-height: 0;
+//     //opacity: 0;
+//   }
+//
+//   &.ng-enter.ng-enter-active {
+//     max-height: 5000px;
+//     //opacity: 1
+//   }
+//
+//   &.ng-leave {
+//     //opacity: 1;
+//     //display: none;
+//     //max-height: 5000px;
+//   }
+//
+//   &.ng-leave.ng-leave-active {
+//     //max-height: 0;
+//     //opacity: 0;
+//   }
+//
+// }
+
+
+
+// .site__main.animate--phil {
+//   @include transition (max-height .5s, opacity .5s);
+//   overflow: visible;
+//   opacity: 1;
+//   &.ng-enter {
+//     transition-delay: .5s;
+//     opacity: 0;
+//     &.hide {
+//       position: absolute;
+//     }
+//   }
+//
+//   &.ng-enter.ng-enter-active {
+//     display: block;
+//     opacity: 1;
+//   }
+//
+//   &.ng-leave {
+//     opacity: 1;
+//   }
+//
+//   &.ng-leave.ng-leave-active {
+//     opacity: 0;
+//   }
+//
+//
+// }
