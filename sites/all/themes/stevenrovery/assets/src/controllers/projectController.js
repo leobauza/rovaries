@@ -53,7 +53,7 @@
       i += 1; //increase iterator by one
     });
 
-
+    $scope.base = base;
     $scope.groups = groups;
     $scope.projects = views;
 

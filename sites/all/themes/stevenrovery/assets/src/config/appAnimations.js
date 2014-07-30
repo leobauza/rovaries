@@ -110,9 +110,7 @@
         // var height = element[0].offsetHeight
         //console.log(height);
         // element.height(height);
-        // element.height(0);
-
-
+        element.height(0);
 
         // if (!isNextPhilosophy && isCurrentPhilosophy) {
         //   element.addClass('animate');
@@ -121,8 +119,6 @@
 
         done();
       }
-
-
 
     };
 

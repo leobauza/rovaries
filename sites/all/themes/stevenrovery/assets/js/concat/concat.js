@@ -122,9 +122,7 @@
         // var height = element[0].offsetHeight
         //console.log(height);
         // element.height(height);
-        // element.height(0);
-
-
+        element.height(0);
 
         // if (!isNextPhilosophy && isCurrentPhilosophy) {
         //   element.addClass('animate');
@@ -133,8 +131,6 @@
 
         done();
       }
-
-
 
     };
 
@@ -537,7 +533,7 @@
       i += 1; //increase iterator by one
     });
 
-
+    $scope.base = base;
     $scope.groups = groups;
     $scope.projects = views;
 

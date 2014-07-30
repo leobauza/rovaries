@@ -2,22 +2,24 @@
   <h1>{{page_title}}</h1>
 </header>
 
-<ul ng-hide="mobile" ng-repeat="group in groups" class="row projects-listing">
-  <li ng-class="{f: $first, l: $last}" ng-repeat="project in group" class="span4 projects-listing__item">
-    <img alt="{{project.node_title}}" ng-src="{{project.field_field_image}}">
-    <a href="/{{project.alias}}">
-      <div class="inner">
-        <h2>
-          <span class="text">
-            {{project.node_title}}
-            <span class="sub-title">{{project.field_field_role[0].raw.value}}</span>
-          </span>
-        </h2>
-        <i class="border"></i>
-      </div>
-    </a>
-  </li>
-</ul>
+<section class="projects-listing-wrap">
+  <ul ng-hide="mobile" ng-repeat="group in groups" class="row projects-listing">
+    <li ng-class="{f: $first, l: $last}" ng-repeat="project in group" class="span4 projects-listing__item">
+      <img alt="{{project.node_title}}" ng-src="{{project.field_field_image}}">
+      <a href="/{{project.alias}}">
+        <div class="inner">
+          <h2>
+            <span class="text">
+              {{project.node_title}}
+              <span class="sub-title">{{project.field_field_role[0].raw.value}}</span>
+            </span>
+          </h2>
+          <i class="border"></i>
+        </div>
+      </a>
+    </li>
+  </ul>
+</section>
 
 <ul ng-show="mobile" class="projects-listing">
   <li ng-repeat="project in projects" class="projects-listing__item">
