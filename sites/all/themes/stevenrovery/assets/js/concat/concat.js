@@ -640,17 +640,16 @@
     return function ($scope) {
 
       if ($window.innerWidth <= 700) {
-        $rootScope.mobile = true;
+        console.log("start mobile");
+        $rootScope.mobile = $window.innerWidth;
       } else {
         $rootScope.mobile = null;
       }
 
       angular.element($window).bind('resize', function () {
         if ($window.innerWidth <= 700) {
-          console.log("mobile true");
-          $rootScope.mobile = true;
+          $rootScope.mobile = $window.innerWidth;;
         } else {
-          console.log("mobile false");
           $rootScope.mobile = null;
         }
 
