@@ -59,7 +59,7 @@
 
       resolve: {
         "page" : ['Resolver', function (Resolver) {
-          return Resolver.get('/design');
+          return Resolver.getProjects('/design');
         }]
       }
 
@@ -71,7 +71,7 @@
 
       resolve: {
         "page" : ['Resolver', function (Resolver) {
-          return Resolver.get('/ux');
+          return Resolver.getProjects('/ux');
         }]
       }
 

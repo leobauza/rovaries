@@ -30,23 +30,23 @@ function getPage($id) {
   //I don't need get parameters at all because I have all the
   //node information!!
   $node_lang = $node->language;
-  if (isset($node->assoc_views) && isset($node->assoc_views[$node_lang])) {
-    $views = $node->assoc_views[$node_lang][0]['value'];
-    $views = getViews($views);
-  } else {
-    $views = 'no views or not a type that supports views';
-  }
+  // if (isset($node->assoc_views) && isset($node->assoc_views[$node_lang])) {
+  //   $views = $node->assoc_views[$node_lang][0]['value'];
+  //   $views = getViews($views);
+  // } else {
+  //   $views = 'no views or not a type that supports views';
+  // }
 
-  if (isset($node->assoc_blocks) && isset($node->assoc_blocks[$node_lang])) {
-    $blocks = $node->assoc_blocks[$node_lang][0]['value'];
-    $block_parts = explode(':', $blocks);
-    $blocks = getBlock($blocks);
-    $blocks = array(
-      $block_parts[1] => $blocks
-    );
-  } else {
-    $blocks = 'no blocks or not a type that supports blocks';
-  }
+  // if (isset($node->assoc_blocks) && isset($node->assoc_blocks[$node_lang])) {
+  //   $blocks = $node->assoc_blocks[$node_lang][0]['value'];
+  //   $block_parts = explode(':', $blocks);
+  //   $blocks = getBlock($blocks);
+  //   $blocks = array(
+  //     $block_parts[1] => $blocks
+  //   );
+  // } else {
+  //   $blocks = 'no blocks or not a type that supports blocks';
+  // }
 
 
   //return $node->assoc_blocks;
@@ -55,8 +55,8 @@ function getPage($id) {
     'querie' => $g['q'],
     'node' => $node,
     'menu' => $menu,
-    'blocks' => $blocks,
-    'views' => $views
+    // 'blocks' => $blocks,
+    // 'views' => $views
   );
 
   if (isset($_GET['views'])) {

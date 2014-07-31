@@ -27,6 +27,26 @@
 
     };
 
+    this.getProjects = function (route) {
+
+      var nid = _.find(bs.menu.links, function (data) { return data.path === route; }).nid,
+          page = {};
+
+      page.node = {};
+      page.views = {};
+      page.node.nid = nid;
+
+      if (route === '/design') {
+        page.node.title = 'Design';
+        page.views = bs.views.design;
+      }
+      if (route === '/ux') {
+        page.node.title = 'Ux';
+        page.views = bs.views.ux;
+      }
+
+      return page;
+    }
 
     this.getProject = function (route) {
 
