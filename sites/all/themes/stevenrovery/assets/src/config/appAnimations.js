@@ -82,8 +82,9 @@
           });
 
           d.promise.then(function (height) {
-            element.parent().height(height);
+            element.parent().height(0);
             $timeout(function () {
+              element.parent().height(height);
               $rootScope.animationAux = null;
             }, 500);
           });
@@ -91,8 +92,9 @@
         } else {
 
           var height = element[0].offsetHeight
-          element.parent().height(height);
+          element.parent().height(0);
           $timeout(function () {
+            element.parent().height(height);
             $rootScope.animationAux = null;
           }, 500);
 
@@ -111,6 +113,7 @@
         //console.log(height);
         // element.height(height);
         element.height(0);
+
 
         // if (!isNextPhilosophy && isCurrentPhilosophy) {
         //   element.addClass('animate');

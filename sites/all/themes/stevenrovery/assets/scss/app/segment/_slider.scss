@@ -3,6 +3,7 @@
 	padding: 0 0 70px;
 }
 .slide {
+	@include magicBox(41.881);
 	display: none;
 	position: relative;
 	&.active {
@@ -10,6 +11,9 @@
 	}
 
 	img {
+		position: absolute;
+		top: 0;
+		left: 0;
 		display: block;
 		width: 100%;
 	}

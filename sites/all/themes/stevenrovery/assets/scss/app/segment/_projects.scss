@@ -24,7 +24,7 @@
 		border: 1px solid $global_border;
     &:hover {
       .inner {
-        display: block;
+        visibility: visible;
       }
     }
 	}
@@ -36,7 +36,7 @@
 		overflow: hidden;
 		top: 0;
 		left: 0;
-    display: none;
+    visibility: hidden;
 	}
 	h2 {
 		display: table;
@@ -111,13 +111,19 @@
 
 	.projects-listing__item {
 		position: relative;
-		img {
-			@include square(100%, auto);
-			position: static;
-			top: auto;
-			left: auto;
-			display: block;
+
+		.img-magic-box {
+			@include magicBox(55.457);
 			margin-bottom: 10px;
+		}
+
+		img {
+			// @include square(100%, auto);
+			// position: static;
+			// top: auto;
+			// left: auto;
+			// display: block;
+			// margin-bottom: 10px;
 		}
 		a {
 			padding: 0;
@@ -132,7 +138,7 @@
 			overflow: visible;
 			top: auto;
 			left: auto;
-	    display: block;
+			visibility: visible;
 		}
 		h2 {
 			display: block;
