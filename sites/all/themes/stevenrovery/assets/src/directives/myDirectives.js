@@ -44,13 +44,15 @@
 
   app.directive('viewParent', [function () {
 
-    function linkFunction ($scope, el, attr) {
-      console.log(el);
+    function linkFunction ($scope, el, attrs) {
+
       el.height(0);
-      console.log(attr);
-      //console.log(attr);
 
-
+      attrs.$observe('viewParent', function (val) {
+        if (val === 'pending') {
+          el.height(0);
+        }
+      });
 
     }
 
