@@ -9,14 +9,14 @@
   ['$scope', 'page', 'project', 'data',
   function ($scope, page, project, data) {
 
-    var custom = page.node.custom_fields,
-        composed = page.node.collections_fields,
+    var custom = page.custom_fields,
+        composed = page.collections_fields,
         base = data.base,
         view_name = data.view_name,
         total_projects = data.total_projects;
 
     //<title>
-    $scope.setSiteTitle(page.node.title);
+    $scope.setSiteTitle(page.title);
 
     //<header>
     $scope.setPageTitle(custom.field_tags.taxonomy_term.name);
@@ -35,7 +35,7 @@
     }
 
     //<article>
-    $scope.project_title = page.node.title;
+    $scope.project_title = page.title;
     $scope.role = custom.field_role.value;
     $scope.tag = custom.field_tags.taxonomy_term.name;
     $scope.rows = composed;

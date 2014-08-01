@@ -314,9 +314,9 @@
 
     $scope.setSiteTitle('Home');
 
-    $scope.setNid(page.node.nid);
+    $scope.setNid(page.nid);
 
-    $scope.outputHtml = page.node.body.safe_value;
+    $scope.outputHtml = page.body.safe_value;
 
 
   }]);
@@ -412,7 +412,7 @@
   ['$scope', '$routeParams', 'page',
   function ($scope, $routeParams, page) {
 
-    var node = page.node,
+    var node = page,
         name = $routeParams.name || null,
         slider = node.collections_fields,
         slider_size = _.size(slider);
@@ -492,14 +492,14 @@
   ['$scope', 'page', 'project', 'data',
   function ($scope, page, project, data) {
 
-    var custom = page.node.custom_fields,
-        composed = page.node.collections_fields,
+    var custom = page.custom_fields,
+        composed = page.collections_fields,
         base = data.base,
         view_name = data.view_name,
         total_projects = data.total_projects;
 
     //<title>
-    $scope.setSiteTitle(page.node.title);
+    $scope.setSiteTitle(page.title);
 
     //<header>
     $scope.setPageTitle(custom.field_tags.taxonomy_term.name);
@@ -518,7 +518,7 @@
     }
 
     //<article>
-    $scope.project_title = page.node.title;
+    $scope.project_title = page.title;
     $scope.role = custom.field_role.value;
     $scope.tag = custom.field_tags.taxonomy_term.name;
     $scope.rows = composed;
@@ -555,9 +555,9 @@
   ['$scope', 'page',
   function ($scope, page) {
 
-    var nid = page.node.nid;
+    var nid = page.nid;
 
-    $scope.setSiteTitle(page.node.title);
+    $scope.setSiteTitle(page.title);
 
     //update node id for navigation
     $scope.setNid(nid);
@@ -583,7 +583,7 @@
     $scope.groups = groups;
     $scope.projects = views;
     //$scope.node = page.node;
-    $scope.setPageTitle(page.node.title);
+    $scope.setPageTitle(page.title);
     //$scope.outputHtml = "<h1>" + page.node.title + "</h1>" + page.node.body.safe_value;
 
 
@@ -600,12 +600,12 @@
   ['$scope', 'page',
   function ($scope, page) {
 
-    var composed = page.node.composed_fields,
-        custom = page.node.custom_fields,
-        nid = page.node.nid;
+    var composed = page.composed_fields,
+        custom = page.custom_fields,
+        nid = page.nid;
 
-    $scope.setSiteTitle(page.node.title);
-    $scope.setPageTitle(page.node.title);
+    $scope.setSiteTitle(page.title);
+    $scope.setPageTitle(page.title);
 
     //update node id for navigation
     $scope.setNid(nid);
@@ -692,8 +692,12 @@
       nid = _.find(bs.menu.links, function (data) { return data.path === route; }).nid;
 
       //check that 'bootstrap' doesn't have this before doing a get request...
+      if (nid === bs.node.nid) {
+        d.resolve(bs.node);
+        return d.promise;
+      }
 
-      $http.get('/api/page/' + nid, {
+      $http.get('/api/node/' + nid, {
         cache: true
       })
       .success(function (data) {
@@ -712,16 +716,15 @@
       var nid = _.find(bs.menu.links, function (data) { return data.path === route; }).nid,
           page = {};
 
-      page.node = {};
       page.views = {};
-      page.node.nid = nid;
+      page.nid = nid;
 
       if (route === '/design') {
-        page.node.title = 'Design';
+        page.title = 'Design';
         page.views = bs.views.design;
       }
       if (route === '/ux') {
-        page.node.title = 'Ux';
+        page.title = 'Ux';
         page.views = bs.views.ux;
       }
 
@@ -738,13 +741,19 @@
           node_title = loc.split('/')[2];
 
 
-
-
       nid = _.find(bs.views[base][view_name], function (data) {
         return data.alias === base + '/' + node_title;
       }).nid;
 
-      $http.get('/api/page/' + nid, {
+      console.log("on landing these are the nids");
+      console.log(nid, bs.node.nid);
+
+      if (nid === bs.node.nid) {
+        d.resolve(bs.node);
+        return d.promise;
+      }
+
+      $http.get('/api/node/' + nid, {
         cache: true
       })
       .success(function (data) {
@@ -753,7 +762,6 @@
         // _.each(data.node.collections_fields, function (fields) {
         //   fields.img = fields.img + "?v=1&cache=" + ( new Date() ).getTime();
         // });
-
         d.resolve(data);
       })
       .error(function (err) {

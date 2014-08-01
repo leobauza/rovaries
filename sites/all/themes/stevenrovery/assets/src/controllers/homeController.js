@@ -11,9 +11,9 @@
 
     $scope.setSiteTitle('Home');
 
-    $scope.setNid(page.node.nid);
+    $scope.setNid(page.nid);
 
-    $scope.outputHtml = page.node.body.safe_value;
+    $scope.outputHtml = page.body.safe_value;
 
 
   }]);

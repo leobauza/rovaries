@@ -8,12 +8,12 @@
   ['$scope', 'page',
   function ($scope, page) {
 
-    var composed = page.node.composed_fields,
-        custom = page.node.custom_fields,
-        nid = page.node.nid;
+    var composed = page.composed_fields,
+        custom = page.custom_fields,
+        nid = page.nid;
 
-    $scope.setSiteTitle(page.node.title);
-    $scope.setPageTitle(page.node.title);
+    $scope.setSiteTitle(page.title);
+    $scope.setPageTitle(page.title);
 
     //update node id for navigation
     $scope.setNid(nid);

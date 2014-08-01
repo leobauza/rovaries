@@ -9,7 +9,7 @@
   ['$scope', '$routeParams', 'page',
   function ($scope, $routeParams, page) {
 
-    var node = page.node,
+    var node = page,
         name = $routeParams.name || null,
         slider = node.collections_fields,
         slider_size = _.size(slider);

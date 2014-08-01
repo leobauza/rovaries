@@ -9,9 +9,9 @@
   ['$scope', 'page',
   function ($scope, page) {
 
-    var nid = page.node.nid;
+    var nid = page.nid;
 
-    $scope.setSiteTitle(page.node.title);
+    $scope.setSiteTitle(page.title);
 
     //update node id for navigation
     $scope.setNid(nid);
@@ -37,7 +37,7 @@
     $scope.groups = groups;
     $scope.projects = views;
     //$scope.node = page.node;
-    $scope.setPageTitle(page.node.title);
+    $scope.setPageTitle(page.title);
     //$scope.outputHtml = "<h1>" + page.node.title + "</h1>" + page.node.body.safe_value;
 
 

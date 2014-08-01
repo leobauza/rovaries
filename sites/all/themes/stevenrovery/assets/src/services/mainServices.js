@@ -12,8 +12,12 @@
       nid = _.find(bs.menu.links, function (data) { return data.path === route; }).nid;
 
       //check that 'bootstrap' doesn't have this before doing a get request...
+      if (nid === bs.node.nid) {
+        d.resolve(bs.node);
+        return d.promise;
+      }
 
-      $http.get('/api/page/' + nid, {
+      $http.get('/api/node/' + nid, {
         cache: true
       })
       .success(function (data) {
@@ -32,16 +36,15 @@
       var nid = _.find(bs.menu.links, function (data) { return data.path === route; }).nid,
           page = {};
 
-      page.node = {};
       page.views = {};
-      page.node.nid = nid;
+      page.nid = nid;
 
       if (route === '/design') {
-        page.node.title = 'Design';
+        page.title = 'Design';
         page.views = bs.views.design;
       }
       if (route === '/ux') {
-        page.node.title = 'Ux';
+        page.title = 'Ux';
         page.views = bs.views.ux;
       }
 
@@ -58,13 +61,19 @@
           node_title = loc.split('/')[2];
 
 
-
-
       nid = _.find(bs.views[base][view_name], function (data) {
         return data.alias === base + '/' + node_title;
       }).nid;
 
-      $http.get('/api/page/' + nid, {
+      console.log("on landing these are the nids");
+      console.log(nid, bs.node.nid);
+
+      if (nid === bs.node.nid) {
+        d.resolve(bs.node);
+        return d.promise;
+      }
+
+      $http.get('/api/node/' + nid, {
         cache: true
       })
       .success(function (data) {
@@ -73,7 +82,6 @@
         // _.each(data.node.collections_fields, function (fields) {
         //   fields.img = fields.img + "?v=1&cache=" + ( new Date() ).getTime();
         // });
-
         d.resolve(data);
       })
       .error(function (err) {
