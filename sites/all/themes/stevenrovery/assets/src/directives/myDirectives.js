@@ -39,7 +39,29 @@
       });
     }
 
+  }]);
 
+
+  app.directive('viewParent', [function () {
+
+    function linkFunction ($scope, el, attr) {
+      console.log(el);
+      el.height(0);
+      console.log(attr);
+      //console.log(attr);
+
+
+
+    }
+
+    return {
+      restrict: 'A',
+      replace: true,
+      compile: function (tElem) {
+        //console.log(tElem);
+        return linkFunction;
+      }
+    }
 
   }]);
 

@@ -39,8 +39,8 @@ if (!$variables['logged_in'] && $current_path === '/login') {
     <span></span>
   </a>
 </header>
-<!-- <div class="loading--view" ng-show="viewLoading">Appear While Loading a View</div> -->
-<section class="view-parent">
+
+<section view-parent="{{animationClass}}" class="view-parent">
   <section ng-view ng-cloak  class="site__main {{animationClass}} {{animationAux}}"></section>
 </section>
 
