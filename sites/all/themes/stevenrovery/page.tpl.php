@@ -44,7 +44,16 @@ if (!$variables['logged_in'] && $current_path === '/login') {
   <section ng-view ng-cloak  class="site__main {{animationClass}} {{animationAux}}"></section>
 </section>
 
-<site-nav ng-cloak></site-nav>
+
+<nav ng-cloak class="site__nav">
+  <ul>
+    <li ng-class="{active:link.nid === nid, last:$last}" ng-repeat='link in links' >
+      <a href="{{link.path}}">{{link.title}}</a>
+    </li>
+  </ul>
+</nav>
+
+<!-- <site-nav ng-cloak></site-nav> -->
 
 <footer class="site__footer" ng-cloak>
   <div class="footer__contact">
@@ -53,7 +62,7 @@ if (!$variables['logged_in'] && $current_path === '/login') {
   </div>
 </footer>
 
-<div class="loading" ng-cloak></div>
+<!-- <div class="loading" ng-cloak></div> -->
 
 
 

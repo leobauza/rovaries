@@ -5,6 +5,7 @@
   app.directive('siteNav', function () {
     return {
       restrict: 'E',
+      replace: true,
       templateUrl: bs.tplsPath + '/site-nav.html',
       controller: ['$location', '$scope', function ($location, $scope) {
         $scope.changePage = function (node, path) {
