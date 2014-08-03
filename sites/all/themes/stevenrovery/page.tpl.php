@@ -31,34 +31,39 @@ if (!$variables['logged_in'] && $current_path === '/login') {
 
 
 ?>
-<header class="site__header" ng-cloak>
-  <h1>{{siteName}}</h1>
-  <a class="hamburger" href="/">
-    <span></span>
-    <span></span>
-    <span></span>
-  </a>
-</header>
+<div class="wrapper"><div class="wrapper__inner">
+  <header class="site__header" ng-cloak>
+    <h1>{{siteName}}</h1>
+    <a class="hamburger" href="/">
+      <span></span>
+      <span></span>
+      <span></span>
+    </a>
+  </header>
 
-<section view-parent="{{animationAux}}" class="view-parent">
-  <section ng-view ng-cloak  class="site__main {{animationClass}} {{animationAux}}"></section>
-</section>
+  <section view-parent="{{animationAux}}" class="view-parent">
+    <section ng-view ng-cloak  class="site__main {{animationClass}} {{animationAux}}"></section>
+  </section>
 
 
-<nav ng-cloak class="site__nav">
-  <ul>
-    <li ng-class="{active:link.nid === nid, last:$last}" ng-repeat='link in links' >
-      <a href="{{link.path}}">{{link.title}}</a>
-    </li>
-  </ul>
-</nav>
+  <nav ng-cloak class="site__nav">
+    <ul>
+      <li ng-class="{active:link.nid === nid, last:$last}" ng-repeat='link in links' >
+        <a href="{{link.path}}">{{link.title}}</a>
+      </li>
+    </ul>
+  </nav>
+
+  <aside class="push"></aside>
+</div></div>
 
 <!-- <site-nav ng-cloak></site-nav> -->
-
-<footer class="site__footer" ng-cloak>
-  <div class="footer__contact">
-    <p>{{contactBlurb}}</p>
-    <p>Contact me at <a class="contact__item" href>{{contactEmail}}</a> or <a class="contact__item" href>{{contactPhone}}</a></p>
+<footer class="footer-wrap">
+  <div class="site__footer" ng-cloak>
+    <div class="footer__contact">
+      <p>{{contactBlurb}}</p>
+      <p>Contact me at <a class="contact__item" href>{{contactEmail}}</a> or <a class="contact__item" href>{{contactPhone}}</a></p>
+    </div>
   </div>
 </footer>
 

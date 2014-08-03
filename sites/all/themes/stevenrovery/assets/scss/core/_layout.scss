@@ -157,6 +157,13 @@ $global_gutter: .8;
 
 @media (max-width: 59.938em) { //959px
 
+	.listing__sub-section ._header {
+		.al-r {
+			text-align: left;
+		}
+	}
+
+
 	/*margin right instead of margin left to do overflow hidden*/
 	[class*="row"] > [class*="span"] {
 		float: none;

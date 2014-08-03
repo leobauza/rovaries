@@ -1,4 +1,27 @@
 /* app/devs/footer */
+
+//sticky footer
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.wrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -187px;
+  .wrapper__inner {
+    padding: 10px 10px 0px 10px;
+  }
+}
+.push {
+  height: 187px;
+}
+.footer-wrap {
+  height: 177px;
+  padding: 0px 10px 10px 10px;
+}
+
 .site__footer {
   padding: 35px 10px 31px;
   border-bottom: 4px solid $brand;
@@ -28,6 +51,27 @@
 
   .footer__contact {
     width: auto;
+  }
+
+}
+
+@media (max-width: 43.75em) { //700px
+
+  html, body {
+    height: auto;
+    margin: 0;
+  }
+  .wrapper {
+    min-height: 0;
+    height: auto !important;
+    margin: 0;
+  }
+  .push {
+    height: auto;
+  }
+  .footer-wrap {
+    height: auto;
+    padding: 0px 10px 10px 10px;
   }
 
 }
