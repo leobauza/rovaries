@@ -26,7 +26,7 @@
 </article>
 
 <section class="projects-listing-wrap">
-  <ul ng-hide="mobile" ng-repeat="group in groups" class="row projects-listing">
+  <ul ng-if="!mobile && !tablet" ng-repeat="group in groups" class="row projects-listing">
     <li ng-class="{f: $first, l: $last}" ng-repeat="project in group" class="span4 projects-listing__item">
       <img alt="{{project.node_title}}" ng-src="{{project.field_field_image}}">
       <a href="/{{project.alias}}">
@@ -43,7 +43,7 @@
     </li>
   </ul>
 
-  <ul ng-show="mobile" class="projects-listing">
+  <ul ng-if="mobile || tablet" class="projects-listing">
     <li ng-repeat="project in projects" class="projects-listing__item">
       <a href="/{{project.alias}}">
         <div class="img-magic-box">

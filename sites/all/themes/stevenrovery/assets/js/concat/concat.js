@@ -632,12 +632,28 @@
         $rootScope.mobile = null;
       }
 
+
+      if ($window.innerWidth > 700 && $window.innerWidth < 960) {
+        console.log("start tablet");
+        $rootScope.tablet = $window.innerWidth;
+      } else {
+        $rootScope.tablet = null;
+      }
+
+
       angular.element($window).bind('resize', function () {
         if ($window.innerWidth <= 700) {
           $rootScope.mobile = $window.innerWidth;
         } else {
           $rootScope.mobile = null;
         }
+
+        if ($window.innerWidth > 700 && $window.innerWidth < 960) {
+          $rootScope.tablet = $window.innerWidth;
+        } else {
+          $rootScope.tablet = null;
+        }
+
 
         $scope.$apply();
 
