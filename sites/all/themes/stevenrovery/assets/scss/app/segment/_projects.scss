@@ -123,14 +123,6 @@
 			margin-bottom: 10px;
 		}
 
-		img {
-			// @include square(100%, auto);
-			// position: static;
-			// top: auto;
-			// left: auto;
-			// display: block;
-			// margin-bottom: 10px;
-		}
 		a {
 			padding: 0;
 			height: auto;
@@ -165,8 +157,20 @@
 		}
 	}
 
-
-
+	.project__header {
+		padding: 0px 0px 30px;
+		text-align: center;
+	}
+	.project-row__description {
+		position: static;
+		width: auto;
+		margin: 0px;
+		padding: 20px 0 0 0;
+		p {
+			padding: 0 0 20px;
+			margin: 0px;
+		}
+	}
 }
 
 

@@ -116,6 +116,14 @@
 
 
 //common
+.three-across {
+	@extend %group;
+	.three-box {
+		float: left;
+		width: 32.3%;
+		padding: 0 .5%;
+	}
+}
 .link__boxes {
 	padding-left: 11px;
 }

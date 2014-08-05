@@ -8,11 +8,16 @@
 </header>
 
 <article class="project-rows">
+  <header ng-if="tablet || mobile" class="project__header">
+    <h1>{{project_title}}</h1>
+    <h3>{{role}}</h3>
+  </header>
+
   <div class="row -project" ng-repeat="row in rows">
 
     <img alt="{{row.desc}}" class="project-row__image span8" ng-src="{{row.img}}" />
     <div class="project-row__text span4">
-      <header ng-if="$first" class="project__header">
+      <header ng-if="$first && !tablet && !mobile" class="project__header">
         <h1>{{project_title}}</h1>
         <h3>{{role}}</h3>
       </header>
