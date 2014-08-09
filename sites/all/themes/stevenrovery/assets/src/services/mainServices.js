@@ -65,8 +65,8 @@
         return data.alias === base + '/' + node_title;
       }).nid;
 
-      console.log("on landing these are the nids");
-      console.log(nid, bs.node.nid);
+      // console.log("on landing these are the nids");
+      // console.log(nid, bs.node.nid);
 
       if (nid === bs.node.nid) {
         d.resolve(bs.node);

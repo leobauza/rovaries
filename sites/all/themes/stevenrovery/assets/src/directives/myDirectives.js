@@ -22,7 +22,6 @@
     return function ($scope) {
 
       if ($window.innerWidth <= 700) {
-        console.log("start mobile");
         $rootScope.mobile = $window.innerWidth;
       } else {
         $rootScope.mobile = null;
@@ -30,7 +29,6 @@
 
 
       if ($window.innerWidth > 700 && $window.innerWidth < 960) {
-        console.log("start tablet");
         $rootScope.tablet = $window.innerWidth;
       } else {
         $rootScope.tablet = null;
@@ -59,7 +57,7 @@
   }]);
 
 
-  app.directive('viewParent', [function () {
+  app.directive('viewParent', ['$window', function ($window) {
 
     function linkFunction ($scope, el, attrs) {
 
@@ -69,6 +67,10 @@
         if (val === 'pending') {
           el.height(0);
         }
+      });
+      angular.element($window).bind('resize', function () {
+        var site_main = el.children();
+        el.height(site_main[0].offsetHeight);
       });
 
     }

@@ -33,15 +33,15 @@
 
 
       if (isCurrentPhilosophy && isNextPhilosophy) {
-        console.log("curren is phil and next is phil");
+        //console.log("curren is phil and next is phil");
         $rootScope.animationAux = null;
       }
       if (!isCurrentPhilosophy) {
-        console.log("current isn't phill");
+        //console.log("current isn't phill");
         $rootScope.animationAux = 'pending';
       }
       if (isCurrentPhilosophy && !isNextPhilosophy) {
-        console.log("current is phil and next isnt");
+        //console.log("current is phil and next isnt");
         $rootScope.animationAux = 'pending';
       }
 
@@ -626,7 +626,6 @@
     return function ($scope) {
 
       if ($window.innerWidth <= 700) {
-        console.log("start mobile");
         $rootScope.mobile = $window.innerWidth;
       } else {
         $rootScope.mobile = null;
@@ -634,7 +633,6 @@
 
 
       if ($window.innerWidth > 700 && $window.innerWidth < 960) {
-        console.log("start tablet");
         $rootScope.tablet = $window.innerWidth;
       } else {
         $rootScope.tablet = null;
@@ -663,7 +661,7 @@
   }]);
 
 
-  app.directive('viewParent', [function () {
+  app.directive('viewParent', ['$window', function ($window) {
 
     function linkFunction ($scope, el, attrs) {
 
@@ -673,6 +671,10 @@
         if (val === 'pending') {
           el.height(0);
         }
+      });
+      angular.element($window).bind('resize', function () {
+        var site_main = el.children();
+        el.height(site_main[0].offsetHeight);
       });
 
     }
@@ -768,8 +770,8 @@
         return data.alias === base + '/' + node_title;
       }).nid;
 
-      console.log("on landing these are the nids");
-      console.log(nid, bs.node.nid);
+      // console.log("on landing these are the nids");
+      // console.log(nid, bs.node.nid);
 
       if (nid === bs.node.nid) {
         d.resolve(bs.node);

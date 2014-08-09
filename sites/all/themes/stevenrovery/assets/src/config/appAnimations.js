@@ -21,15 +21,15 @@
 
 
       if (isCurrentPhilosophy && isNextPhilosophy) {
-        console.log("curren is phil and next is phil");
+        //console.log("curren is phil and next is phil");
         $rootScope.animationAux = null;
       }
       if (!isCurrentPhilosophy) {
-        console.log("current isn't phill");
+        //console.log("current isn't phill");
         $rootScope.animationAux = 'pending';
       }
       if (isCurrentPhilosophy && !isNextPhilosophy) {
-        console.log("current is phil and next isnt");
+        //console.log("current is phil and next isnt");
         $rootScope.animationAux = 'pending';
       }
 
