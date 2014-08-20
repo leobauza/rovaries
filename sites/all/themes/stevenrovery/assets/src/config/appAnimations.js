@@ -65,7 +65,7 @@
               d = $q.defer();
 
           _.each(imgs, function (img) {
-            console.log(img);
+            //console.log(img);
             jQuery(img).on('load', function () {
               i += 1;
               if (i === size) {

@@ -1,49 +1,49 @@
 /* app/section/nav */
 .site__nav {
 
-	ul {
-		@include resetList();
-		border-top: 1px solid $brand_grey;
-	}
-	li {
-		border-bottom: 1px solid $brand_grey;
-		padding: 3px 0px;
-		margin: 0;
-		&.last {
-			display: none;
-		}
-	}
-	a {
-		display: block;
-		padding: 15px 10px 14px;
-		color: $brand_grey;
-		font-size: $h1;
-		font-family: $display;
-		font-weight: 300;
-		text-align: center;
-		text-transform: uppercase;
-		letter-spacing: 5px;
-		&:hover {
-			background: $brand;
-			color: $white;
-		}
-	}
-	.active {
-		a {
-			color: $white;
-			background: $brand;
-		}
-		display: none;
-	}
+  ul {
+    @include resetList();
+    border-top: 1px solid $brand_grey;
+  }
+  li {
+    border-bottom: 1px solid $brand_grey;
+    padding: 3px 0px;
+    margin: 0;
+    &.last {
+      display: none;
+    }
+  }
+  a {
+    display: block;
+    padding: 15px 10px 14px;
+    color: $brand_grey;
+    font-size: $h1;
+    font-family: $display;
+    font-weight: 300;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    &:hover {
+      background: $brand;
+      color: $white;
+    }
+  }
+  .active {
+    a {
+      color: $white;
+      background: $brand;
+    }
+    display: none;
+  }
 
 }
 
 
 @media (max-width: 43.75em) { //700px
-	.site__nav {
-		a {
-			font-size: $mh1;
-			padding: 8px; //??
-		}
-	}
+  .site__nav {
+    a {
+      font-size: $mh1;
+      padding: 8px; //??
+    }
+  }
 }

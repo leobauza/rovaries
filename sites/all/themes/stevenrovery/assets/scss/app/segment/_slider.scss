@@ -1,155 +1,155 @@
 /* app/segment/slider */
 .slider {
-	padding: 0 0 70px;
+  padding: 0 0 70px;
 }
 .slide {
-	@include magicBox(41.881);
-	display: none;
-	position: relative;
-	&.active {
-		display: block;
-	}
+  @include magicBox(41.881);
+  display: none;
+  position: relative;
+  &.active {
+    display: block;
+  }
 
-	img {
-		position: absolute;
-		top: 0;
-		left: 0;
-		display: block;
-		width: 100%;
-	}
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+  }
 
 
 }
 .slide__text {
-	position: absolute;
-	top: 0;
-	left: 0;
-	@include square(100%, 100%);
-	.inner {
-		display: table;
-		@include square(100%, 100%);
-	}
-	.slide__content {
-		display: table-cell;
-		vertical-align: middle;
-		.background {
-			padding: 40px 70px;
-			background: $brand;
-		}
-		.center {
-			display: table;
-			float: left;
-			.center-inner {
-				display: table-cell;
-				vertical-align: middle;
-			}
-		}
-		span {
-			display: block;
-			padding: 13px 16px 16px 0px;
-			border-right: 1px solid $white;
-			color: $white;
-			font-weight: 300;
-			float: left;
-			margin: 0;
-		}
-		h2 {
-			color: $white;
-			font-weight: 300;
-			float: left;
-			margin: 0;
-			padding: 0 30px 0 20px;
-		}
-		.description p {
-			color: $white;
-			margin: 0;
-			overflow: hidden;
-		}
-	}
+  position: absolute;
+  top: 0;
+  left: 0;
+  @include square(100%, 100%);
+  .inner {
+    display: table;
+    @include square(100%, 100%);
+  }
+  .slide__content {
+    display: table-cell;
+    vertical-align: middle;
+    .background {
+      padding: 40px 70px;
+      background: $brand;
+    }
+    .center {
+      display: table;
+      float: left;
+      .center-inner {
+        display: table-cell;
+        vertical-align: middle;
+      }
+    }
+    span {
+      display: block;
+      padding: 13px 16px 16px 0px;
+      border-right: 1px solid $white;
+      color: $white;
+      font-weight: 300;
+      float: left;
+      margin: 0;
+    }
+    h2 {
+      color: $white;
+      font-weight: 300;
+      float: left;
+      margin: 0;
+      padding: 0 30px 0 20px;
+    }
+    .description p {
+      color: $white;
+      margin: 0;
+      overflow: hidden;
+    }
+  }
 }
 
 
 .prev-slide, .next-slide {
-	position: absolute;
-	top: 50%;
-	margin-top: -27px;
-	width: 50px;
-	height: 55px;
-	z-index: 100;
-	@include bgImg('bg_slider_overlay.png', 0%, 0%, repeat);
-	span {
-		@include bgImg('sprite_slider_nav.png', 0%, 50%);
-		position: absolute;
-		top: 0;
-		left: 0;
-		height: 100%;
-		width: 100%;
-		text-indent: -9999px;
-	}
+  position: absolute;
+  top: 50%;
+  margin-top: -27px;
+  width: 50px;
+  height: 55px;
+  z-index: 100;
+  @include bgImg('bg_slider_overlay.png', 0%, 0%, repeat);
+  span {
+    @include bgImg('sprite_slider_nav.png', 0%, 50%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    text-indent: -9999px;
+  }
 }
 .prev-slide {
-	@include borderRadius(0 5px 5px 0);
-	left: 0;
-	span {
-		background-position: 16px 50%;
-	}
+  @include borderRadius(0 5px 5px 0);
+  left: 0;
+  span {
+    background-position: 16px 50%;
+  }
 }
 
 .next-slide {
-	@include borderRadius(5px 0 0 5px);
-	right: 0;
-	span {
-		background-position: -28px 50%;
-	}
+  @include borderRadius(5px 0 0 5px);
+  right: 0;
+  span {
+    background-position: -28px 50%;
+  }
 }
 
 @media (max-width: 43.75em) { //700px
 
-	.next-slide, .prev-slide {
-		display: none;
-	}
+  .next-slide, .prev-slide {
+    display: none;
+  }
 
-	.slide__text {
-		position: static;
-		top: auto;
-		left: auto;
-		@include square(100%, auto);
-		.inner {
-			display: block;
-			@include square(100%, auto);
-		}
-		.slide__content {
-			display: block;
-			.background {
-				padding: 20px;
-				background: $brand;
-			}
-			span {
-				display: block;
-				padding: 0px 12px 2px 0px;
-				border-right: 1px solid $white;
-				color: $white;
-				font-weight: 300;
-				float: left;
-				margin: 0;
-			}
-			h2 {
-				color: $white;
-				font-weight: 300;
-				margin: 0;
-				padding: 0 0px 0 12px;
-			}
-			.description {
-				clear: both;
-				padding-top: 10px;
-				p {
-					color: $white;
-					margin: 0;
-					overflow: visible;
-				}
-			}
-		}
-	}
+  .slide__text {
+    position: static;
+    top: auto;
+    left: auto;
+    @include square(100%, auto);
+    .inner {
+      display: block;
+      @include square(100%, auto);
+    }
+    .slide__content {
+      display: block;
+      .background {
+        padding: 20px;
+        background: $brand;
+      }
+      span {
+        display: block;
+        padding: 0px 12px 2px 0px;
+        border-right: 1px solid $white;
+        color: $white;
+        font-weight: 300;
+        float: left;
+        margin: 0;
+      }
+      h2 {
+        color: $white;
+        font-weight: 300;
+        margin: 0;
+        padding: 0 0px 0 12px;
+      }
+      .description {
+        clear: both;
+        padding-top: 10px;
+        p {
+          color: $white;
+          margin: 0;
+          overflow: visible;
+        }
+      }
+    }
+  }
 
 }
 
