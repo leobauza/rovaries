@@ -1,4 +1,5 @@
 (function (bs) {
+  "use strict";
 
   var app = angular.module('app');
 
@@ -9,7 +10,8 @@
   ['$scope', 'page',
   function ($scope, page) {
 
-    var nid = page.nid;
+    var nid = page.nid,
+        views = null;
 
     $scope.setSiteTitle(page.title);
 
@@ -18,9 +20,9 @@
 
     //show the right view
     if (page.views) {
-      var views = page.views.design_projects || page.views.ux_projects;
+      views = page.views.design_projects || page.views.ux_projects;
     } else {
-      var views = null;
+      views = null;
     }
 
     var groups = {},

@@ -11,6 +11,7 @@
 })(bootstrap);
 
 (function () {
+  "use strict";
 
   var app = angular.module('app');
 
@@ -123,6 +124,7 @@
 
 })();
 (function (bs) {
+  "use strict";
 
   var app = angular.module('app');
 
@@ -284,6 +286,7 @@
 
 })(bootstrap);
 (function (bs) {
+  "use strict";
 
   var app = angular.module('app');
   /**
@@ -306,6 +309,7 @@
 
 })(bootstrap);
 (function (bs) {
+  "use strict";
 
   var app = angular.module('app');
 
@@ -336,11 +340,10 @@
 
     //get nid only for top level pages
     $scope.getNid = function (path) {
-      return link = _.find(bs.menu.links, function (data) {
+      return _.find(bs.menu.links, function (data) {
         return data.path === path;
       }).nid;
     };
-
     //get nid for projects
     $scope.getProjectNid = function (base, view_name, node_title) {
       return _.find(bs.views[base][view_name], function (data) {
@@ -384,6 +387,7 @@
 })(bootstrap);
 
 (function (bs) {
+  "use strict";
 
   var app = angular.module('app');
 
@@ -397,7 +401,7 @@
     var node = page,
         name = $routeParams.name || null,
         slider = node.collections_fields,
-        slider_size = _.size(slider);
+        slider_size = _.size(slider),
         phil_boxes = node.collections_fields,
         si = 1, //slide iterator
         groups = {}, //group boxes together
@@ -464,6 +468,7 @@
 
 })(bootstrap);
 (function (bs) {
+  "use strict";
 
   var app = angular.module('app');
 
@@ -527,6 +532,7 @@
 
 })(bootstrap);
 (function (bs) {
+  "use strict";
 
   var app = angular.module('app');
 
@@ -537,7 +543,8 @@
   ['$scope', 'page',
   function ($scope, page) {
 
-    var nid = page.nid;
+    var nid = page.nid,
+        views = null;
 
     $scope.setSiteTitle(page.title);
 
@@ -546,9 +553,9 @@
 
     //show the right view
     if (page.views) {
-      var views = page.views.design_projects || page.views.ux_projects;
+      views = page.views.design_projects || page.views.ux_projects;
     } else {
-      var views = null;
+      views = null;
     }
 
     var groups = {},
@@ -573,6 +580,7 @@
 
 })(bootstrap);
 (function (bs) {
+  "use strict";
 
   var app = angular.module('app');
   /**
@@ -603,6 +611,7 @@
 
 })(bootstrap);
 (function (bs) {
+  "use strict";
 
   var app = angular.module('app');
 
@@ -693,6 +702,7 @@
 
 })(bootstrap);
 (function (bs) {
+  "use strict";
 
   var app = angular.module('app');
 
@@ -704,6 +714,7 @@
 
 })(bootstrap);
 (function (bs) {
+  "use strict";
 
   var app = angular.module('app');
 

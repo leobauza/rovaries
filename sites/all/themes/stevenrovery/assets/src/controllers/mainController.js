@@ -1,4 +1,5 @@
 (function (bs) {
+  "use strict";
 
   var app = angular.module('app');
 
@@ -29,11 +30,10 @@
 
     //get nid only for top level pages
     $scope.getNid = function (path) {
-      return link = _.find(bs.menu.links, function (data) {
+      return _.find(bs.menu.links, function (data) {
         return data.path === path;
       }).nid;
     };
-
     //get nid for projects
     $scope.getProjectNid = function (base, view_name, node_title) {
       return _.find(bs.views[base][view_name], function (data) {

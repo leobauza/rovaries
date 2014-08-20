@@ -1,4 +1,5 @@
 (function (bs) {
+  "use strict";
 
   var app = angular.module('app');
 
@@ -12,7 +13,7 @@
     var node = page,
         name = $routeParams.name || null,
         slider = node.collections_fields,
-        slider_size = _.size(slider);
+        slider_size = _.size(slider),
         phil_boxes = node.collections_fields,
         si = 1, //slide iterator
         groups = {}, //group boxes together
