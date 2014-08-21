@@ -62,11 +62,12 @@
     }
   }
   .border {
-    height: 4px;
-    background: $brand;
-    width: 93.871%;
     position: absolute;
     bottom: 10px;
+    left: 0;
+    width: 93.871%;
+    height: 4px;
+    background: $brand;
     margin: 0 3.06%;
   }
 }
