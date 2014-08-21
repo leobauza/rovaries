@@ -10,13 +10,13 @@
  * @param $page
  * page number for the view if paginated
  */
-function getViews($name, $page=0) {
+function getViews($name, $page = 0) {
 
   $name = urldecode($name);
   $names = explode(' ', $name);
 
   $rows = array();
-  foreach($names as $name) {
+  foreach ($names as $name) {
     $view = views_get_view($name);
 
     if (isset($view)) {
@@ -28,7 +28,7 @@ function getViews($name, $page=0) {
       $view_result = $view->result;
 
       $rows = array();
-      $rid = 1; //row id
+      $rid = 1;
       foreach ($view_result as $row) {
         if (isset($row->nid)) {
           $alias = drupal_get_path_alias('node/' . $row->nid);
@@ -37,20 +37,20 @@ function getViews($name, $page=0) {
           $rows[$rid]->pos = $rid;
           $rows[$rid]->node_created = format_date($rows[$rid]->node_created, 'custom', "m-d-Y");
           if (isset($rows[$rid]->field_field_image)) {
-            $rows[$rid]->field_field_image = (isset($rows[$rid]->field_field_image[0]['raw']))? file_create_url($rows[$rid]->field_field_image[0]['raw']['uri']) : false;
+            $rows[$rid]->field_field_image = (isset($rows[$rid]->field_field_image[0]['raw']))? file_create_url($rows[$rid]->field_field_image[0]['raw']['uri']) : FALSE;
           }
           $rid++;
         }
       }
 
       $views[$name] = $rows;
-    } else {
+    }
+    else {
       return;
     }
   }
 
   return $views;
-
 
   // foreach($names as $name) {
   //
@@ -69,8 +69,6 @@ function getViews($name, $page=0) {
   //   }
   //
   // }
-
-
 
   // $view = views_get_view($name);
   //

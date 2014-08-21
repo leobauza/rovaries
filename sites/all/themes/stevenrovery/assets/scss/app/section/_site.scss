@@ -199,5 +199,15 @@
     padding: 0px 1px 20px;
   }
 
+  .project__nav {
+    .prev, .next {
+      margin: 0;
+    }
+    a {
+      padding: 20px 0px;
+      margin: 0px
+    }
+  }
+
 }
 

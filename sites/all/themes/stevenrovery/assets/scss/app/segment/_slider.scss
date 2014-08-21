@@ -106,9 +106,16 @@
 @media (max-width: 43.75em) { //700px
 
   .next-slide, .prev-slide {
-    display: none;
+    // display: none;
+    top: 25%;
   }
-
+  .slide {
+    padding: 0;
+    height: auto;
+    img {
+      position: static;
+    }
+  }
   .slide__text {
     position: static;
     top: auto;
