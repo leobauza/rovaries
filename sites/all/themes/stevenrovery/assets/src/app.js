@@ -7,5 +7,4 @@
     'ngAnimate'
   ]);
 
-
 })(bootstrap);
