@@ -97,11 +97,6 @@ function apiRouter ($type, $id, $page=0) {
 
 }
 
-
-
-
-
-
 function getTest($id) {
 
   // if ($_GET['views']) {
@@ -123,9 +118,44 @@ function getTest($id) {
 
   echo json_encode($output);
 
-
 }
 
+function myapi_preprocess(&$vars, $hook) {
+
+  $allowed_first_args = array(
+    'node',
+  );
+  $uri = request_uri();
+  $first_arg = arg(0);
+  $second_arg = arg(1);
+  $third_arg = arg(2);
+  $query_params = drupal_get_query_parameters();
+
+  if ($hook !== 'page' || !in_array($first_arg, $allowed_first_args) || $third_arg === 'edit' || $second_arg === 'add') {
+    if ($hook === "page") {
+      $response = array(
+        'menu' => getMenu('main-menu'),
+        'ux' => getViews("ux_projects"),
+        'design' => getViews("design_projects"),
+      );
+
+      $vars['response'] = $response;
+      return;
+    }
+    else {
+      return;
+    }
+  }
+
+  $response = array(
+    'page' => $first_arg === "node" ? getPage($second_arg) : FALSE,
+    'ux' => getViews("ux_projects"),
+    'design' => getViews("design_projects"),
+  );
+
+  $vars['response'] = $response;
+
+}
 
 
 
