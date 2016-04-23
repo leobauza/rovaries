@@ -4,7 +4,7 @@
   "description": "Portfolio for Steven Rovery",
   "main": "",
   "scripts": {
-    "test": " "
+    "grunt": "grunt"
   },
   "repository": {
     "type": "git",
