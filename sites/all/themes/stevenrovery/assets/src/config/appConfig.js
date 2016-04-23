@@ -132,7 +132,7 @@
     })
 
     .otherwise({
-      template: "doesn't exist"
+      redirectTo: "doesn't exist"
     });
 
     $locationProvider.html5Mode(true).hashPrefix('!');
@@ -143,13 +143,11 @@
   function ($rootScope, $location, $window) {
 
     $rootScope.$on('$locationChangeStart', function (event, next) {
-
       var parts = next.split('/');
       //handle admin route
-      if (_.contains(parts, 'admin') || _.contains(parts, 'admin_menu')) {
+      if (_.contains(parts, 'admin') || _.contains(parts, 'admin_menu') || _.contains(parts, 'extras')) {
         $window.location.href = next;
       }
-
     });
 
 
